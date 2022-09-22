@@ -12,3 +12,9 @@ canvas{
     display: block;
     margin: 0 auto; 
 }
+
+#character {
+    position: absolute;
+    top: 64px;
+    left: 64px;
+}
