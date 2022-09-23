@@ -17,4 +17,7 @@ canvas{
     position: absolute;
     top: 64px;
     left: 64px;
+/*     キャラの大きさ定義 */
+    width: 70px;
+    height: 70px;
 }
