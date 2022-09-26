@@ -5,7 +5,7 @@ class character{
     private dx:number=0//x方向の速度
     private dy:number=0//y方向の速度
 
-/*     move(a:GlobalEventHandlers):void{
+/*     move(a:(b:GlobalEventHandlers)=>void){
         rabbit.y += 32
         document.getElementById('character')!.style.top=rabbit.y+"px"
     } */
