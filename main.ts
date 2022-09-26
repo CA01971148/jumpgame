@@ -6,16 +6,16 @@ class character{
     private dy:number=0//y方向の速度
 
 /*     move(a:GlobalEventHandlers):void{
-        rabbit.y += 32;
-        document.getElementById('character')!.style.top=rabbit.y+"px";
+        rabbit.y += 32
+        document.getElementById('character')!.style.top=rabbit.y+"px"
     } */
 }
 
 let rabbit=new character()
 
 document.getElementById('character')!.onclick=function(){
-    rabbit.y += 32;
-    document.getElementById('character')!.style.top=rabbit.y+"px";
+    rabbit.y += 32
+    document.getElementById('character')!.style.top=rabbit.y+"px"
 }
 
 /* let u:any
