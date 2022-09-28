@@ -1,4 +1,4 @@
-let myCanvas:any=document.getElementById("myCanvas")
+//let myCanvas:any=document.getElementById("myCanvas")
 
 class character{
     readonly characterSize:number=50//キャラの大きさ

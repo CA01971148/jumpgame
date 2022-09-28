@@ -1,5 +1,5 @@
 "use strict";
-let myCanvas = document.getElementById("myCanvas");
+//let myCanvas:any=document.getElementById("myCanvas")
 class character {
     constructor() {
         this.characterSize = 50; //キャラの大きさ
