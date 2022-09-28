@@ -26,8 +26,6 @@ class character{
     }
     moveRight(){//右に移動する関数
         this.dx-=this.moveVelocity
-        this.x+=20
-        document.getElementById('character')!.style.left =this.x+"px"
     }
     jumpCharge(){//跳躍力を貯める関数
 
@@ -44,7 +42,7 @@ class keyDown{//キーが押されているかどうか
     key_jump:boolean=false//ジャンプキーが押されているかどうか
 
     keyDownFunc(event:any){//キーボードが押されたときに呼び出される関数
-        let key_code = event.keyCode
+        let key_code=event.keyCode
         switch(key_code){
         case 65://「A」キーが押されたとき
         case 37://「←」キーが押されたとき
@@ -58,7 +56,7 @@ class keyDown{//キーが押されているかどうか
         }
     }
     keyUpFunc(event:any){//キーボードが押されたときに呼び出される関数
-        let key_code = event.keyCode
+        let key_code=event.keyCode
         switch(key_code){
             case 65://「A」キーが離されたとき
             case 37://「←」キーが離されたとき
@@ -92,13 +90,13 @@ function main(){//メインループ
 	if(((key.key_right===true)&&(key.key_left===false))&&(!((key.key_jump==true)&&(rabbit.isOnGround==true)))){//右移動キーが押されている間、moveRight関数を呼び出す
         rabbit.moveRight()
     }
-    if(key.key_right===true){
-        rabbit.x+=20
-        document.getElementById('character')!.style.left =rabbit.x+"px"
-    }
     if((key.key_jump===true)){//ジャンプキーが押されている間、jumpCharge関数を呼び出す
         rabbit.jumpCharge()
     }
     rabbit.move()
+
+    rabbit.x+=rabbit.moveVelocity
+    document.getElementById('character')!.style.left =rabbit.x+"px"
+
     requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
 }

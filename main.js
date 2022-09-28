@@ -28,8 +28,6 @@ class character {
     }
     moveRight() {
         this.dx -= this.moveVelocity;
-        this.x += 20;
-        document.getElementById('character').style.left = this.x + "px";
     }
     jumpCharge() {
     }
@@ -87,13 +85,11 @@ function main() {
     if (((key.key_right === true) && (key.key_left === false)) && (!((key.key_jump == true) && (rabbit.isOnGround == true)))) { //右移動キーが押されている間、moveRight関数を呼び出す
         rabbit.moveRight();
     }
-    if (key.key_right === true) {
-        rabbit.x += 20;
-        document.getElementById('character').style.left = rabbit.x + "px";
-    }
     if ((key.key_jump === true)) { //ジャンプキーが押されている間、jumpCharge関数を呼び出す
         rabbit.jumpCharge();
     }
     rabbit.move();
+    rabbit.x += rabbit.moveVelocity;
+    document.getElementById('character').style.left = rabbit.x + "px";
     requestAnimationFrame(main); ////main関数(自分自身)を呼び出すことでループさせる
 }
