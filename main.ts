@@ -18,8 +18,8 @@ class character{
         if(this.isSlip===false){
             this.dx=0
         }
-        document.getElementById('character')!.style.left =this.x+"px"
-        document.getElementById('character')!.style.left =this.y+"px"
+        document.getElementById('character')!.style.left=this.x+"px"
+        document.getElementById('character')!.style.top=this.y+"px"
     }
     moveLeft(){//左に移動する関数
         this.dx-=this.moveVelocity
@@ -42,8 +42,7 @@ class keyDown{//キーが押されているかどうか
     key_jump:boolean=false//ジャンプキーが押されているかどうか
 
     keyDownFunc(event:any){//キーボードが押されたときに呼び出される関数
-        let key_code=event.keyCode
-        switch(key_code){
+        switch(event.keyCode){
         case 65://「A」キーが押されたとき
         case 37://「←」キーが押されたとき
             this.key_left=true
@@ -59,8 +58,7 @@ class keyDown{//キーが押されているかどうか
         }
     }
     keyUpFunc(event:any){//キーボードが押されたときに呼び出される関数
-        let key_code=event.keyCode
-        switch(key_code){
+        switch(event.keyCode){
             case 65://「A」キーが離されたとき
             case 37://「←」キーが離されたとき
                 this.key_left=false
@@ -85,6 +83,8 @@ function main(){//メインループ
     addEventListener("keydown",key.keyDownFunc)//キーボードが押された時、keyDownFunc関数を呼び出す
     addEventListener("keyup",key.keyUpFunc)//キーボードが離された時、keyUpFunc関数を呼び出す
 
+    //addEventListener("keydown",kariMove)
+
 /*     【仕様】
     左右キーは同時に押すとどちらにも移動できない(どちらか片方を押しているときのみ移動できる)
     ジャンプはジャンプキーを押している間に跳躍力を貯めて、ジャンプキーを離すと貯めた跳躍力の分だけ跳べる
@@ -99,10 +99,12 @@ function main(){//メインループ
     if((key.key_jump===true)){//ジャンプキーが押されている間、jumpCharge関数を呼び出す
         rabbit.jumpCharge()
     }
-    rabbit.move()
 
+    rabbit.move()
+    requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
+}
+
+function kariMove(){
     rabbit.x+=rabbit.moveVelocity
     document.getElementById('character')!.style.left =rabbit.x+"px"
-
-    requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
 }
