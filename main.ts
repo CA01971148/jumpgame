@@ -47,12 +47,15 @@ class keyDown{//キーが押されているかどうか
         case 65://「A」キーが押されたとき
         case 37://「←」キーが押されたとき
             this.key_left=true
+            break
         case 68://「D」キーが押されたとき
         case 39://「→」キーが押されたとき
             this.key_right=true
+            break
         case 32://「Space」キーが押されたとき
         case 96://「0(テンキー)」キーが押されたとき
             this.key_jump=true
+            break
         }
     }
     keyUpFunc(event:any){//キーボードが押されたときに呼び出される関数
@@ -61,12 +64,15 @@ class keyDown{//キーが押されているかどうか
             case 65://「A」キーが離されたとき
             case 37://「←」キーが離されたとき
                 this.key_left=false
+                break
             case 68://「D」キーが離されたとき
             case 39://「→」キーが離されたとき
                 this.key_right=false
+                break
             case 32://「Space」キーが離されたとき
             case 96://「0(テンキー)」キーが離されたとき
                 this.key_jump=false
+                break
             }
     }
 }
