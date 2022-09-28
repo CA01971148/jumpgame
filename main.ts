@@ -1,4 +1,5 @@
 document.write('<img id="character" src="resource/rabbit.png">')//キャラ出現
+
 class character{
     x:number=0//X座標
     y:number=0//y座標
@@ -44,15 +45,14 @@ class keyDown{//キーが押されているかどうか
     keyDownFunc(event:any){//キーボードが押されたときに呼び出される関数
         switch(event.keyCode){
         case 65://「A」キーが押されたとき
-        case 37://「←」キーが押されたとき
             this.key_left=true
             break
         case 68://「D」キーが押されたとき
-        case 39://「→」キーが押されたとき
             this.key_right=true
+            var sampleArea:any= document.getElementById("sampleArea")//デバッグ用文字エリア
+            sampleArea.innerHTML=String(this.key_right)
             break
         case 32://「Space」キーが押されたとき
-        case 96://「0(テンキー)」キーが押されたとき
             this.key_jump=true
             break
         }
@@ -60,15 +60,14 @@ class keyDown{//キーが押されているかどうか
     keyUpFunc(event:any){//キーボードが押されたときに呼び出される関数
         switch(event.keyCode){
             case 65://「A」キーが離されたとき
-            case 37://「←」キーが離されたとき
                 this.key_left=false
                 break
             case 68://「D」キーが離されたとき
-            case 39://「→」キーが離されたとき
                 this.key_right=false
+                var sampleArea:any= document.getElementById("sampleArea")//デバッグ用文字エリア
+                sampleArea.innerHTML=String(this.key_right)
                 break
             case 32://「Space」キーが離されたとき
-            case 96://「0(テンキー)」キーが離されたとき
                 this.key_jump=false
                 break
             }
@@ -83,14 +82,12 @@ function main(){//メインループ
     addEventListener("keydown",key.keyDownFunc)//キーボードが押された時、keyDownFunc関数を呼び出す
     addEventListener("keyup",key.keyUpFunc)//キーボードが離された時、keyUpFunc関数を呼び出す
 
-    //addEventListener("keydown",kariMove)
-
 /*     【仕様】
     左右キーは同時に押すとどちらにも移動できない(どちらか片方を押しているときのみ移動できる)
     ジャンプはジャンプキーを押している間に跳躍力を貯めて、ジャンプキーを離すと貯めた跳躍力の分だけ跳べる
     跳躍力を貯めている間は接地中の移動ができない */
 
-	if(((key.key_left===true)&&(key.key_right===false))&&(!((key.key_jump==true)&&(rabbit.isOnGround==true)))){//左移動キーが押されている間、moveLeft関数を呼び出す
+/* 	if(((key.key_left===true)&&(key.key_right===false))&&(!((key.key_jump==true)&&(rabbit.isOnGround==true)))){//左移動キーが押されている間、moveLeft関数を呼び出す
         rabbit.moveLeft()
     }
 	if(((key.key_right===true)&&(key.key_left===false))&&(!((key.key_jump==true)&&(rabbit.isOnGround==true)))){//右移動キーが押されている間、moveRight関数を呼び出す
@@ -98,9 +95,15 @@ function main(){//メインループ
     }
     if((key.key_jump===true)){//ジャンプキーが押されている間、jumpCharge関数を呼び出す
         rabbit.jumpCharge()
+    } */
+
+    var sampleArea2:any= document.getElementById("sampleArea2")//デバッグ用文字エリア
+    sampleArea2.innerHTML=String(key.key_right)
+    if(key.key_right==true){
+        kariMove()
     }
 
-    rabbit.move()
+    //rabbit.move()
     requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
 }
 
