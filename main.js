@@ -1,16 +1,15 @@
 "use strict";
-//let myCanvas:any=document.getElementById("myCanvas")
+let canvas = document.getElementById("myCanvas");
 class character {
     constructor() {
         this.characterSize = 50; //キャラの大きさ
         this.x = 0; //X座標
-        this.y = 0; //y座標
+        this.y = 50; //y座標
         this.height = 0; //昇った高さ
         this.dx = 0; //x方向の速度
         this.dy = 0; //y方向の速度
         this.jumpVelocity = 0; //ジャンプ速度
         this.moveVelocity = 5; //横移動科測量
-        this.secAdd = 0; //ジャンプ用時間計測変数
         this.isOnGround = true; //接地しているかどうか
         this.isSlip = false; //滑るかどうか
         this.isCarry = false; //動かされているかどうか
@@ -26,7 +25,7 @@ class character {
             this.dx = 0;
         }
         document.getElementById('character').style.left = ((this.x) + (window.innerWidth / 2) - (this.characterSize / 2)) + "px";
-        document.getElementById('character').style.top = ((640 - 640 * 1 / 5) - (this.y)) + "px";
+        document.getElementById('character').style.top = (640 - (this.y + this.characterSize)) + "px";
     }
     moveLeft() {
         this.dx -= this.moveVelocity;
@@ -38,6 +37,35 @@ class character {
     }
     jump() {
     }
+}
+class scaffold {
+    constructor(_level, _width = scaffold.defaultWidth) {
+        this.x = 0; //X座標
+        this.y = 0; //y座標
+        this.height = 0; //昇った高さ
+        this.level = _level;
+        if (this.level === 0) {
+            this.width = 360;
+            this.x = 0;
+        }
+        else {
+            this.width = _width;
+            /* 0階層目(初期足場)以外のとき、ランダムなx座標に設定するプログラムを後でここらへんに書く */
+        }
+        document.write('<img id="scaffold" src="resource/normalScaffold.jpg">'); //足場出現
+        document.getElementById('scaffold').style.width = this.width + "px"; //初期大きさ設定(幅)
+        document.getElementById('scaffold').style.height = scaffold.thickness + "px"; //初期大きさ設定(厚さ)
+    }
+    scrole() {
+        document.getElementById('scaffold').style.left = ((this.x) + (window.innerWidth / 2) - (this.width / 2)) + "px"; //x座標設定
+        this.y = 50 + scaffold.scaffoldDistance * this.level;
+        document.getElementById('scaffold').style.top = (640 - (this.y)) + "px"; //y座標設定 高さは"50+200*level"
+    }
+}
+scaffold.defaultWidth = 150; //基本の足場広さ
+scaffold.thickness = 20; //厚さ
+scaffold.scaffoldDistance = 200; //足場同士の上下幅
+class defaultScaffold extends scaffold {
 }
 class keyDown {
     constructor() {
@@ -78,8 +106,9 @@ class keyDown {
 }
 let rabbit = new character();
 let key = new keyDown();
+let scaffolds = new Array; //足場配列を作成
+scaffolds[0] = new defaultScaffold(0); //初期足場を作成
 requestAnimationFrame(main); //メインループ、起動
-let a = false;
 function main() {
     addEventListener("keydown", key.keyDownFunc); //キーボードが押された時、keyDownFunc関数を呼び出す
     addEventListener("keyup", key.keyUpFunc); //キーボードが離された時、keyUpFunc関数を呼び出す
@@ -97,7 +126,10 @@ function main() {
         rabbit.jumpCharge();
     }
     var sampleArea = document.getElementById("sampleArea");
-    sampleArea.innerHTML = "表示したい文字列";
+    //sampleArea.innerHTML=String(canvas.width)
     rabbit.move();
+    for (let i = 0; i < scaffolds.length; i++) {
+        scaffolds[i].scrole();
+    }
     requestAnimationFrame(main); ////main関数(自分自身)を呼び出すことでループさせる
 }
