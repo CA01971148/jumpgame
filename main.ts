@@ -45,6 +45,20 @@ class character{
 
 }
 
+class scaffold{
+    x:number=0//X座標
+    y:number=0//y座標
+    height:number=0//昇った高さ
+    level:number//階層(一番下の基礎足場は0階層目)
+    width:number//広さ
+    readonly thickness:number=20//厚さ
+    constructor(_level:number,_width:number=100){
+        this.level=_level
+        this.width=_width
+    }
+    //「階層」フィールドを持った「床」クラスをクラス配列に登録
+}
+
 class keyDown{//キーが押されているかどうか
     key_left:boolean=false//左移動キーが押されているかどうか
     key_right:boolean=false//右移動キーが押されているかどうか
@@ -86,7 +100,6 @@ let rabbit=new character()
 let key=new keyDown()
 requestAnimationFrame(main)//メインループ、起動
 
-let a:boolean=false
 function main(){//メインループ
     addEventListener("keydown",key.keyDownFunc)//キーボードが押された時、keyDownFunc関数を呼び出す
     addEventListener("keyup",key.keyUpFunc)//キーボードが離された時、keyUpFunc関数を呼び出す
