@@ -169,7 +169,7 @@ abstract class scaffold{//初期足場
         this.level=_level
         this.height=this.level*scaffold.scaffoldDistance//足場の位置する高さを"階層×足場同士の幅"として設定
         if(this.level===0){
-            this.width=200
+            this.width=360
             this.x=0
         }else{
             this.width=_width
