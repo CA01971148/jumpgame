@@ -2,6 +2,7 @@
 
 abstract class character{
     readonly characterSize:number=50//キャラの大きさ
+    readonly footSize:number=20//足の広さ
     protected _x:number=0//X座標
     protected _y:number=50//y座標
     height:number=0//昇った高さ
@@ -11,9 +12,9 @@ abstract class character{
     protected _dy:number=0//y方向の速度
     readonly dyMax:number=10//最大縦加速量
     protected _jumpVelocity:number=0//ジャンプ速度
-    readonly jumpChargeAmount:number=5//跳躍力の貯めやすさ
-    readonly jumpChargeMax:number=100//跳躍力の貯め限界
-    readonly fallVelocitiy:number=5//落下速度
+    readonly jumpChargeAmount:number=2//跳躍力の貯めやすさ
+    readonly jumpChargeMax:number=25//跳躍力の貯め限界
+    readonly fallVelocitiy:number=1//落下速度
     isOnGround:boolean=true//接地しているかどうか
     protected isSlip:boolean=false//滑るかどうか
     protected isCarry:boolean=false//動かされているかどうか
@@ -110,7 +111,7 @@ abstract class character{
         //return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]//今いる区間の足場
     }
     checkAboveScaffold():boolean{//今の足場の範囲にいるかどうか(y座標は問わない)
-        if(((this.x)<=(this.currentScaffold().width/2+this.currentScaffold().x))&&((this.x)>=(-this.currentScaffold().width/2+this.currentScaffold().x))){
+        if(((this.x-this.footSize/2)<=(this.currentScaffold().width/2+this.currentScaffold().x))&&((this.x+this.footSize/2)>=(-this.currentScaffold().width/2+this.currentScaffold().x))){
             return true
         }else{
             return false
@@ -137,7 +138,9 @@ abstract class character{
         this.jumpVelocity+=this.jumpChargeAmount
     }
     jump(){//跳躍力を解放してジャンプする関数
-        this.dy+=this.jumpVelocity
+        if(this.isOnGround===true){
+            this.dy+=this.jumpVelocity
+        }
         this.jumpVelocity=0
     }
 }
@@ -166,7 +169,7 @@ abstract class scaffold{//初期足場
         this.level=_level
         this.height=this.level*scaffold.scaffoldDistance//足場の位置する高さを"階層×足場同士の幅"として設定
         if(this.level===0){
-            this.width=360
+            this.width=200
             this.x=0
         }else{
             this.width=_width
@@ -205,8 +208,9 @@ abstract class scaffold{//初期足場
     }
 
     scrole(){
-        document.getElementById('scaffold')!.style.left=((this.x)+(window.innerWidth/2)-(this.width/2)-10)+"px"//x座標設定
+        document.getElementById('scaffold')!.style.left=((this.x)+(window.innerWidth/2)-(this.width/2))+"px"//x座標設定
         this.y=50+scaffold.scaffoldDistance*this.level
+        this.height=scaffold.scaffoldDistance*this.level
         document.getElementById('scaffold')!.style.top=(640-(this.y))+"px"//y座標設定 高さは"50+200*level"
     }
 }
@@ -286,7 +290,7 @@ function main(){//メインループ
     }
 
     var sampleArea:any=document.getElementById("sampleArea")
-    sampleArea.innerHTML="a:"+String(rabbit.dy)
+    sampleArea.innerHTML="a:"+String(rabbit.jumpVelocity)+"/"+String(rabbit.jumpChargeMax)
     var sampleArea:any=document.getElementById("sampleArea2")
     sampleArea.innerHTML="b:"+String(rabbit.height)
 

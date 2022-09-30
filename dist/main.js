@@ -3,6 +3,7 @@
 class character {
     constructor() {
         this.characterSize = 50; //キャラの大きさ
+        this.footSize = 20; //足の広さ
         this._x = 0; //X座標
         this._y = 50; //y座標
         this.height = 0; //昇った高さ
@@ -12,9 +13,9 @@ class character {
         this._dy = 0; //y方向の速度
         this.dyMax = 10; //最大縦加速量
         this._jumpVelocity = 0; //ジャンプ速度
-        this.jumpChargeAmount = 5; //跳躍力の貯めやすさ
-        this.jumpChargeMax = 100; //跳躍力の貯め限界
-        this.fallVelocitiy = 5; //落下速度
+        this.jumpChargeAmount = 2; //跳躍力の貯めやすさ
+        this.jumpChargeMax = 25; //跳躍力の貯め限界
+        this.fallVelocitiy = 1; //落下速度
         this.isOnGround = true; //接地しているかどうか
         this.isSlip = false; //滑るかどうか
         this.isCarry = false; //動かされているかどうか
@@ -108,7 +109,7 @@ class character {
         //return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]//今いる区間の足場
     }
     checkAboveScaffold() {
-        if (((this.x) <= (this.currentScaffold().width / 2 + this.currentScaffold().x)) && ((this.x) >= (-this.currentScaffold().width / 2 + this.currentScaffold().x))) {
+        if (((this.x - this.footSize / 2) <= (this.currentScaffold().width / 2 + this.currentScaffold().x)) && ((this.x + this.footSize / 2) >= (-this.currentScaffold().width / 2 + this.currentScaffold().x))) {
             return true;
         }
         else {
@@ -135,7 +136,9 @@ class character {
         this.jumpVelocity += this.jumpChargeAmount;
     }
     jump() {
-        this.dy += this.jumpVelocity;
+        if (this.isOnGround === true) {
+            this.dy += this.jumpVelocity;
+        }
         this.jumpVelocity = 0;
     }
 }
@@ -156,7 +159,7 @@ class scaffold {
         this.level = _level;
         this.height = this.level * scaffold.scaffoldDistance; //足場の位置する高さを"階層×足場同士の幅"として設定
         if (this.level === 0) {
-            this.width = 360;
+            this.width = 200;
             this.x = 0;
         }
         else {
@@ -191,8 +194,9 @@ class scaffold {
         this._height = height;
     }
     scrole() {
-        document.getElementById('scaffold').style.left = ((this.x) + (window.innerWidth / 2) - (this.width / 2) - 10) + "px"; //x座標設定
+        document.getElementById('scaffold').style.left = ((this.x) + (window.innerWidth / 2) - (this.width / 2)) + "px"; //x座標設定
         this.y = 50 + scaffold.scaffoldDistance * this.level;
+        this.height = scaffold.scaffoldDistance * this.level;
         document.getElementById('scaffold').style.top = (640 - (this.y)) + "px"; //y座標設定 高さは"50+200*level"
     }
 }
@@ -269,7 +273,7 @@ function main() {
         rabbit.jumpCharge();
     }
     var sampleArea = document.getElementById("sampleArea");
-    sampleArea.innerHTML = "a:" + String(rabbit.dy);
+    sampleArea.innerHTML = "a:" + String(rabbit.jumpVelocity) + "/" + String(rabbit.jumpChargeMax);
     var sampleArea = document.getElementById("sampleArea2");
     sampleArea.innerHTML = "b:" + String(rabbit.height);
     rabbit.move();
