@@ -13,7 +13,7 @@ class character {
         this._dy = 0; //y方向の速度
         this.dyMax = 10; //最大縦加速量
         this._jumpVelocity = 0; //ジャンプ速度
-        this.jumpChargeAmount = 2; //跳躍力の貯めやすさ
+        this.jumpChargeAmount = 1; //跳躍力の貯めやすさ
         this.jumpChargeMax = 25; //跳躍力の貯め限界
         this.fallVelocitiy = 1; //落下速度
         this.isOnGround = true; //接地しているかどうか
@@ -125,21 +125,37 @@ class character {
         }
     }
     moveLeft() {
-        this.dx -= this.moveVelocity;
+        if (this.isOnGround === false) {
+            this.dx -= this.moveVelocity;
+        }
         document.getElementById('character').style.transform = "rotateY(0deg)";
     }
     moveRight() {
-        this.dx += this.moveVelocity;
+        if (this.isOnGround === false) {
+            this.dx += this.moveVelocity;
+        }
         document.getElementById('character').style.transform = "rotateY(180deg)";
     }
     jumpCharge() {
         this.jumpVelocity += this.jumpChargeAmount;
+        /* 縮む処理 */
+        const heightMin = 10;
+        const shrunkenSize = this.characterSize * ((this.jumpChargeMax - this.jumpVelocity) / this.jumpChargeMax);
+        let heightSize;
+        if (shrunkenSize < heightMin) {
+            heightSize = heightMin;
+        }
+        else {
+            heightSize = shrunkenSize;
+        }
+        document.getElementById('character').style.height = (heightSize) + "px"; //ジャンプ前の踏ん張り縮み
     }
     jump() {
         if (this.isOnGround === true) {
             this.dy += this.jumpVelocity;
         }
         this.jumpVelocity = 0;
+        document.getElementById('character').style.height = this.characterSize + "px"; //踏ん張り縮み解放
     }
 }
 class characterRabbit extends character {
@@ -275,7 +291,7 @@ function main() {
     var sampleArea = document.getElementById("sampleArea");
     sampleArea.innerHTML = "a:" + String(rabbit.jumpVelocity) + "/" + String(rabbit.jumpChargeMax);
     var sampleArea = document.getElementById("sampleArea2");
-    sampleArea.innerHTML = "b:" + String(rabbit.height);
+    sampleArea.innerHTML = "b:" + String(rabbit.y);
     rabbit.move();
     for (let i = 0; i < scaffolds.length; i++) {
         scaffolds[i].scrole();

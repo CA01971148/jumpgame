@@ -5,14 +5,14 @@ abstract class character{
     readonly footSize:number=20//足の広さ
     protected _x:number=0//X座標
     protected _y:number=50//y座標
-    height:number=0//昇った高さ
+    protected height:number=0//昇った高さ
     protected _dx:number=0//x方向の速度
     readonly moveVelocity:number=5//横移動加速量
     readonly dxMax:number=10//最大横加速量
     protected _dy:number=0//y方向の速度
     readonly dyMax:number=10//最大縦加速量
     protected _jumpVelocity:number=0//ジャンプ速度
-    readonly jumpChargeAmount:number=2//跳躍力の貯めやすさ
+    readonly jumpChargeAmount:number=1//跳躍力の貯めやすさ
     readonly jumpChargeMax:number=25//跳躍力の貯め限界
     readonly fallVelocitiy:number=1//落下速度
     isOnGround:boolean=true//接地しているかどうか
@@ -126,22 +126,38 @@ abstract class character{
     }
 
     moveLeft(){//左に移動する関数
-        this.dx-=this.moveVelocity
+        if(this.isOnGround===false){
+            this.dx-=this.moveVelocity
+        }
         document.getElementById('character')!.style.transform="rotateY(0deg)"
     }
     moveRight(){//右に移動する関数
-        this.dx+=this.moveVelocity
+        if(this.isOnGround===false){
+            this.dx+=this.moveVelocity
+        }
+
         document.getElementById('character')!.style.transform="rotateY(180deg)"
     }
 
     jumpCharge(){//跳躍力を貯める関数
         this.jumpVelocity+=this.jumpChargeAmount
+        /* 縮む処理 */
+        const heightMin:number=10
+        const shrunkenSize:number=this.characterSize*((this.jumpChargeMax-this.jumpVelocity)/this.jumpChargeMax)
+        let heightSize:number
+        if(shrunkenSize<heightMin){
+            heightSize=heightMin
+        }else{
+            heightSize=shrunkenSize
+        }
+        document.getElementById('character')!.style.height=(heightSize)+"px"//ジャンプ前の踏ん張り縮み
     }
     jump(){//跳躍力を解放してジャンプする関数
         if(this.isOnGround===true){
             this.dy+=this.jumpVelocity
         }
         this.jumpVelocity=0
+        document.getElementById('character')!.style.height=this.characterSize+"px"//踏ん張り縮み解放
     }
 }
 
@@ -292,7 +308,7 @@ function main(){//メインループ
     var sampleArea:any=document.getElementById("sampleArea")
     sampleArea.innerHTML="a:"+String(rabbit.jumpVelocity)+"/"+String(rabbit.jumpChargeMax)
     var sampleArea:any=document.getElementById("sampleArea2")
-    sampleArea.innerHTML="b:"+String(rabbit.height)
+    sampleArea.innerHTML="b:"+String(rabbit.y)
 
     rabbit.move()
     for(let i:number=0;i<scaffolds.length;i++){
