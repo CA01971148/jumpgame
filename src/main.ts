@@ -1,10 +1,10 @@
-let canvas:any=document.getElementById("myCanvas")
+//let canvas:any=document.getElementById("myCanvas")
 
 abstract class character{
     readonly characterSize:number=50//キャラの大きさ
     protected _x:number=0//X座標
     protected _y:number=50//y座標
-    protected height:number=0//昇った高さ
+    height:number=0//昇った高さ
     protected _dx:number=0//x方向の速度
     readonly moveVelocity:number=5//横移動加速量
     readonly dxMax:number=10//最大横加速量
@@ -75,13 +75,21 @@ abstract class character{
 
     move(){//慣性で移動する関数
         this.x+=this.dx
-        this.y+=this.dy
-        this.height+=this.dy
-        if(this.isOnGround===false){
+
+        if((this.checkAboveScaffold())&&(this.height+this.dy<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
+            this.y=this.currentScaffold().y
+            this.height=this.currentScaffold().height
+        }else{
+            this.y+=this.dy
+            this.height+=this.dy
+        }
+
+        if(this.isOnGround===false){//空中にいるとき、落ちる
             this.dy-=this.fallVelocitiy
-        }else if(this.dy<0){
+        }else if(this.dy<0){//地上にいるとき、落ちない
             this.dy=0
         }
+
         if(this.isSlip===false){
             this.dx=0
         }else{//滑るときの処理 調整は適当
@@ -91,18 +99,29 @@ abstract class character{
                 this.dx*=0.95
             }
         }
+
         document.getElementById('character')!.style.left=((this.x)+(window.innerWidth/2)-(this.characterSize/2))+"px"
         document.getElementById('character')!.style.top=(640-(this.y+this.characterSize))+"px"
         this.isOnGround=this.checkOnGround()
     }
-    //this.height/scaffold.scaffoldDistance)].width/2+
-    checkOnGround():boolean{
-        if((this.height===scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)].height)&&((this.x==0))){
+
+    currentScaffold():scaffold{
+        return scaffolds[0]
+        //return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]//今いる区間の足場
+    }
+    checkAboveScaffold():boolean{//今の足場の範囲にいるかどうか(y座標は問わない)
+        if(((this.x)<=(this.currentScaffold().width/2+this.currentScaffold().x))&&((this.x)>=(-this.currentScaffold().width/2+this.currentScaffold().x))){
             return true
         }else{
             return false
         }
-return true
+    }
+    checkOnGround():boolean{//接地しているかどうか
+        if((this.height===this.currentScaffold().height)&&(this.checkAboveScaffold())){//「自分の高さが今いる区間の足場と同じ」かつ「自分のx座標が今いる区間の足場の範囲に入っている」場合
+            return true
+        }else{
+            return false
+        }
     }
 
     moveLeft(){//左に移動する関数
@@ -135,7 +154,7 @@ class characterRabbit extends character{
 
 abstract class scaffold{//初期足場
     protected _x:number=0//X座標
-    protected y:number=0//y座標
+    protected _y:number=0//y座標
     protected _height:number=0//足場の位置する高さ
     protected level:number//階層(一番下の初期足場は0階層目)
     public static readonly defaultWidth:number=150//基本の足場広さ
@@ -162,6 +181,13 @@ abstract class scaffold{//初期足場
     }
     protected set x(x:number){
         this._x=x
+    }
+
+    get y():number{
+        return this._y
+    }
+    protected set y(y:number){
+        this._y=y
     }
 
     get width():number{
@@ -260,9 +286,9 @@ function main(){//メインループ
     }
 
     var sampleArea:any=document.getElementById("sampleArea")
-    sampleArea.innerHTML="scaffold.x:"+String(scaffolds[0].x)
+    sampleArea.innerHTML="a:"+String(rabbit.dy)
     var sampleArea:any=document.getElementById("sampleArea2")
-    sampleArea.innerHTML="isOnGround:"+String(rabbit.isOnGround)
+    sampleArea.innerHTML="b:"+String(rabbit.height)
 
     rabbit.move()
     for(let i:number=0;i<scaffolds.length;i++){
