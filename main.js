@@ -20,7 +20,15 @@ class character {
         return this._x;
     }
     set x(x) {
-        this._x = x;
+        if (x < -360 / 2) {
+            this._x = 360 / 2;
+        }
+        else if (x > 360 / 2) {
+            this._x = -360 / 2;
+        }
+        else {
+            this._x = x;
+        }
     }
     get y() {
         return this._y;
@@ -39,9 +47,11 @@ class character {
     }
     moveLeft() {
         this.dx -= this.moveVelocity;
+        document.getElementById('character').style.transform = "rotateY(0deg)";
     }
     moveRight() {
         this.dx += this.moveVelocity;
+        document.getElementById('character').style.transform = "rotateY(180deg)";
     }
     jumpCharge() {
     }

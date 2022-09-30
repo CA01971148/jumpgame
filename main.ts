@@ -21,7 +21,13 @@ abstract class character{
         return this._x
     }
     set x(x:number){
-        this._x=x
+        if(x<-360/2){
+            this._x=360/2
+        }else if(x>360/2){
+            this._x=-360/2
+        }else{
+            this._x=x
+        }
     }
 
     get y():number{
@@ -43,9 +49,11 @@ abstract class character{
 
     moveLeft(){//左に移動する関数
         this.dx-=this.moveVelocity
+        document.getElementById('character')!.style.transform="rotateY(0deg)"
     }
     moveRight(){//右に移動する関数
         this.dx+=this.moveVelocity
+        document.getElementById('character')!.style.transform="rotateY(180deg)"
     }
 
     jumpCharge(){//跳躍力を貯める関数
