@@ -5,18 +5,23 @@ abstract class character{
     protected _x:number=0//X座標
     protected _y:number=50//y座標
     protected height:number=0//昇った高さ
-    protected dx:number=0//x方向の速度
-    protected dy:number=0//y方向の速度
-    protected jumpVelocity:number=0//ジャンプ速度
+    protected _dx:number=0//x方向の速度
     readonly moveVelocity:number=5//横移動加速量
-    protected isOnGround:boolean=true//接地しているかどうか
+    readonly dxMax:number=10//最大横加速量
+    protected _dy:number=0//y方向の速度
+    readonly dyMax:number=10//最大縦加速量
+    protected _jumpVelocity:number=0//ジャンプ速度
+    readonly jumpChargeAmount:number=5//跳躍力の貯めやすさ
+    readonly jumpChargeMax:number=100//跳躍力の貯め限界
+    readonly fallVelocitiy:number=5//落下速度
+    isOnGround:boolean=true//接地しているかどうか
     protected isSlip:boolean=false//滑るかどうか
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
 
     constructor(){}
 
-/* getter/setter */
+    /* getter/setter */
     get x():number{
         return this._x
     }
@@ -37,14 +42,67 @@ abstract class character{
         this._y=y
     }
 
+    get dx():number{
+        return this._dx
+    }
+    set dx(dx:number){
+        if(dx>this.dxMax){
+            this._dx=this.dxMax
+        }else if(dx<-this.dxMax){
+            this._dx=-this.dxMax
+        }else{
+            this._dx=dx
+        }
+    }
+
+    get dy():number{
+        return this._dy
+    }
+    set dy(dy:number){
+        this._dy=dy
+    }
+
+    get jumpVelocity():number{
+        return this._jumpVelocity
+    }
+    set jumpVelocity(jumpVelocity:number){
+        if(jumpVelocity>this.jumpChargeMax){
+            this._jumpVelocity=this.jumpChargeMax
+        }else{
+            this._jumpVelocity=jumpVelocity
+        }
+    }
+
     move(){//慣性で移動する関数
         this.x+=this.dx
         this.y+=this.dy
+        this.height+=this.dy
+        if(this.isOnGround===false){
+            this.dy-=this.fallVelocitiy
+        }else if(this.dy<0){
+            this.dy=0
+        }
         if(this.isSlip===false){
             this.dx=0
+        }else{//滑るときの処理 調整は適当
+            if((this.dx<this.moveVelocity)&&(this.dx>-this.moveVelocity)){
+                this.dx=0
+            }else{
+                this.dx*=0.95
+            }
         }
         document.getElementById('character')!.style.left=((this.x)+(window.innerWidth/2)-(this.characterSize/2))+"px"
         document.getElementById('character')!.style.top=(640-(this.y+this.characterSize))+"px"
+        this.isOnGround=this.checkOnGround()
+    }
+    //this.height/scaffold.scaffoldDistance)].width/2+
+    checkOnGround():boolean{
+        if((this.height===scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)].height)&&((this.x==0))){
+            return true
+        }else{
+            return false
+        }
+return true
     }
 
     moveLeft(){//左に移動する関数
@@ -57,10 +115,11 @@ abstract class character{
     }
 
     jumpCharge(){//跳躍力を貯める関数
-
+        this.jumpVelocity+=this.jumpChargeAmount
     }
     jump(){//跳躍力を解放してジャンプする関数
-
+        this.dy+=this.jumpVelocity
+        this.jumpVelocity=0
     }
 }
 
@@ -75,14 +134,15 @@ class characterRabbit extends character{
 
 
 abstract class scaffold{//初期足場
-    protected x:number//X座標
+    protected _x:number=0//X座標
     protected y:number=0//y座標
-    protected height:number//足場の位置する高さ
+    protected _height:number=0//足場の位置する高さ
     protected level:number//階層(一番下の初期足場は0階層目)
-    protected width:number//広さ
     public static readonly defaultWidth:number=150//基本の足場広さ
+    protected _width:number=scaffold.defaultWidth//広さ
     public static readonly thickness:number=20//厚さ
     public static readonly scaffoldDistance:number=200//足場同士の上下幅
+
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         this.level=_level
         this.height=this.level*scaffold.scaffoldDistance//足場の位置する高さを"階層×足場同士の幅"として設定
@@ -96,8 +156,30 @@ abstract class scaffold{//初期足場
         }
     }
 
+    /* getter/setter */
+    get x():number{
+        return this._x
+    }
+    protected set x(x:number){
+        this._x=x
+    }
+
+    get width():number{
+        return this._width
+    }
+    protected set width(width:number){
+        this._width=width
+    }
+
+    get height():number{
+        return this._height
+    }
+    protected set height(height:number){
+        this._height=height
+    }
+
     scrole(){
-        document.getElementById('scaffold')!.style.left=((this.x)+(window.innerWidth/2)-(this.width/2))+"px"//x座標設定
+        document.getElementById('scaffold')!.style.left=((this.x)+(window.innerWidth/2)-(this.width/2)-10)+"px"//x座標設定
         this.y=50+scaffold.scaffoldDistance*this.level
         document.getElementById('scaffold')!.style.top=(640-(this.y))+"px"//y座標設定 高さは"50+200*level"
     }
@@ -129,6 +211,7 @@ class keyDown{//キーが押されているかどうか
             break
         case 32://「Space」キーが押されたとき
             this.key_jump=true
+            key.key_jump=this.key_jump
             break
         }
     }
@@ -144,6 +227,8 @@ class keyDown{//キーが押されているかどうか
                 break
             case 32://「Space」キーが離されたとき
                 this.key_jump=false
+                key.key_jump=this.key_jump
+                rabbit.jump()
                 break
             }
     }
@@ -175,7 +260,9 @@ function main(){//メインループ
     }
 
     var sampleArea:any=document.getElementById("sampleArea")
-    sampleArea.innerHTML=String(rabbit.x)
+    sampleArea.innerHTML="scaffold.x:"+String(scaffolds[0].x)
+    var sampleArea:any=document.getElementById("sampleArea2")
+    sampleArea.innerHTML="isOnGround:"+String(rabbit.isOnGround)
 
     rabbit.move()
     for(let i:number=0;i<scaffolds.length;i++){
