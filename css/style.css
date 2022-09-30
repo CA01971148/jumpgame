@@ -8,8 +8,8 @@ body{
 }
 
 canvas{
-    background-color: gray;
-    background-image: url("./resource/background.jpg");
+    background-color: navy;
+    background-image: url("./../resource/background.jpg");
     display: block;
     margin: 0 auto;
 }
