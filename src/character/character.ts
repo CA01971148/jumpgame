@@ -1,4 +1,7 @@
-abstract class character{
+import {scaffolds} from "../index"
+import {scaffold} from "../scaffold/scaffold"
+
+export abstract class character{
     readonly characterSize:number=50//キャラの大きさ
     readonly footSize:number=20//足の広さ
     protected _x:number=0//X座標
@@ -13,7 +16,7 @@ abstract class character{
     readonly jumpChargeAmount:number=1//跳躍力の貯めやすさ
     readonly jumpChargeMax:number=25//跳躍力の貯め限界
     readonly fallVelocitiy:number=1//落下速度
-    isOnGround:boolean=true//接地しているかどうか
+    protected isOnGround:boolean=true//接地しているかどうか
     protected isSlip:boolean=false//滑るかどうか
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか

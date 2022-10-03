@@ -1,4 +1,6 @@
-class normalScaffold extends scaffold{
+import {scaffold} from "./scaffold"
+
+export class normalScaffold extends scaffold{
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         super(_level,_width)
         document.write('<img id="scaffold" src="resource/normalScaffold.jpg">')//足場出現

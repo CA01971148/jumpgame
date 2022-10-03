@@ -1,4 +1,7 @@
-class keyDown{//キーが押されているかどうか
+import {key} from "../../index"
+import {rabbit} from "../../index"
+
+export class keyDown{//キーが押されているかどうか
     key_left:boolean=false//左移動キーが押されているかどうか
     key_right:boolean=false//右移動キーが押されているかどうか
     key_jump:boolean=false//ジャンプキーが押されているかどうか

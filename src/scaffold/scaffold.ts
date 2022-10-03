@@ -1,4 +1,4 @@
-abstract class scaffold{//初期足場
+export abstract class scaffold{//初期足場
     protected _x:number=0//X座標
     protected _y:number=0//y座標
     protected _height:number=0//足場の位置する高さ

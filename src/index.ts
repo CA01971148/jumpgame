@@ -1,8 +1,13 @@
+import {characterRabbit} from "./character/characterRabbit"
+import {scaffold} from "./scaffold/scaffold"
+import {normalScaffold} from "./scaffold/normalScaffold"
+import {keyDown} from "./other/keyDown/keyDown"
+
 //let canvas:any=document.getElementById("myCanvas")
 
-let rabbit=new characterRabbit()
-let key=new keyDown()
-let scaffolds:scaffold[]=new Array//足場配列を作成
+export let rabbit=new characterRabbit()
+export let key=new keyDown()
+export let scaffolds:scaffold[]=new Array//足場配列を作成
 scaffolds[0]=new normalScaffold(0)//初期足場を作成
 requestAnimationFrame(main)//メインループ、起動
 
@@ -26,9 +31,9 @@ function main(){//メインループ
     }
 
     var sampleArea:any=document.getElementById("sampleArea")
-    sampleArea.innerHTML="a:"+String(rabbit.jumpVelocity)+"/"+String(rabbit.jumpChargeMax)
+    sampleArea.innerHTML="JumpPower:"+String(rabbit.jumpVelocity)+"/"+String(rabbit.jumpChargeMax)
     var sampleArea:any=document.getElementById("sampleArea2")
-    sampleArea.innerHTML="b:"+String(rabbit.y)
+    sampleArea.innerHTML="Height:"+String(rabbit.y-50)
 
     rabbit.move()
     for(let i:number=0;i<scaffolds.length;i++){

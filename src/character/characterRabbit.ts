@@ -1,4 +1,6 @@
-class characterRabbit extends character{
+import {character} from "./character"
+
+export class characterRabbit extends character{
     constructor(){
         super()
         document.write('<img id="character" src="resource/rabbit.png">')//キャラ出現
