@@ -3,6 +3,7 @@ import {scaffold} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
 
+export let display:any=document.getElementById('display');
 //let canvas:any=document.getElementById("myCanvas")
 
 export let rabbit=new characterRabbit()

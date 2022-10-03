@@ -1,3 +1,5 @@
+import {display} from "../index"
+
 export abstract class scaffold{//初期足場
     protected _x:number=0//X座標
     protected _y:number=0//y座標
@@ -51,7 +53,7 @@ export abstract class scaffold{//初期足場
     }
 
     scrole(){
-        document.getElementById('scaffold')!.style.left=((this.x)+(window.innerWidth/2)-(this.width/2))+"px"//x座標設定
+        document.getElementById('scaffold')!.style.left=((this.x)+(display.clientWidth/2)-(this.width/2))+"px"//x座標設定
         this.y=50+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level
         document.getElementById('scaffold')!.style.top=(640-(this.y))+"px"//y座標設定 高さは"50+200*level"
