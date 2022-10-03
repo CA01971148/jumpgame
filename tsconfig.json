@@ -6,6 +6,5 @@
     "target": "es5",
     "allowJs": true
   },
-  "include": ["src/index.ts"],
-  "exclude": ["dist", "node_modules"]
+  "files": ["src/index.ts"]
 }
