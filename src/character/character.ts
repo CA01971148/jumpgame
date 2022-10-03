@@ -16,10 +16,11 @@ export abstract class character{
     readonly jumpChargeAmount:number=1//跳躍力の貯めやすさ
     readonly jumpChargeMax:number=25//跳躍力の貯め限界
     readonly fallVelocitiy:number=1//落下速度
-    protected isOnGround:boolean=true//接地しているかどうか
+    isOnGround:boolean=true//接地しているかどうか
     protected isSlip:boolean=false//滑るかどうか
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
+    heightSize:number=this.characterSize
 
     constructor(){}
 
@@ -103,7 +104,7 @@ export abstract class character{
         }
 
         document.getElementById('character')!.style.left=((this.x)+(window.innerWidth/2)-(this.characterSize/2))+"px"
-        document.getElementById('character')!.style.top=(640-(this.y+this.characterSize))+"px"
+        document.getElementById('character')!.style.top=(640-(this.y+(this.heightSize)))+"px"
         this.isOnGround=this.checkOnGround()
     }
 
@@ -145,15 +146,15 @@ export abstract class character{
         /* 縮む処理 */
         const heightMin:number=10
         const shrunkenSize:number=this.characterSize*((this.jumpChargeMax-this.jumpVelocity)/this.jumpChargeMax)
-        let heightSize:number
         if(shrunkenSize<heightMin){
-            heightSize=heightMin
+            this.heightSize=heightMin
         }else{
-            heightSize=shrunkenSize
+            this.heightSize=shrunkenSize
         }
-        document.getElementById('character')!.style.height=(heightSize)+"px"//ジャンプ前の踏ん張り縮み
+        document.getElementById('character')!.style.height=(this.heightSize)+"px"//ジャンプ前の踏ん張り縮み
     }
     jump(){//跳躍力を解放してジャンプする関数
+        this.heightSize=this.characterSize
         if(this.isOnGround===true){
             this.dy+=this.jumpVelocity
         }
