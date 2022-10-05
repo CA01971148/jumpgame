@@ -1,4 +1,5 @@
 import {characterRabbit} from "./character/characterRabbit"
+import {characterRabbitEdge} from "./character/characterRabbitEdge"
 import {scaffold} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
@@ -11,6 +12,9 @@ export class canvas{
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)
 
 export let rabbit=new characterRabbit()
+export let rabbitEdge:characterRabbitEdge[]=new Array
+rabbitEdge[0]=new characterRabbitEdge("rabbit_L")//左端用仮rabbitクラス
+rabbitEdge[1]=new characterRabbitEdge("rabbit_R")//右端用仮rabbitクラス
 export let key=new keyDown()
 export let scaffolds:scaffold[]=new Array//足場配列を作成
 
@@ -42,11 +46,13 @@ function main(){//メインループ
     }
 
     var sampleArea:any=document.getElementById("sampleArea")
-    sampleArea.innerHTML="stylesheet:"+String(stylesheet)
+    sampleArea.innerHTML="rabbit_L:"+document.getElementById("rabbit_L")!.style.left
     var sampleArea:any=document.getElementById("sampleArea2")
-    sampleArea.innerHTML="Height:"+String(rabbit.y-scaffold.firstHeight)
+    sampleArea.innerHTML="rabbit_R:"+document.getElementById("rabbit_R")!.style.left
 
     rabbit.move()
+    rabbitEdge[0].load(-1)
+    rabbitEdge[1].load(1)
     for(let i:number=0;i<scaffolds.length;i++){
         scaffolds[i].scrole()
     }
