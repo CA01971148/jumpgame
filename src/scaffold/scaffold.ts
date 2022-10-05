@@ -1,4 +1,5 @@
 import {display} from "../index"
+import {stylesheet} from "../index"
 
 export abstract class scaffold{//初期足場
     protected _x:number=0//X座標
@@ -9,9 +10,12 @@ export abstract class scaffold{//初期足場
     protected _width:number=scaffold.defaultWidth//広さ
     public static readonly thickness:number=20//厚さ
     public static readonly scaffoldDistance:number=200//足場同士の上下幅
+    protected IDName:string//CSSで使うID用のフィールド
 
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         this.level=_level
+        this.IDName="scaffold"+String(this.level)//CSSで使うIDを「scaffold」+「階層番号」に設定
+        this.createCSSRule()//ID名でCSSルールを作成
         this.height=this.level*scaffold.scaffoldDistance//足場の位置する高さを"階層×足場同士の幅"として設定
         if(this.level===0){
             this.width=360
@@ -52,10 +56,15 @@ export abstract class scaffold{//初期足場
         this._height=height
     }
 
+    protected createCSSRule(){
+        const contents:string="#"+this.IDName+"{position: absolute;object-fit: cover;z-index: 1;top: 0px;left: 0px;width: 150px;height: 20px;}"
+        stylesheet.insertRule(contents,stylesheet.cssRules.length)//スタイルシートの末尾に変数contentsで設定した中身を追加
+    }
+
     public scrole(){
-        document.getElementById('scaffold')!.style.left=((this.x)+(display.clientWidth/2)-(this.width/2))+"px"//x座標設定
+        document.getElementById(this.IDName)!.style.left=((this.x)+(display.clientWidth/2)-(this.width/2))+"px"//x座標設定
         this.y=50+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level
-        document.getElementById('scaffold')!.style.top=(640-(this.y))+"px"//y座標設定 高さは"50+200*level"
+        document.getElementById(this.IDName)!.style.top=(640-(this.y))+"px"//y座標設定 高さは"50+200*level"
     }
 }
