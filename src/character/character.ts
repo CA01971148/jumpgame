@@ -77,7 +77,7 @@ export abstract class character{
         }
     }
 
-    move(){//慣性で移動する関数
+    public move(){//慣性で移動する関数
         this.x+=this.dx
 
         if((this.checkAboveScaffold())&&(this.height+this.dy<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
@@ -109,18 +109,18 @@ export abstract class character{
         this.isOnGround=this.checkOnGround()
     }
 
-    currentScaffold():scaffold{
+    protected currentScaffold():scaffold{
         return scaffolds[0]
         //return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]//今いる区間の足場
     }
-    checkAboveScaffold():boolean{//今の足場の範囲にいるかどうか(y座標は問わない)
+    protected checkAboveScaffold():boolean{//今の足場の範囲にいるかどうか(y座標は問わない)
         if(((this.x-this.footSize/2)<=(this.currentScaffold().width/2+this.currentScaffold().x))&&((this.x+this.footSize/2)>=(-this.currentScaffold().width/2+this.currentScaffold().x))){
             return true
         }else{
             return false
         }
     }
-    checkOnGround():boolean{//接地しているかどうか
+    protected checkOnGround():boolean{//接地しているかどうか
         if((this.height===this.currentScaffold().height)&&(this.checkAboveScaffold())){//「自分の高さが今いる区間の足場と同じ」かつ「自分のx座標が今いる区間の足場の範囲に入っている」場合
             return true
         }else{
@@ -128,13 +128,13 @@ export abstract class character{
         }
     }
 
-    moveLeft(){//左に移動する関数
+    public moveLeft(){//左に移動する関数
         if(this.isOnGround===false){
             this.dx-=this.moveVelocity
         }
         document.getElementById('character')!.style.transform="rotateY(0deg)"
     }
-    moveRight(){//右に移動する関数
+    public moveRight(){//右に移動する関数
         if(this.isOnGround===false){
             this.dx+=this.moveVelocity
         }
@@ -142,7 +142,7 @@ export abstract class character{
         document.getElementById('character')!.style.transform="rotateY(180deg)"
     }
 
-    jumpCharge(){//跳躍力を貯める関数
+    public jumpCharge(){//跳躍力を貯める関数
         this.jumpVelocity+=this.jumpChargeAmount
         /* 縮む処理 */
         const heightMin:number=10
@@ -154,7 +154,7 @@ export abstract class character{
         }
         document.getElementById('character')!.style.height=(this.heightSize)+"px"//ジャンプ前の踏ん張り縮み
     }
-    jump(){//跳躍力を解放してジャンプする関数
+    public jump(){//跳躍力を解放してジャンプする関数
         this.heightSize=this.characterSize
         if(this.isOnGround===true){
             this.dy+=this.jumpVelocity

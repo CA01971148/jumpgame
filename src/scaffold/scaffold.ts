@@ -52,7 +52,7 @@ export abstract class scaffold{//初期足場
         this._height=height
     }
 
-    scrole(){
+    public scrole(){
         document.getElementById('scaffold')!.style.left=((this.x)+(display.clientWidth/2)-(this.width/2))+"px"//x座標設定
         this.y=50+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level
