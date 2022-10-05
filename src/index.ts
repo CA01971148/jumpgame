@@ -5,6 +5,7 @@ import {keyDown} from "./other/keyDown/keyDown"
 
 export let display:any=document.getElementById('display');
 //let canvas:any=document.getElementById("myCanvas")
+export const stylesheets:CSSStyleSheet=document.styleSheets.item(0)
 
 export let rabbit=new characterRabbit()
 export let key=new keyDown()
@@ -32,7 +33,7 @@ function main(){//メインループ
     }
 
     var sampleArea:any=document.getElementById("sampleArea")
-    sampleArea.innerHTML="JumpPower:"+String(rabbit.jumpVelocity)+"/"+String(rabbit.jumpChargeMax)
+    sampleArea.innerHTML="stylesheets_number:"+String(stylesheets)
     var sampleArea:any=document.getElementById("sampleArea2")
     sampleArea.innerHTML="Height:"+String(rabbit.y-50)
 
