@@ -6,7 +6,7 @@ export abstract class character{
     readonly characterSize:number=50//キャラの大きさ
     readonly footSize:number=20//足の広さ
     protected _x:number=0//X座標
-    protected _y:number=50//y座標
+    protected _y:number=scaffold.firstHeight//y座標
     protected height:number=0//昇った高さ
     protected _dx:number=0//x方向の速度
     readonly moveVelocity:number=5//横移動加速量

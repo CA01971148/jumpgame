@@ -3,12 +3,11 @@ import {scaffold} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
 
+//let canvas:any=document.getElementById("myCanvas")
 export class canvas{
     public static readonly width:number=360
     public static readonly height:number=640
 }
-
-//let canvas:any=document.getElementById("myCanvas")
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)
 
 export let rabbit=new characterRabbit()
@@ -45,7 +44,7 @@ function main(){//メインループ
     var sampleArea:any=document.getElementById("sampleArea")
     sampleArea.innerHTML="stylesheet:"+String(stylesheet)
     var sampleArea:any=document.getElementById("sampleArea2")
-    sampleArea.innerHTML="Height:"+String(rabbit.y-50)
+    sampleArea.innerHTML="Height:"+String(rabbit.y-scaffold.firstHeight)
 
     rabbit.move()
     for(let i:number=0;i<scaffolds.length;i++){
