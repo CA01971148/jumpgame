@@ -110,8 +110,8 @@ export abstract class character{
     }
 
     protected currentScaffold():scaffold{
-        return scaffolds[0]
-        //return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]//今いる区間の足場
+        //return scaffolds[0]
+        return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]//今いる区間の足場
     }
     protected checkAboveScaffold():boolean{//今の足場の範囲にいるかどうか(y座標は問わない)
         if(((this.x-this.footSize/2)<=(this.currentScaffold().width/2+this.currentScaffold().x))&&((this.x+this.footSize/2)>=(-this.currentScaffold().width/2+this.currentScaffold().x))){

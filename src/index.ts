@@ -10,7 +10,10 @@ export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)
 export let rabbit=new characterRabbit()
 export let key=new keyDown()
 export let scaffolds:scaffold[]=new Array//足場配列を作成
+
 scaffolds[0]=new normalScaffold(0)//初期足場を作成
+scaffolds[1]=new normalScaffold(1,(Math.random()*360))
+
 requestAnimationFrame(main)//メインループ、起動
 
 function main(){//メインループ

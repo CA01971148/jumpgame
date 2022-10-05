@@ -22,7 +22,7 @@ export abstract class scaffold{//初期足場
             this.x=0
         }else{
             this.width=_width
-            this.x=Math.random()//作りかけ
+            this.x=Math.random()*-(360-this.width)+(360-this.width)/2//作りかけ
             /* 0階層目(初期足場)以外のとき、ランダムなx座標に設定するプログラムを後でここらへんに書く */
         }
     }
