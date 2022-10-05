@@ -8,16 +8,21 @@ body{
 }
 
 canvas{
+    position: absolute;
     background-color: navy;
     background-image: url("./../resource/background.jpg");
     display: block;
     margin: 0 auto;
+    opacity: 1;
 }
 
-/* #box{
-    overflow: hidden;
-    transform: translate3d(0,0,0);
-} */
+.trim{
+    position: relative;
+    margin: 0 auto;
+/*     overflow: hidden; */
+    width: 360px;
+    height: 640px;
+}
 
 #character{
     position: absolute;
