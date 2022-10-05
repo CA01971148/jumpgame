@@ -1,5 +1,6 @@
 import {scaffolds} from "../index"
 import {scaffold} from "../scaffold/scaffold"
+import {canvas} from "../index"
 
 export abstract class character{
     readonly characterSize:number=50//キャラの大きさ
@@ -29,10 +30,10 @@ export abstract class character{
         return this._x
     }
     set x(x:number){
-        if(x<-360/2){
-            this._x=360/2
-        }else if(x>360/2){
-            this._x=-360/2
+        if(x<-canvas.width/2){
+            this._x=canvas.width/2
+        }else if(x>canvas.width/2){
+            this._x=-canvas.width/2
         }else{
             this._x=x
         }
@@ -103,8 +104,8 @@ export abstract class character{
             }
         }
 
-        document.getElementById('character')!.style.left=((this.x)+(360/2)-(this.characterSize/2))+"px"
-        document.getElementById('character')!.style.top=(640-(this.y+(this.heightSize)))+"px"
+        document.getElementById('character')!.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"
+        document.getElementById('character')!.style.top=(canvas.height-(this.y+(this.heightSize)))+"px"
         this.isOnGround=this.checkOnGround()
     }
 

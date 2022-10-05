@@ -3,6 +3,11 @@ import {scaffold} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
 
+export class canvas{
+    public static readonly width:number=360
+    public static readonly height:number=640
+}
+
 //let canvas:any=document.getElementById("myCanvas")
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)
 
