@@ -38,7 +38,7 @@ export abstract class scaffold{//初期足場
     get y():number{
         return this._y
     }
-    protected set y(y:number){
+    set y(y:number){
         this._y=y
     }
 
