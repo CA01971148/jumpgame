@@ -19,7 +19,7 @@ canvas{
 .trim{
     position: relative;
     margin: 0 auto;
-/*     overflow: hidden; */
+    overflow: hidden;
     width: 360px;
     height: 640px;
 }

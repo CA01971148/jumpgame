@@ -1,5 +1,4 @@
 import {scaffolds} from "../index"
-import {display} from "../index"
 import {scaffold} from "../scaffold/scaffold"
 
 export abstract class character{
@@ -104,7 +103,7 @@ export abstract class character{
             }
         }
 
-        document.getElementById('character')!.style.left=((this.x)+(display.clientWidth/2)-(this.characterSize/2))+"px"
+        document.getElementById('character')!.style.left=((this.x)+(360/2)-(this.characterSize/2))+"px"
         document.getElementById('character')!.style.top=(640-(this.y+(this.heightSize)))+"px"
         this.isOnGround=this.checkOnGround()
     }
