@@ -26,6 +26,8 @@ export abstract class scaffold{//初期足場
             this.x=Math.random()*-(canvas.width-this.width)+(canvas.width-this.width)/2//作りかけ
             /* 0階層目(初期足場)以外のとき、ランダムなx座標に設定するプログラムを後でここらへんに書く */
         }
+        this.y=scaffold.firstHeight+scaffold.scaffoldDistance*this.level
+        this.height=scaffold.scaffoldDistance*this.level
     }
 
     /* getter/setter */
@@ -64,8 +66,6 @@ export abstract class scaffold{//初期足場
 
     public scrole(){
         document.getElementById(this.IDName)!.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
-        this.y=scaffold.firstHeight+scaffold.scaffoldDistance*this.level
-        this.height=scaffold.scaffoldDistance*this.level
         document.getElementById(this.IDName)!.style.top=(canvas.height-(this.y))+"px"//y座標設定 高さは"50+200*level"
     }
 }
