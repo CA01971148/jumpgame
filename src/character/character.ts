@@ -1,12 +1,12 @@
 import {scaffolds} from "../index"
-import {display} from "../index"
 import {scaffold} from "../scaffold/scaffold"
+import {canvas} from "../index"
 
 export abstract class character{
     readonly characterSize:number=50//キャラの大きさ
     readonly footSize:number=20//足の広さ
     protected _x:number=0//X座標
-    protected _y:number=50//y座標
+    protected _y:number=scaffold.firstHeight//y座標
     protected height:number=0//昇った高さ
     protected _dx:number=0//x方向の速度
     readonly moveVelocity:number=5//横移動加速量
@@ -30,10 +30,10 @@ export abstract class character{
         return this._x
     }
     set x(x:number){
-        if(x<-360/2){
-            this._x=360/2
-        }else if(x>360/2){
-            this._x=-360/2
+        if(x<-canvas.width/2){
+            this._x=canvas.width/2
+        }else if(x>canvas.width/2){
+            this._x=-canvas.width/2
         }else{
             this._x=x
         }
@@ -107,8 +107,8 @@ export abstract class character{
             }
         }
 
-        document.getElementById('character')!.style.left=((this.x)+(display.clientWidth/2)-(this.characterSize/2))+"px"
-        document.getElementById('character')!.style.top=(640-(this.y+(this.heightSize)))+"px"
+        document.getElementById('character')!.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"
+        document.getElementById('character')!.style.top=(canvas.height-(this.y+(this.heightSize)))+"px"
         this.isOnGround=this.checkOnGround()
     }
 

@@ -1,7 +1,8 @@
-import {display} from "../index"
 import {stylesheet} from "../index"
+import {canvas} from "../index"
 
 export abstract class scaffold{//初期足場
+    public static readonly firstHeight:number=50//初期足場がどれだけ浮いているか
     protected _x:number=0//X座標
     protected _y:number=0//y座標
     protected _height:number=0//足場の位置する高さ
@@ -18,11 +19,11 @@ export abstract class scaffold{//初期足場
         this.createCSSRule()//ID名でCSSルールを作成
         this.height=this.level*scaffold.scaffoldDistance//足場の位置する高さを"階層×足場同士の幅"として設定
         if(this.level===0){
-            this.width=360
+            this.width=canvas.width
             this.x=0
         }else{
             this.width=_width
-            this.x=Math.random()*-(360-this.width)+(360-this.width)/2//作りかけ
+            this.x=Math.random()*-(canvas.width-this.width)+(canvas.width-this.width)/2//作りかけ
             /* 0階層目(初期足場)以外のとき、ランダムなx座標に設定するプログラムを後でここらへんに書く */
         }
     }
@@ -62,9 +63,9 @@ export abstract class scaffold{//初期足場
     }
 
     public scrole(){
-        document.getElementById(this.IDName)!.style.left=((this.x)+(display.clientWidth/2)-(this.width/2))+"px"//x座標設定
-        this.y=50+scaffold.scaffoldDistance*this.level
+        document.getElementById(this.IDName)!.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
+        this.y=scaffold.firstHeight+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level
-        document.getElementById(this.IDName)!.style.top=(640-(this.y))+"px"//y座標設定 高さは"50+200*level"
+        document.getElementById(this.IDName)!.style.top=(canvas.height-(this.y))+"px"//y座標設定 高さは"50+200*level"
     }
 }
