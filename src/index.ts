@@ -49,7 +49,7 @@ function main(){//メインループ
     var sampleArea:any=document.getElementById("sampleArea")
     sampleArea.innerHTML="rabbit.y:"+String(rabbit.y)
     var sampleArea:any=document.getElementById("sampleArea2")
-    sampleArea.innerHTML="rabbit.dy:"+String(rabbit.dy)
+    sampleArea.innerHTML="rabbit.height:"+String(rabbit.height)
 
     /* 画面更新用処理 */
     rabbit.move()
