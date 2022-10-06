@@ -47,9 +47,9 @@ function main(){//メインループ
 
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
     var sampleArea:any=document.getElementById("sampleArea")
-    sampleArea.innerHTML="rabbit_L:"+document.getElementById("rabbit_L")!.style.left
+    sampleArea.innerHTML="rabbit.y:"+String(rabbit.y)
     var sampleArea:any=document.getElementById("sampleArea2")
-    sampleArea.innerHTML="rabbit_R:"+document.getElementById("rabbit_R")!.style.left
+    sampleArea.innerHTML="rabbit.dy:"+String(rabbit.dy)
 
     /* 画面更新用処理 */
     rabbit.move()

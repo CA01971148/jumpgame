@@ -88,11 +88,18 @@ export abstract class character{
         this.x+=this.dx
 
         if((this.checkAboveScaffold())&&(this.height+this.dy<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
+/*             const sa:number=this.y-this.currentScaffold().y
+            for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場をスクロール
+                scaffolds[i].y-=sa
+            }
             this.y=this.currentScaffold().y
-            this.height=this.currentScaffold().height
+            this.height=this.currentScaffold().height */
         }else{
             this.y+=this.dy
             this.height+=this.dy
+            for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場をスクロール
+                scaffolds[i].y-=this.dy
+            }
         }
 
         if(this.isOnGround===false){//空中にいるとき、落ちる
