@@ -58,7 +58,7 @@ export abstract class scaffold{//初期足場
     }
 
     protected createCSSRule(){
-        const contents:string="#"+this.IDName+"{position: absolute;object-fit: cover;z-index: 1;top: 0px;left: 0px;width: 150px;height: 20px;}"
+        const contents:string="#"+this.IDName+"{position: absolute;object-fit: none;z-index: 1;top: 0px;left: 0px;width: 150px;height: 20px;}"
         stylesheet.insertRule(contents,stylesheet.cssRules.length)//スタイルシートの末尾に変数contentsで設定した中身を追加
     }
 
