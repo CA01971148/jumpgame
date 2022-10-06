@@ -44,9 +44,6 @@ export abstract class character{
     }
     set y(y:number){
         this._y=y
-        for (let i:number=0;i<scaffolds.length;i++){
-            scaffolds[i].y-=y
-        }
     }
 
     get height():number{
