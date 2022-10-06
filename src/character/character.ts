@@ -7,7 +7,7 @@ export abstract class character{
     readonly footSize:number=20//足の広さ
     protected _x:number=0//X座標
     protected _y:number=scaffold.firstHeight//y座標
-    protected height:number=0//昇った高さ
+    protected _height:number=0//昇った高さ
     protected _dx:number=0//x方向の速度
     readonly moveVelocity:number=5//横移動加速量
     readonly dxMax:number=10//最大横加速量
@@ -44,6 +44,13 @@ export abstract class character{
     }
     set y(y:number){
         this._y=y
+    }
+
+    get height():number{
+        return this._height
+    }
+    protected set height(height:number){
+        this._height=height
     }
 
     get dx():number{
