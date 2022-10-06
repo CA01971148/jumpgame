@@ -57,12 +57,12 @@ export abstract class scaffold{//初期足場
         this._height=height
     }
 
-    protected createCSSRule(){
+    protected createCSSRule(){//足場それぞれにCSSルールを作成
         const contents:string="#"+this.IDName+"{position: absolute;object-fit: none;z-index: 1;top: 0px;left: 0px;width: 150px;height: 20px;}"
         stylesheet.insertRule(contents,stylesheet.cssRules.length)//スタイルシートの末尾に変数contentsで設定した中身を追加
     }
 
-    public scrole(){
+    public scrole(){//画面更新用処理
         document.getElementById(this.IDName)!.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
         this.y=scaffold.firstHeight+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level

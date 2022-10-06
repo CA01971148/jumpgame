@@ -111,16 +111,15 @@ export abstract class character{
             }
         }
 
-        document.getElementById('character')!.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"
-        document.getElementById('character')!.style.top=(canvas.height-(this.y+(this.heightSize)))+"px"
-        this.isOnGround=this.checkOnGround()
+        document.getElementById('character')!.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"//x座標を更新
+        document.getElementById('character')!.style.top=(canvas.height-(this.y+(this.heightSize)))+"px"//y座標を更新
+        this.isOnGround=this.checkOnGround()//接地しているかどうかを判断し、変数に代入
     }
 
-    protected currentScaffold():scaffold{
-        //return scaffolds[0]
-        return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]//今いる区間の足場
+    protected currentScaffold():scaffold{//今いる区間の足場を算出するメソッド
+        return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]
     }
-    protected checkAboveScaffold():boolean{//今の足場の範囲にいるかどうか(y座標は問わない)
+    protected checkAboveScaffold():boolean{//今いる区間の足場の上にいるかどうか(接地しているかどうかは問わない)
         if(((this.x-this.footSize/2)<=(this.currentScaffold().width/2+this.currentScaffold().x))&&((this.x+this.footSize/2)>=(-this.currentScaffold().width/2+this.currentScaffold().x))){
             return true
         }else{
@@ -128,7 +127,7 @@ export abstract class character{
         }
     }
     protected checkOnGround():boolean{//接地しているかどうか
-        if((this.height===this.currentScaffold().height)&&(this.checkAboveScaffold())){//「自分の高さが今いる区間の足場と同じ」かつ「自分のx座標が今いる区間の足場の範囲に入っている」場合
+        if((this.height===this.currentScaffold().height)&&(this.checkAboveScaffold())){//「自分の高さが、今いる区間の足場と同じ」かつ「自分のx座標が、今いる区間の足場の範囲に入っている」場合
             return true
         }else{
             return false
@@ -139,18 +138,18 @@ export abstract class character{
         if(this.isOnGround===false){
             this.dx-=this.moveVelocity
         }
-        document.getElementById('character')!.style.transform="rotateY(0deg)"
+        document.getElementById('character')!.style.transform="rotateY(0deg)"//左を向く
     }
     public moveRight(){//右に移動する関数
         if(this.isOnGround===false){
             this.dx+=this.moveVelocity
         }
 
-        document.getElementById('character')!.style.transform="rotateY(180deg)"
+        document.getElementById('character')!.style.transform="rotateY(180deg)"//右を向く
     }
 
     public jumpCharge(){//跳躍力を貯める関数
-        this.jumpVelocity+=this.jumpChargeAmount
+        this.jumpVelocity+=this.jumpChargeAmount//跳躍力を貯める
         /* 縮む処理 */
         const heightMin:number=10
         const shrunkenSize:number=this.characterSize*((this.jumpChargeMax-this.jumpVelocity)/this.jumpChargeMax)
@@ -162,11 +161,11 @@ export abstract class character{
         document.getElementById('character')!.style.height=(this.heightSize)+"px"//ジャンプ前の踏ん張り縮み
     }
     public jump(){//跳躍力を解放してジャンプする関数
-        this.heightSize=this.characterSize
-        if(this.isOnGround===true){
+        this.heightSize=this.characterSize//縮みを戻す
+        document.getElementById('character')!.style.height=this.characterSize+"px"//踏ん張り縮み解放
+        if(this.isOnGround===true){//接地しているなら、跳躍力を解放
             this.dy+=this.jumpVelocity
         }
         this.jumpVelocity=0
-        document.getElementById('character')!.style.height=this.characterSize+"px"//踏ん張り縮み解放
     }
 }

@@ -1,6 +1,8 @@
 import {character} from "./character"
 import {rabbit,stylesheet,canvas} from "../index"
 
+/* メインのrabbitの右側と左側に幻影のrabbit(当たり判定等を持たない)を作成し、
+rabbitが画面端にいるとき、もう片方の画面端からもrabbitが見えるようにするためのクラス */
 export class characterRabbitEdge extends character{
     private IDname:string
 
@@ -11,7 +13,7 @@ export class characterRabbitEdge extends character{
         document.write('<img id="'+this.IDname+'" src="./../resource/rabbit.png">')//キャラ出現
     }
 
-    private createCSSRule(){
+    private createCSSRule(){//CSSルールを作成
         const contents:string="#"+this.IDname+"{position: absolute;z-index: 2;top: 0px;left: 0px;transform: rotateY(0deg);filter: saturate(1);width: 50px;height: 50px;}"
         stylesheet.insertRule(contents,stylesheet.cssRules.length)//スタイルシートの末尾に変数contentsで設定した中身を追加
     }

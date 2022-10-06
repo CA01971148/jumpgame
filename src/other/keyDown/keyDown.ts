@@ -1,7 +1,7 @@
 import {key} from "../../index"
 import {rabbit} from "../../index"
 
-export class keyDown{//キーが押されているかどうか
+export class keyDown{//キーが押されているかどうか判断するためのクラス
     key_left:boolean=false//左移動キーが押されているかどうか
     key_right:boolean=false//右移動キーが押されているかどうか
     key_jump:boolean=false//ジャンプキーが押されているかどうか
@@ -35,7 +35,7 @@ export class keyDown{//キーが押されているかどうか
             case 32://「Space」キーが離されたとき
                 this.key_jump=false
                 key.key_jump=this.key_jump
-                rabbit.jump()
+                rabbit.jump()//Spaceキーが離されたとき、rabbitの跳躍力を解放
                 break
             }
     }
