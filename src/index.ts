@@ -7,6 +7,10 @@ import {keyDown} from "./other/keyDown/keyDown"
 export const canvas:HTMLCanvasElement=<HTMLCanvasElement>document.getElementById("myCanvas")//canvasを取得
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)//CSSを読み込むための宣言
 
+const sampleArea:HTMLElement=document.getElementById("sampleArea")
+const sampleArea2:HTMLElement=document.getElementById("sampleArea2")
+const showScore:HTMLElement=document.getElementById("showScore")
+
 export let rabbit=new characterRabbit()//rabbitクラス
 export let rabbitEdge:characterRabbitEdge[]=new Array//rabbitが画面端にいるとき、もう片方の画面端にもrabbitを映すためのクラスを格納するための配列
 rabbitEdge[0]=new characterRabbitEdge("rabbit_L")//左端処理用rabbitクラス(見た目上のもの)
@@ -42,10 +46,10 @@ function main(){//メインループ
     }
 
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    var sampleArea:any=document.getElementById("sampleArea")
+
     sampleArea.innerHTML="rabbit.y:"+String(rabbit.y)
-    var sampleArea:any=document.getElementById("sampleArea2")
-    sampleArea.innerHTML="rabbit.height:"+String(rabbit.height)
+    sampleArea2.innerHTML="rabbit.height:"+String(rabbit.height)
+    showScore.innerHTML="score:"+String(rabbit.height)
 
     /* 画面更新用処理 */
     rabbit.move()
