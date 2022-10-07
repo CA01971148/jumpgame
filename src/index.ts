@@ -4,11 +4,7 @@ import {scaffold} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
 
-//let canvas:any=document.getElementById("myCanvas")
-export class canvas{//getElementByIdでcanvasを読み込めなかったので、とりあえずcanvas.width等が使えるようにクラスとしてcanvas/width等を宣言
-    public static readonly width:number=360
-    public static readonly height:number=640
-}
+export const canvas:HTMLCanvasElement=<HTMLCanvasElement>document.getElementById("myCanvas")//canvasを取得
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)//CSSを読み込むための宣言
 
 export let rabbit=new characterRabbit()//rabbitクラス
