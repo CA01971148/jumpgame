@@ -1,4 +1,4 @@
-import {scaffolds} from "../index"
+import {playerCamera, scaffolds} from "../index"
 import {scaffold} from "../scaffold/scaffold"
 import {canvas} from "../index"
 
@@ -14,9 +14,9 @@ export abstract class character{
     protected _dy:number=0//y方向の速度
     readonly dyMax:number=10//最大縦加速量
     protected _jumpVelocity:number=0//ジャンプ速度
-    readonly jumpChargeAmount:number=1//跳躍力の貯めやすさ
-    readonly jumpChargeMax:number=25//跳躍力の貯め限界
-    readonly fallVelocitiy:number=1//落下速度
+    readonly jumpChargeAmount:number=0.5//跳躍力の貯めやすさ
+    readonly jumpChargeMax:number=15//跳躍力の貯め限界
+    readonly fallVelocitiy:number=0.5//落下速度
     isOnGround:boolean=true//接地しているかどうか
     protected isSlip:boolean=false//滑るかどうか
     protected isCarry:boolean=false//動かされているかどうか
@@ -87,19 +87,12 @@ export abstract class character{
     public move(){//慣性で移動する関数
         this.x+=this.dx
 
-        if((this.checkAboveScaffold())&&(this.height+this.dy<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
-            this.y=this.currentScaffold().y
+        if((this.checkAboveScaffold())&&(this.height+(this.dy*2)<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
+            this.y=this.currentScaffold().y-playerCamera.y
             this.height=this.currentScaffold().height
-            const sa:number=(this.currentScaffold().y-this.y)
-/*             for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場をスクロール
-                scaffolds[i].y+=sa
-            } */
         }else{
             this.y+=this.dy
-            this.height+=this.dy
-/*             for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場をスクロール
-                scaffolds[i].y-=this.dy
-            } */
+            this.height+=this.dy*2//キャラが動いた分スクロールするので見た目上は2倍跳ぶ
         }
 
         if(this.isOnGround===false){//空中にいるとき、落ちる
@@ -123,7 +116,7 @@ export abstract class character{
         this.isOnGround=this.checkOnGround()//接地しているかどうかを判断し、変数に代入
     }
 
-    protected currentScaffold():scaffold{//今いる区間の足場を算出するメソッド
+    public currentScaffold():scaffold{//今いる区間の足場を算出するメソッド
         return scaffolds[Math.floor(this.height/scaffold.scaffoldDistance)]
     }
     protected checkAboveScaffold():boolean{//今いる区間の足場の上にいるかどうか(接地しているかどうかは問わない)

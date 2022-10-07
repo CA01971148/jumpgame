@@ -1,4 +1,4 @@
-import {stylesheet} from "../index"
+import {playerCamera, stylesheet} from "../index"
 import {canvas} from "../index"
 
 export abstract class scaffold{//初期足場
@@ -6,11 +6,11 @@ export abstract class scaffold{//初期足場
     protected _x:number=0//X座標
     protected _y:number=0//y座標
     protected _height:number=0//足場の位置する高さ
-    protected level:number//階層(一番下の初期足場は0階層目)
+    public level:number//階層(一番下の初期足場は0階層目)
     public static readonly defaultWidth:number=150//基本の足場広さ
     protected _width:number=scaffold.defaultWidth//広さ
     public static readonly thickness:number=20//厚さ
-    public static readonly scaffoldDistance:number=200//足場同士の上下幅
+    public static readonly scaffoldDistance:number=400//足場同士の上下幅
     protected IDName:string//CSSで使うID用のフィールド
 
     constructor(_level:number,_width:number=scaffold.defaultWidth){
@@ -66,6 +66,6 @@ export abstract class scaffold{//初期足場
 
     public scrole(){//画面更新用処理
         document.getElementById(this.IDName)!.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
-        document.getElementById(this.IDName)!.style.top=(canvas.height-(this.y))+"px"//y座標設定 高さは"50+200*level"
+        document.getElementById(this.IDName)!.style.top=(canvas.height-(this.y-playerCamera.y))+"px"//y座標設定 高さは"50+200*level"
     }
 }

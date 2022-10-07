@@ -3,6 +3,7 @@ import {characterRabbitEdge} from "./character/characterRabbitEdge"
 import {scaffold} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
+import {camera} from "./other/camera/camera"
 
 export const canvas:HTMLCanvasElement=<HTMLCanvasElement>document.getElementById("myCanvas")//canvasを取得
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)//CSSを読み込むための宣言
@@ -16,10 +17,11 @@ export let rabbitEdge:characterRabbitEdge[]=new Array//rabbitが画面端にい�
 rabbitEdge[0]=new characterRabbitEdge("rabbit_L")//左端処理用rabbitクラス(見た目上のもの)
 rabbitEdge[1]=new characterRabbitEdge("rabbit_R")//右端処理用rabbitクラス(見た目上のもの)
 export let key=new keyDown()//キーボードが押されたかどうか判断するクラス
+export let playerCamera=new camera()
 export let scaffolds:scaffold[]=new Array//足場配列を作成
 
 scaffolds[0]=new normalScaffold(0)//初期足場を作成
-const maxLevel:number=4//仮変数 いつか消す
+const maxLevel:number=10//仮変数 いつか消す
 for(let i:number=1;i<maxLevel;i++){//足場配列に新しい足場を追加していく
     scaffolds[i]=new normalScaffold(i,(Math.random()*100+50))
 }
@@ -47,12 +49,13 @@ function main(){//メインループ
 
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
 
-    sampleArea.innerHTML="rabbit.y:"+String(rabbit.y)
-    sampleArea2.innerHTML="rabbit.height:"+String(rabbit.height)
+    sampleArea.innerHTML="(rabbit.currentScaffold().y-playerCamera.y):"+String(rabbit.currentScaffold().y-playerCamera.y)
+    sampleArea2.innerHTML="rabbit.currentScaffold().y:"+String(rabbit.currentScaffold().y)
     showScore.innerHTML="score:"+String(rabbit.height)
 
     /* 画面更新用処理 */
     rabbit.move()
+    playerCamera.y=rabbit.height
     rabbitEdge[0].load(-1)
     rabbitEdge[1].load(1)
     for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場を更新
