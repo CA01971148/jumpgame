@@ -23,8 +23,7 @@ export abstract class scaffold{//初期足場
             this.x=0
         }else{
             this.width=_width
-            this.x=Math.random()*-(canvas.width-this.width)+(canvas.width-this.width)/2//作りかけ
-            /* 0階層目(初期足場)以外のとき、ランダムなx座標に設定するプログラムを後でここらへんに書く */
+            this.x=Math.random()*-(canvas.width-this.width)+(canvas.width-this.width)/2
         }
         this.y=scaffold.firstHeight+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level
