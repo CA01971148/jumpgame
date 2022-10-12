@@ -51,11 +51,11 @@ function main(){//メインループ
 
     sampleArea.innerHTML="rabbit.height:"+String(Math.floor(rabbit.height))+" currentScaffold().height:"+Math.floor(rabbit.currentScaffold().height)
     sampleArea2.innerHTML="rabbit.y:"+String(Math.floor(rabbit.y))+" "+"rabbit.dy:"+String(Math.floor(rabbit.dy))+" (currentScaffold().y-playerCamera.y):"+String(Math.floor(rabbit.currentScaffold().y-playerCamera.y))
-    showScore.innerHTML="score:"+String(rabbit.height)
+    showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 
     /* 画面更新用処理 */
     rabbit.move()
-    playerCamera.y=rabbit.height
+    playerCamera.y=rabbit.height-100
     //playerCamera.y=0
     rabbitEdge[0].load(-1)
     rabbitEdge[1].load(1)
