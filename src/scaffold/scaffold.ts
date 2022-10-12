@@ -1,8 +1,6 @@
 import {playerCamera, stylesheet} from "../index"
 import {canvas} from "../index"
 
-export type scaffoldsType="normal"|"slip"|"carry"|"moving"
-
 export abstract class scaffold{//初期足場
     public static readonly firstHeight:number=50//初期足場がどれだけ浮いているか
     protected _x:number=0//X座標
@@ -18,7 +16,7 @@ export abstract class scaffold{//初期足場
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         this.level=_level
         this.IDName="scaffold"+String(this.level)//CSSで使うIDを「scaffold」+「階層番号」に設定
-        this.createCSSRule()//ID名でCSSルールを作成
+        this.createCSSRule(this.IDName)//ID名でCSSルールを作成
         this.height=this.level*scaffold.scaffoldDistance//足場の位置する高さを"階層×足場同士の幅"として設定
         if(this.level===0){
             this.width=canvas.width
@@ -61,8 +59,8 @@ export abstract class scaffold{//初期足場
         this._height=height
     }
 
-    protected createCSSRule(){//足場それぞれにCSSルールを作成
-        const contents:string="#"+this.IDName+"{position: absolute;object-fit: none;z-index: 1;top: 0px;left: 0px;width: 150px;height: 20px;}"
+    protected createCSSRule(idName:string){//足場それぞれにCSSルールを作成
+        const contents:string="#"+idName+"{position: absolute;object-fit: none;z-index: 1;top: 0px;left: 0px;width: 150px;height: 20px;}"
         stylesheet.insertRule(contents,stylesheet.cssRules.length)//スタイルシートの末尾に変数contentsで設定した中身を追加
     }
 

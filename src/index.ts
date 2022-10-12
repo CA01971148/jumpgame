@@ -1,6 +1,6 @@
 import {characterRabbit} from "./character/characterRabbit"
 import {characterRabbitEdge} from "./character/characterRabbitEdge"
-import {scaffold,scaffoldsType} from "./scaffold/scaffold"
+import {scaffold} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {slipScaffold} from "./scaffold/slipScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
@@ -23,7 +23,7 @@ export let scaffolds:scaffold[]=new Array//足場配列を作成
 
 scaffolds[0]=new normalScaffold(0)//初期足場を作成
 /* 足場の種類を重み付き抽選するための箱を作成 */
-
+type scaffoldsType="normal"|"slip"|"carry"|"moving"
 let lotteryBox:scaffoldsType[]=new Array
 for(let i:number=0;i<1;i++){
     lotteryBox.push("normal")
@@ -41,7 +41,7 @@ for(let i:number=1;i<maxLevel;i++){//足場配列に新しい足場を追加し�
             a+="無"
             break
         case "slip":
-            scaffolds[i]=new slipScaffold(i,(Math.random()*100+50))
+            scaffolds[i]=new slipScaffold(i,canvas.width-30)
             a+="氷"
             break
         default:
