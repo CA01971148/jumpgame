@@ -1,7 +1,8 @@
 import {playerCamera, scaffolds} from "../index"
 import {scaffold} from "../scaffold/scaffold"
+import {normalScaffold} from "../scaffold/normalScaffold"
+import {slipScaffold} from "../scaffold/slipScaffold"
 import {canvas} from "../index"
-import { camera } from "../other/camera/camera"
 
 export abstract class character{
     readonly characterSize:number=50//キャラの大きさ
@@ -20,7 +21,7 @@ export abstract class character{
     readonly jumpChargeMax:number=18//跳躍力の貯め限界
     readonly fallVelocitiy:number=0.5//落下速度
     isOnGround:boolean=true//接地しているかどうか
-    protected isSlip:boolean=true//滑るかどうか
+    protected isSlip:boolean=false//滑るかどうか
     readonly slipperiness:number=0.99//滑りやすさ
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
@@ -126,7 +127,11 @@ export abstract class character{
     }
     protected getStates(){//状態更新
         this.isOnGround=this.checkOnGround()//接地しているかどうかを判断し、変数に代入
-        
+        if(this.currentScaffold() instanceof slipScaffold){//氷の床の上にいるかどうか
+            this.isSlip=true
+        }else{
+            this.isSlip=false
+        }
     }
 
     public currentScaffold():scaffold{//今いる区間の足場を算出するメソッド
