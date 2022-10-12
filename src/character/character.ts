@@ -88,23 +88,14 @@ export abstract class character{
     }
 
     public move(){//慣性で移動する関数
+        this.moveX()
+        this.moveY()
+        this.updateImages()
+        this.getStates()
+    }
+    protected moveX(){//x軸移動
         this.x+=this.dx
-
-        if((this.checkAboveScaffold())&&(this.height+(this.dy)<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
-            this.y=this.currentScaffold().y
-            this.height=this.currentScaffold().height
-        }else{
-            this.y+=this.dy
-            this.height+=this.dy
-        }
-
-        if(this.isOnGround===false){//空中にいるとき、落ちる
-            this.dy-=this.fallVelocitiy
-        }else if(this.dy<0){//地上にいるとき、落ちない
-            this.dy=0
-        }
-
-        if(this.isOnGround===true){//滑るときの処理
+        if(this.isOnGround===true){//減速処理
             if(this.isSlip===true){
                 this.dx*=this.slipperiness//氷の床にいるとき、滑る
             }else{
@@ -113,10 +104,29 @@ export abstract class character{
         }else{
             this.dx*=this.deceleration//空中にいるとき、減速する
         }
+    }
+    protected moveY(){//y軸移動
+        if(this.isOnGround===false){//空中にいるとき、落ちる
+            this.dy-=this.fallVelocitiy
+        }else if(this.dy<0){//地上にいるとき、落ちない
+            this.dy=0
+        }
 
+        if((this.checkAboveScaffold())&&(this.height+(this.dy)<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
+            this.y=this.currentScaffold().y
+            this.height=this.currentScaffold().height
+        }else{
+            this.y+=this.dy
+            this.height+=this.dy
+        }
+    }
+    protected updateImages(){//画像の位置更新
         document.getElementById('character')!.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"//x座標を更新
         document.getElementById('character')!.style.top=(canvas.height-((this.y+this.heightSize)-playerCamera.y))+"px"//y座標を更新
+    }
+    protected getStates(){//状態更新
         this.isOnGround=this.checkOnGround()//接地しているかどうかを判断し、変数に代入
+        
     }
 
     public currentScaffold():scaffold{//今いる区間の足場を算出するメソッド
