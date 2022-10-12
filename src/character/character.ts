@@ -15,7 +15,7 @@ export abstract class character{
     protected _dy:number=0//y方向の速度
     readonly dyMax:number=10//最大縦加速量
     protected _jumpVelocity:number=0//ジャンプ速度
-    readonly jumpChargeAmount:number=1//跳躍力の貯めやすさ
+    readonly jumpChargeAmount:number=0.7//跳躍力の貯めやすさ
     readonly jumpChargeMax:number=18//跳躍力の貯め限界
     readonly fallVelocitiy:number=0.5//落下速度
     isOnGround:boolean=true//接地しているかどうか
