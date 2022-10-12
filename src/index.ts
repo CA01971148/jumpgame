@@ -25,10 +25,10 @@ scaffolds[0]=new normalScaffold(0)//初期足場を作成
 /* 足場の種類を重み付き抽選するための箱を作成 */
 type scaffoldsType="normal"|"slip"|"carry"|"moving"
 let lotteryBox:scaffoldsType[]=new Array
-for(let i:number=0;i<4;i++){
+for(let i:number=0;i<1;i++){
     lotteryBox.push("normal")
 }
-for(let i:number=0;i<4;i++){
+for(let i:number=0;i<1;i++){
     lotteryBox.push("slip")
 }
 /* 足場を作成 */
@@ -68,8 +68,17 @@ function main(){//メインループ
     }
 
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    sampleArea.innerHTML="rabbit.height:"+String(Math.floor(rabbit.height))+" currentScaffold().height:"+Math.floor(rabbit.currentScaffold().height)
-    sampleArea2.innerHTML="this.currentScaffold() instanceof slipScaffold:"+String(rabbit.currentScaffold() instanceof slipScaffold)
+    sampleArea.innerHTML="this.currentScaffold() instanceof slipScaffold:"+String(rabbit.currentScaffold() instanceof slipScaffold)
+    sampleArea2.innerHTML=""
+    for(let i:number=0;i<maxLevel;i++){
+        var type:scaffoldsType
+        if(scaffolds[i] instanceof normalScaffold){
+            type="normal"
+        }else if(scaffolds[i] instanceof slipScaffold){
+            type="slip"
+        }
+        sampleArea2.innerHTML+="scaffolds["+i+"]:"+type+"Scaffold"+"\n"
+    }
     showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 
     /* 画面更新用処理 */
