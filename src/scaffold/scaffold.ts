@@ -23,7 +23,7 @@ export abstract class scaffold{//初期足場
             this.x=0
         }else{
             this.width=_width
-            this.x=Math.random()*-(canvas.width-this.width)+(canvas.width-this.width)/2
+            this.x=Math.random()*-(canvas.width-this.width)+(canvas.width-this.width)/2//画面内に足場が収まるようにx座標をランダムに設定
         }
         this.y=scaffold.firstHeight+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level
