@@ -10,8 +10,9 @@ export abstract class character{
     protected _y:number=scaffold.firstHeight//y座標
     protected _height:number=0//昇った高さ
     protected _dx:number=0//x方向の速度
-    readonly moveVelocity:number=5//横移動加速量
-    readonly dxMax:number=10//最大横加速量
+    readonly moveVelocity:number=1//横移動加速量
+    readonly dxMax:number=5//最大横加速量
+    readonly deceleration:number=0.9//横移動減速率
     protected _dy:number=0//y方向の速度
     readonly dyMax:number=10//最大縦加速量
     protected _jumpVelocity:number=0//ジャンプ速度
@@ -20,6 +21,7 @@ export abstract class character{
     readonly fallVelocitiy:number=0.5//落下速度
     isOnGround:boolean=true//接地しているかどうか
     protected isSlip:boolean=false//滑るかどうか
+    readonly slipperiness:number=0.9//滑りやすさ
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
     heightSize:number=this.characterSize
@@ -102,14 +104,14 @@ export abstract class character{
             this.dy=0
         }
 
-        if(this.isSlip===false){
-            this.dx=0
-        }else{//滑るときの処理 調整は適当
-            if((this.dx<this.moveVelocity)&&(this.dx>-this.moveVelocity)){
-                this.dx=0
+        if(this.isOnGround===true){//滑るときの処理
+            if(this.isSlip===true){
+                this.dx*=this.slipperiness//氷の床にいるとき、滑る
             }else{
-                this.dx*=0.95
+                this.dx=0//地上にいるとき、ピタっと止まる
             }
+        }else{
+            this.dx*=this.deceleration//空中にいるとき、減速する
         }
 
         document.getElementById('character')!.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"//x座標を更新

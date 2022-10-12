@@ -48,10 +48,8 @@ function main(){//メインループ
     }
 
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-
     sampleArea.innerHTML="rabbit.height:"+String(Math.floor(rabbit.height))+" currentScaffold().height:"+Math.floor(rabbit.currentScaffold().height)
-    sampleArea2.innerHTML="rabbit.y:"+String(Math.floor(rabbit.y))+" "+"rabbit.dy:"+String(Math.floor(rabbit.dy))+" (currentScaffold().y-playerCamera.y):"+String(Math.floor(rabbit.currentScaffold().y-playerCamera.y))
-    showScore.innerHTML="score:"+String(Math.round(rabbit.height))
+    sampleArea2.innerHTML="rabbit.dx:"+String(Math.floor(rabbit.dx*10)/10)
 
     /* 画面更新用処理 */
     rabbit.move()
