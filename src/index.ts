@@ -1,6 +1,6 @@
 import {characterRabbit} from "./character/characterRabbit"
 import {characterRabbitEdge} from "./character/characterRabbitEdge"
-import {scaffold} from "./scaffold/scaffold"
+import {scaffold,scaffoldsType} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {slipScaffold} from "./scaffold/slipScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
@@ -23,7 +23,7 @@ export let scaffolds:scaffold[]=new Array//足場配列を作成
 
 scaffolds[0]=new normalScaffold(0)//初期足場を作成
 /* 足場の種類を重み付き抽選するための箱を作成 */
-type scaffoldsType="normal"|"slip"|"carry"|"moving"
+
 let lotteryBox:scaffoldsType[]=new Array
 for(let i:number=0;i<1;i++){
     lotteryBox.push("normal")
@@ -33,18 +33,25 @@ for(let i:number=0;i<1;i++){
 }
 /* 足場を作成 */
 const maxLevel:number=10//仮変数 いつか消す
+let a:string=""
 for(let i:number=1;i<maxLevel;i++){//足場配列に新しい足場を追加していく
-        switch (lotteryBox[Math.floor(Math.random()*lotteryBox.length)]){
-            case "normal":
-                scaffolds[i]=new normalScaffold(i,(Math.random()*100+50));
-            break;
-            case "slip":
-                scaffolds[i]=new slipScaffold(i,(Math.random()*100+50));
-              break;
-            default:
-              break;
-          }
+    switch (lotteryBox[Math.floor(Math.random()*lotteryBox.length)]){
+        case "normal":
+            scaffolds[i]=new normalScaffold(i,(Math.random()*100+50))
+            a+="無"
+            break
+        case "slip":
+            scaffolds[i]=new slipScaffold(i,(Math.random()*100+50))
+            a+="氷"
+            break
+        default:
+            break
+    }
 }
+/* for(let i:number=1;i<maxLevel;i+=2){//足場配列に新しい足場を追加していく
+    scaffolds[i]=new slipScaffold(i,(Math.random()*100+50))
+    scaffolds[i+1]=new normalScaffold(i+1,(Math.random()*100+50))
+} */
 
 requestAnimationFrame(main)//メインループ、起動
 
@@ -69,7 +76,7 @@ function main(){//メインループ
 
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
     sampleArea.innerHTML="scaffolds["+rabbit.currentScaffold().level+"] instanceof slipScaffold:"+String(rabbit.currentScaffold() instanceof slipScaffold)
-    sampleArea2.innerHTML=""
+    sampleArea2.innerHTML="無"+a+"<br>"
     for(let i:number=0;i<maxLevel;i++){
         var type:scaffoldsType
         if(scaffolds[i] instanceof normalScaffold){

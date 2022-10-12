@@ -1,6 +1,8 @@
 import {playerCamera, stylesheet} from "../index"
 import {canvas} from "../index"
 
+export type scaffoldsType="normal"|"slip"|"carry"|"moving"
+
 export abstract class scaffold{//初期足場
     public static readonly firstHeight:number=50//初期足場がどれだけ浮いているか
     protected _x:number=0//X座標
