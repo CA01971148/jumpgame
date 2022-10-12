@@ -68,7 +68,7 @@ function main(){//メインループ
     }
 
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    sampleArea.innerHTML="this.currentScaffold() instanceof slipScaffold:"+String(rabbit.currentScaffold() instanceof slipScaffold)
+    sampleArea.innerHTML="scaffolds["+rabbit.currentScaffold().level+"] instanceof slipScaffold:"+String(rabbit.currentScaffold() instanceof slipScaffold)
     sampleArea2.innerHTML=""
     for(let i:number=0;i<maxLevel;i++){
         var type:scaffoldsType
@@ -77,7 +77,7 @@ function main(){//メインループ
         }else if(scaffolds[i] instanceof slipScaffold){
             type="slip"
         }
-        sampleArea2.innerHTML+="scaffolds["+i+"]:"+type+"Scaffold"+"\n"
+        sampleArea2.innerHTML+="scaffolds["+i+"]:"+type+"Scaffold"+"<br>"
     }
     showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 
