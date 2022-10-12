@@ -1,6 +1,7 @@
 import {playerCamera, scaffolds} from "../index"
 import {scaffold} from "../scaffold/scaffold"
 import {canvas} from "../index"
+import { camera } from "../other/camera/camera"
 
 export abstract class character{
     readonly characterSize:number=50//キャラの大きさ
@@ -14,8 +15,8 @@ export abstract class character{
     protected _dy:number=0//y方向の速度
     readonly dyMax:number=10//最大縦加速量
     protected _jumpVelocity:number=0//ジャンプ速度
-    readonly jumpChargeAmount:number=0.5//跳躍力の貯めやすさ
-    readonly jumpChargeMax:number=15//跳躍力の貯め限界
+    readonly jumpChargeAmount:number=1//跳躍力の貯めやすさ
+    readonly jumpChargeMax:number=20//跳躍力の貯め限界
     readonly fallVelocitiy:number=0.5//落下速度
     isOnGround:boolean=true//接地しているかどうか
     protected isSlip:boolean=false//滑るかどうか
@@ -87,12 +88,12 @@ export abstract class character{
     public move(){//慣性で移動する関数
         this.x+=this.dx
 
-        if((this.checkAboveScaffold())&&(this.height+(this.dy*2)<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
-            this.y=this.currentScaffold().y-playerCamera.y
+        if((this.checkAboveScaffold())&&(this.height+(this.dy)<this.currentScaffold().height)){//足場の直上にいて、これ以上落ちたら足場を貫通してしまう場合、足場の上に留まる
+            this.y=this.currentScaffold().y
             this.height=this.currentScaffold().height
         }else{
             this.y+=this.dy
-            this.height+=this.dy*2//キャラが動いた分スクロールするので見た目上は2倍跳ぶ
+            this.height+=this.dy
         }
 
         if(this.isOnGround===false){//空中にいるとき、落ちる
@@ -112,7 +113,7 @@ export abstract class character{
         }
 
         document.getElementById('character')!.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"//x座標を更新
-        document.getElementById('character')!.style.top=(canvas.height-(this.y+(this.heightSize)))+"px"//y座標を更新
+        document.getElementById('character')!.style.top=(canvas.height-((this.y+this.heightSize)-playerCamera.y))+"px"//y座標を更新
         this.isOnGround=this.checkOnGround()//接地しているかどうかを判断し、変数に代入
     }
 

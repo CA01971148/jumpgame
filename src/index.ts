@@ -49,13 +49,14 @@ function main(){//メインループ
 
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
 
-    sampleArea.innerHTML="(rabbit.currentScaffold().y-playerCamera.y):"+String(rabbit.currentScaffold().y-playerCamera.y)
-    sampleArea2.innerHTML="rabbit.currentScaffold().y:"+String(rabbit.currentScaffold().y)
+    sampleArea.innerHTML="rabbit.height:"+String(Math.floor(rabbit.height))+" currentScaffold().height:"+Math.floor(rabbit.currentScaffold().height)
+    sampleArea2.innerHTML="rabbit.y:"+String(Math.floor(rabbit.y))+" "+"rabbit.dy:"+String(Math.floor(rabbit.dy))+" (currentScaffold().y-playerCamera.y):"+String(Math.floor(rabbit.currentScaffold().y-playerCamera.y))
     showScore.innerHTML="score:"+String(rabbit.height)
 
     /* 画面更新用処理 */
     rabbit.move()
     playerCamera.y=rabbit.height
+    //playerCamera.y=0
     rabbitEdge[0].load(-1)
     rabbitEdge[1].load(1)
     for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場を更新
