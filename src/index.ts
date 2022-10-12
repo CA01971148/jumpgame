@@ -34,7 +34,18 @@ for(let i:number=0;i<1;i++){
 /* 足場を作成 */
 const maxLevel:number=10//仮変数 いつか消す
 let a:string=""
-for(let i:number=1;i<maxLevel;i++){//足場配列に新しい足場を追加していく
+
+/* a+="無氷無氷氷無無氷"
+scaffolds[1]=new normalScaffold(1,(Math.random()*100+50))
+scaffolds[2]=new slipScaffold(2,canvas.width-30)
+scaffolds[3]=new normalScaffold(3,(Math.random()*100+50))
+scaffolds[4]=new slipScaffold(4,canvas.width-30)
+scaffolds[5]=new slipScaffold(5,canvas.width-30)
+scaffolds[6]=new normalScaffold(6,(Math.random()*100+50))
+scaffolds[7]=new normalScaffold(7,(Math.random()*100+50))
+scaffolds[8]=new slipScaffold(8,canvas.width-30) */
+
+/* for(let i:number=1;i<maxLevel;i++){//足場配列に新しい足場を追加していく
     switch (lotteryBox[Math.floor(Math.random()*lotteryBox.length)]){
         case "normal":
             scaffolds[i]=new normalScaffold(i,(Math.random()*100+50))
@@ -47,11 +58,22 @@ for(let i:number=1;i<maxLevel;i++){//足場配列に新しい足場を追加し�
         default:
             break
     }
-}
+} */
+
 /* for(let i:number=1;i<maxLevel;i+=2){//足場配列に新しい足場を追加していく
     scaffolds[i]=new slipScaffold(i,(Math.random()*100+50))
     scaffolds[i+1]=new normalScaffold(i+1,(Math.random()*100+50))
 } */
+
+for(let i:number=1;i<maxLevel;i++){//足場配列に新しい足場を追加していく
+    if(Math.random()>0.5){
+        scaffolds[i]=new slipScaffold(i,200)
+        a+="氷"
+    }else{
+        scaffolds[i]=new normalScaffold(i,(Math.random()*100+50))
+        a+="無"
+    }
+}
 
 requestAnimationFrame(main)//メインループ、起動
 
@@ -77,7 +99,7 @@ function main(){//メインループ
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
     sampleArea.innerHTML="scaffolds["+rabbit.currentScaffold().level+"] instanceof slipScaffold:"+String(rabbit.currentScaffold() instanceof slipScaffold)
     sampleArea2.innerHTML="無"+a+"<br>"
-    for(let i:number=0;i<maxLevel;i++){
+    for(let i:number=0;i<scaffolds.length;i++){
         var type:scaffoldsType
         if(scaffolds[i] instanceof normalScaffold){
             type="normal"
