@@ -92,8 +92,8 @@ for(let i:number=1;i<typeCommand.length+1;i++){
 
 let typeCommand:scaffoldsType[]=new Array
 for(let i:number=0;i<5;i++){
-    //typeCommand.push(lotteryBox[Math.floor(Math.random()*lotteryBox.length)])
-    typeCommand.push(scaffoldsTypeList[(Math.floor(Math.random()*scaffoldsTypeList.length))])
+    typeCommand.push(lotteryBox[Math.floor(Math.random()*lotteryBox.length)])
+    //typeCommand.push(scaffoldsTypeList[(Math.floor(Math.random()*scaffoldsTypeList.length))])
 }
 for(let i:number=1;i<typeCommand.length+1;i++){
     createRandomScaffold(i,typeCommand[i-1],100)
