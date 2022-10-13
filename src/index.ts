@@ -90,14 +90,45 @@ for(let i:number=1;i<typeCommand.length+1;i++){
     createRandomScaffold(i,typeCommand[i-1],100)
 } */
 
-let typeCommand:scaffoldsType[]=new Array
-for(let i:number=0;i<5;i++){
-    typeCommand.push(lotteryBox[Math.floor(Math.random()*lotteryBox.length)])
+/* let typeCommand:scaffoldsType[]=new Array
+for(let i:number=0;i<10;i++){
+    //typeCommand.push(lotteryBox[Math.floor(Math.random()*lotteryBox.length)])
+    if(Math.random()>0.5){
+        typeCommand.push("normal")
+    }else{
+        typeCommand.push("slip")
+    }
     //typeCommand.push(scaffoldsTypeList[(Math.floor(Math.random()*scaffoldsTypeList.length))])
 }
+//typeCommand.push("normal","normal","slip","slip","normal","slip")
 for(let i:number=1;i<typeCommand.length+1;i++){
     createRandomScaffold(i,typeCommand[i-1],100)
+} */
+
+function sleep(waitMsec:any) {
+    var startMsec:any = new Date();
+   
+    // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
+    while (true){
+        var testVar:any=new Date()
+        if(testVar - startMsec > waitMsec) {
+            break;
+        }
+    };
+  }
+   
+
+for(let i:number=1;i<3;i++){
+    if(Math.random()>0.5){
+        scaffolds[i]=new normalScaffold(i,100)
+    }else{
+        scaffolds[i]=new slipScaffold(i,300)
+    }
+    sleep(300);
+    
 }
+// scaffolds[1]=new normalScaffold(1,100)
+// scaffolds[2]=new slipScaffold(2,100)
 
 
 
@@ -125,7 +156,7 @@ function main(){//メインループ
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
     sampleArea.innerHTML="scaffolds["+rabbit.currentScaffold().level+"] instanceof slipScaffold:"+String(rabbit.currentScaffold() instanceof slipScaffold)
     sampleArea2.innerHTML="無"+a+"<br>"
-    sampleArea2.innerHTML+="normal,"+typeCommand+"<br>"
+    //sampleArea2.innerHTML+="normal,"+typeCommand+"<br>"
     for(let i:number=0;i<scaffolds.length;i++){
         var type:scaffoldsType
         if(scaffolds[i] instanceof normalScaffold){
