@@ -4,10 +4,11 @@ export class carryScaffold extends scaffold{//キャラが乗ると動かされ�
     private direction:number=1//キャラが動かされる方向 左が-1,右が1
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         super(_level,_width)
-        this.direction=Math.floor(Math.random()*2)*2-1//向きを-1(左)か1(右)でランダムに代入
+        this.direction=Math.floor(Math.random()*2)//向きを-1(左)か1(右)でランダムに代入
         document.write('<img id="'+this.IDName+'" src="./../resource/carryScaffold.jpg">')//足場出現
         document.getElementById(this.IDName)!.style.width=this.width+"px"//初期大きさ設定(幅)
         document.getElementById(this.IDName)!.style.height=scaffold.thickness+"px"//初期大きさ設定(厚さ)
-        document.getElementById(this.IDName)!.style.transform=`rotateY(${this.direction*90}deg)`//左を向く
+        document.getElementById(this.IDName)!.style.transform="rotateY("+String(this.direction*180)+"deg)"//左右を向く
+        console.log(this.level,this.x,this.width,this.direction)
     }
 }
