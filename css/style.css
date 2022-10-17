@@ -42,6 +42,7 @@ canvas{
     z-index: 1;
     top: 0px;
     left: 0px;
+    transform: rotateY(0deg);
 /*     足場の大きさ定義 */
     width: 150px;
     height: 20px;
