@@ -6,7 +6,6 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
-
 const config = {
     entry: './src/index.ts',
     output: {
@@ -19,6 +18,7 @@ const config = {
     plugins: [
         new HtmlWebpackPlugin({
             template: 'index.html',
+            inject: false,//jsファイルをwebpackでは出力しないようにする
         }),
 
         // Add your plugins here

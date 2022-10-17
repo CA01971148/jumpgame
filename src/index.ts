@@ -132,7 +132,7 @@ for(let i:number=1;i<3;i++){
 // scaffolds[1]=new normalScaffold(1,100)
 // scaffolds[2]=new slipScaffold(2,100)
 
-function debugArea(){
+function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
     sampleArea.innerHTML="scaffolds["+rabbit.currentScaffold().level+"] instanceof slipScaffold:"+String(rabbit.currentScaffold() instanceof slipScaffold)
     sampleArea2.innerHTML="無"+a+"<br>"
@@ -149,6 +149,29 @@ function debugArea(){
     showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 }
 
+function updateDisplay(){//画面更新用処理
+    rabbit.move()
+    playerCamera.y=rabbit.height-100
+    //playerCamera.y=0
+    rabbitEdge[0].load(-1)
+    rabbitEdge[1].load(1)
+    for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場を更新
+        scaffolds[i].scrole()
+    }
+}
+
+function isKeyDown(){
+	if((key.key_left===true)&&(key.key_right===false)){//左移動キーが押されている間、moveLeft関数を呼び出す
+        rabbit.moveLeft()
+    }
+	if((key.key_right===true)&&(key.key_left===false)){//右移動キーが押されている間、moveRight関数を呼び出す
+        rabbit.moveRight()
+    }
+    if((key.key_jump===true)){//ジャンプキーが押されている間、jumpCharge関数を呼び出す
+        rabbit.jumpCharge()
+    }
+}
+
 requestAnimationFrame(main)//メインループ、起動
 
 function main(){//メインループ
@@ -160,27 +183,10 @@ function main(){//メインループ
     ジャンプはジャンプキーを押している間に跳躍力を貯めて、ジャンプキーを離すと貯めた跳躍力の分だけ跳べる
     接地中の移動はできない */
 
-	if((key.key_left===true)&&(key.key_right===false)){//左移動キーが押されている間、moveLeft関数を呼び出す
-        rabbit.moveLeft()
-    }
-	if((key.key_right===true)&&(key.key_left===false)){//右移動キーが押されている間、moveRight関数を呼び出す
-        rabbit.moveRight()
-    }
-    if((key.key_jump===true)){//ジャンプキーが押されている間、jumpCharge関数を呼び出す
-        rabbit.jumpCharge()
-    }
+    isKeyDown()//キーが押されているかどうか判断
 
-    //debugArea()
-
-    /* 画面更新用処理 */
-    rabbit.move()
-    playerCamera.y=rabbit.height-100
-    //playerCamera.y=0
-    rabbitEdge[0].load(-1)
-    rabbitEdge[1].load(1)
-    for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場を更新
-        scaffolds[i].scrole()
-    }
+    loadDebugArea()//デバッグ用エリアを更新
+    updateDisplay()//画面を更新(rabbitやscaffolds等)
 
     requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
 }
