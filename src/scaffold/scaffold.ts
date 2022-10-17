@@ -10,8 +10,9 @@ export abstract class scaffold{//初期足場
     public static readonly defaultWidth:number=150//基本の足場広さ
     protected _width:number=scaffold.defaultWidth//広さ
     public static readonly thickness:number=20//厚さ
-    public static readonly scaffoldDistance:number=100//足場同士の上下幅
+    public static readonly scaffoldDistance:number=300//足場同士の上下幅
     protected IDName:string//CSSで使うID用のフィールド
+    protected _friction:number=1//摩擦係数(frictionalCoefficient)
 
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         this.level=_level
@@ -56,6 +57,13 @@ export abstract class scaffold{//初期足場
     }
     protected set height(height:number){
         this._height=height
+    }
+
+    get friction():number{
+        return this._friction
+    }
+    protected set friction(friction:number){
+        this._friction=friction
     }
 
     protected createCSSRule(idName:string){//足場それぞれにCSSルールを作成

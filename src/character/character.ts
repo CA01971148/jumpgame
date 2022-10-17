@@ -21,7 +21,6 @@ export abstract class character{
     readonly jumpChargeMax:number=18//跳躍力の貯め限界
     readonly fallVelocitiy:number=0.5//落下速度
     isOnGround:boolean=true//接地しているかどうか
-    protected isSlip:boolean=false//滑るかどうか
     readonly slipperiness:number=0.99//滑りやすさ
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
@@ -89,19 +88,15 @@ export abstract class character{
     }
 
     public move(){//慣性で移動する関数
-        this.moveX()
-        this.moveY()
-        this.updateImages()
-        this.getStates()
+        this.moveX()//x軸移動
+        this.moveY()//y軸移動
+        this.updateImages()//画像の位置更新
+        this.getStates()//状態更新
     }
     protected moveX(){//x軸移動
         this.x+=this.dx
         if(this.isOnGround===true){//減速処理
-            if(this.isSlip===true){
-                this.dx*=this.slipperiness//氷の床にいるとき、滑る
-            }else{
-                this.dx=0//地上にいるとき、ピタっと止まる
-            }
+            this.dx*=(1-this.currentScaffold().friction)//今いる足場の摩擦分滑る
         }else{
             this.dx*=this.deceleration//空中にいるとき、減速する
         }
@@ -126,12 +121,8 @@ export abstract class character{
         document.getElementById('character')!.style.top=(canvas.height-((this.y+this.heightSize)-playerCamera.y))+"px"//y座標を更新
     }
     protected getStates(){//状態更新
+        /* is～系のboolian型変数を更新するための関数 */
         this.isOnGround=this.checkOnGround()//接地しているかどうかを判断し、変数に代入
-        if(this.currentScaffold() instanceof slipScaffold){//氷の床の上にいるかどうか
-            this.isSlip=true
-        }else{
-            this.isSlip=false
-        }
     }
 
     public currentScaffold():scaffold{//今いる区間の足場を算出するメソッド
