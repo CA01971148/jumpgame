@@ -53,3 +53,9 @@ canvas{
     color:white;
     font-weight: bold;
 }
+
+#sampleArea{
+    position: absolute;
+    bottom: 0;
+    color:white;
+}

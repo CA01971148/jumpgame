@@ -49,12 +49,10 @@ createRandomScaffold(i)
 
 /* デバッグ用関数等 */
 const sampleArea:HTMLElement=document.getElementById("sampleArea")
-const sampleArea2:HTMLElement=document.getElementById("sampleArea2")
 const showScore:HTMLElement=document.getElementById("showScore")
 function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    sampleArea.innerHTML=""
-    sampleArea2.innerHTML=""
+    sampleArea.innerHTML="a<br>b<br>c"
     showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 }
 function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
@@ -72,7 +70,6 @@ function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
 function updateDisplay(){//画面更新用処理
     rabbit.move()
     playerCamera.y=rabbit.height-100
-    //playerCamera.y=0
     rabbitEdge[0].load(-1)
     rabbitEdge[1].load(1)
     for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場を更新
@@ -105,7 +102,7 @@ function main(){//メインループ
 
     isKeyDown()//キーが押されているかどうか判断
 
-    //loadDebugArea()//デバッグ用エリアを更新
+    loadDebugArea()//デバッグ用エリアを更新
     updateDisplay()//画面を更新(rabbitやscaffolds等)
 
     requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
