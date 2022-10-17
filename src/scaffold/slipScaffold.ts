@@ -5,7 +5,7 @@ import {canvas} from "../index"
 export class slipScaffold extends scaffold{
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         super(_level,_width)
-        this._friction=0.01
+        this._friction=0.03
         document.write('<img id="'+this.IDName+'" src="./../resource/slipScaffold.jpg" alt="氷の床">')//足場出現
         document.getElementById(this.IDName)!.style.width=this.width+"px"//初期大きさ設定(幅)
         document.getElementById(this.IDName)!.style.height=scaffold.thickness+"px"//初期大きさ設定(厚さ)

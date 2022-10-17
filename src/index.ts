@@ -22,8 +22,8 @@ export let scaffolds:scaffold[]=new Array//足場配列を作成
 type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプを型として宣言
 const scaffoldsTypeList:scaffoldsType[]=["normal","slip","carry","moving"]//型を纏めたリスト配列
 let lotteryBox:scaffoldsType[]=new Array//足場の種類を重み付き抽選するための箱を作成
-lotteryBox=["carry","carry","carry","carry"]
-function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+50){//足場を作成する関数
+lotteryBox=["normal","slip","carry"]
+function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+80){//足場を作成する関数
     switch (type){
         case "normal":
             scaffolds[level]=new normalScaffold(level,width)
@@ -41,11 +41,15 @@ function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.f
             break
     }
 }
-const maxLevel:number=10//仮変数 いつか消す
-scaffolds[0]=new normalScaffold(0)//初期足場を作成
-for(let i:number=1;i<maxLevel;i++){//足場配列に新しい足場を追加していく
-createRandomScaffold(i)
+function createScaffolds(repetition:number){//足場をたくさん作る関数
+    for(let i:number=1;i<repetition;i++){//足場配列に新しい足場を追加していく
+        createRandomScaffold(i)
+    }
 }
+const defaultMaxLevel:number=30//初期作成足場数
+
+scaffolds[0]=new normalScaffold(0)//初期足場を作成
+createScaffolds(defaultMaxLevel)//初期読み込み分の足場を作成
 
 /* デバッグ用関数等 */
 const sampleArea:HTMLElement=document.getElementById("sampleArea")

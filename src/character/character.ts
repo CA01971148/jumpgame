@@ -2,6 +2,7 @@ import {playerCamera, scaffolds} from "../index"
 import {scaffold} from "../scaffold/scaffold"
 import {normalScaffold} from "../scaffold/normalScaffold"
 import {slipScaffold} from "../scaffold/slipScaffold"
+import {carryScaffold} from "../scaffold/carryScaffold"
 import {canvas} from "../index"
 
 export abstract class character{
@@ -95,7 +96,11 @@ export abstract class character{
     protected moveX(){//x軸移動
         this.x+=this.dx
         if(this.isOnGround===true){//減速処理
-            this.dx*=(1-this.currentScaffold().friction)//今いる足場の摩擦分滑る
+            if(this.currentScaffold() instanceof carryScaffold){//運ばれるときの処理
+                this.dx=this.carryVelocity()
+            }else{//通常処理
+                this.dx*=(1-this.currentScaffold().friction)//今いる足場の摩擦分滑る
+            }
         }else{
             this.dx*=this.deceleration//空中にいるとき、減速する
         }
@@ -135,7 +140,7 @@ export abstract class character{
         }
     }
     protected checkOnGround():boolean{//接地しているかどうか
-        if((this.height===this.currentScaffold().height)&&(this.checkAboveScaffold())){//「自分の高さが、今いる区間の足場と同じ」かつ「自分のx座標が、今いる区間の足場の範囲に入っている」場合
+        if((this.height===this.currentScaffold().height)&&(this.checkAboveScaffold())&&(this.dy<=0)){//「自分の高さが、今いる区間の足場と同じ」かつ「自分のx座標が、今いる区間の足場の範囲に入っている」かつ「跳んでいる状態ではない」場合
             return true
         }else{
             return false
@@ -175,5 +180,11 @@ export abstract class character{
             this.dy+=this.jumpVelocity
         }
         this.jumpVelocity=0
+    }
+
+    protected carryVelocity():number{//動かされる床に運ばれるときの加速度を求める処理
+        let currentCarryScaffold=this.currentScaffold() as carryScaffold
+        let LeftorRight=currentCarryScaffold.direction*2-1//0or1で設定された足場の向きを-1or1に変換する
+        return currentCarryScaffold.carryVelocity*LeftorRight//dxを「動かされる×向き」に固定する
     }
 }
