@@ -10,7 +10,7 @@ export abstract class scaffold{//初期足場
     public static readonly defaultWidth:number=150//基本の足場広さ
     protected _width:number=scaffold.defaultWidth//広さ
     public static readonly thickness:number=20//厚さ
-    public static readonly scaffoldDistance:number=50//足場同士の上下幅
+    public static readonly scaffoldDistance:number=100//足場同士の上下幅
     protected IDName:string//CSSで使うID用のフィールド
 
     constructor(_level:number,_width:number=scaffold.defaultWidth){
