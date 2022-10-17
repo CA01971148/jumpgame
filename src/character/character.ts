@@ -21,7 +21,6 @@ export abstract class character{
     readonly jumpChargeMax:number=18//跳躍力の貯め限界
     readonly fallVelocitiy:number=0.5//落下速度
     isOnGround:boolean=true//接地しているかどうか
-    readonly slipperiness:number=0.99//滑りやすさ
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
     heightSize:number=this.characterSize

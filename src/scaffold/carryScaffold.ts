@@ -1,6 +1,7 @@
 import {scaffold} from "./scaffold"
 
 export class carryScaffold extends scaffold{
+    
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         super(_level,_width)
         document.write('<img id="'+this.IDName+'" src="./../resource/carryScaffold.jpg">')//足場出現
