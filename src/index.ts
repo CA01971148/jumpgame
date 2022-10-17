@@ -23,6 +23,9 @@ type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプを型と
 const scaffoldsTypeList:scaffoldsType[]=["normal","slip","carry","moving"]//型を纏めたリスト配列
 let lotteryBox:scaffoldsType[]=new Array//足場の種類を重み付き抽選するための箱を作成
 lotteryBox=["normal","slip","carry"]
+const defaultMaxLevel:number=9//初期作成足場数
+const loadScaffoldFrequency=5//足場の作成頻度
+let canCreateScaffold:boolean=true//現在、足場を作れるかどうか(現在足場を作っている間は作れないようにする)
 function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+80){//足場を作成する関数
     switch (type){
         case "normal":
@@ -42,13 +45,18 @@ function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.f
     }
 }
 function createScaffolds(repetition:number){//足場をたくさん作る関数
-    for(let i:number=1;i<repetition;i++){//足場配列に新しい足場を追加していく
-        createRandomScaffold(i)
+    canCreateScaffold=false
+    for(let i:number=0;i<repetition;i++){//足場配列に新しい足場を追加していく
+        createRandomScaffold(scaffolds.length)//次の足場を作成
+    }
+    canCreateScaffold=true
+}
+function loadNewScaffold(){//キャラが足場を昇る度に足場を追加して無限に昇れるようにする関数
+    if((rabbit.currentScaffold().level>(scaffolds.length-1)-loadScaffoldFrequency)&&(canCreateScaffold)){//もうそろそろ足場の最大数まで昇るかなってときに足場の数を追加するよ。足場を作っている間は新しく重複して作れないようにしてるよ。
+        createScaffolds(loadScaffoldFrequency)
     }
 }
-const defaultMaxLevel:number=30//初期作成足場数
-
-scaffolds[0]=new normalScaffold(0)//初期足場を作成
+createRandomScaffold(0,"normal")//初期足場を作成
 createScaffolds(defaultMaxLevel)//初期読み込み分の足場を作成
 
 /* デバッグ用関数等 */
@@ -56,7 +64,9 @@ const sampleArea:HTMLElement=document.getElementById("sampleArea")
 const showScore:HTMLElement=document.getElementById("showScore")
 function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    sampleArea.innerHTML="a<br>b<br>c"
+    sampleArea.innerHTML=`Level:${rabbit.currentScaffold().level}/${scaffolds.length}`
+    sampleArea.innerHTML+="<br>"+`MaxScaffold.level:${scaffolds[scaffolds.length-1].level}`
+    sampleArea.innerHTML+="<br>"+`作るよ:${(rabbit.currentScaffold().level>scaffolds.length-loadScaffoldFrequency)}`
     showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 }
 function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
@@ -108,6 +118,7 @@ function main(){//メインループ
 
     loadDebugArea()//デバッグ用エリアを更新
     updateDisplay()//画面を更新(rabbitやscaffolds等)
+    loadNewScaffold()//足場を途切れないように追加していく処理
 
     requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
 }
