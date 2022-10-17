@@ -59,7 +59,6 @@ function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.f
     }
 }
 
-
 const maxLevel:number=10//仮変数 いつか消す
 let a:string=""
 
@@ -116,7 +115,6 @@ function sleep(waitMsec:any) {
         }
     };
   }
-   
 
 for(let i:number=1;i<3;i++){
     if(Math.random()>0.5){
@@ -160,7 +158,7 @@ function updateDisplay(){//画面更新用処理
     }
 }
 
-function isKeyDown(){
+function isKeyDown(){//キーが押されているかどうか判断するための関数
 	if((key.key_left===true)&&(key.key_right===false)){//左移動キーが押されている間、moveLeft関数を呼び出す
         rabbit.moveLeft()
     }
@@ -174,6 +172,7 @@ function isKeyDown(){
 
 requestAnimationFrame(main)//メインループ、起動
 
+
 function main(){//メインループ
     addEventListener("keydown",key.keyDownFunc)//キーボードが押された時、keyDownFunc関数を呼び出す
     addEventListener("keyup",key.keyUpFunc)//キーボードが離された時、keyUpFunc関数を呼び出す
@@ -185,7 +184,7 @@ function main(){//メインループ
 
     isKeyDown()//キーが押されているかどうか判断
 
-    loadDebugArea()//デバッグ用エリアを更新
+    //loadDebugArea()//デバッグ用エリアを更新
     updateDisplay()//画面を更新(rabbitやscaffolds等)
 
     requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
