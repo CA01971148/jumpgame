@@ -7,7 +7,7 @@ export abstract class scaffold{//初期足場
     protected _y:number=0//y座標
     protected _height:number=0//足場の位置する高さ
     public level:number//階層(一番下の初期足場は0階層目)
-    public static readonly defaultWidth:number=Math.random()*100+50//基本の足場広さ
+    public static readonly defaultWidth:number=150//基本の足場広さ
     protected _width:number=scaffold.defaultWidth//広さ
     public static readonly thickness:number=20//厚さ
     public static readonly scaffoldDistance:number=300//足場同士の上下幅
