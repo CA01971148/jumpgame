@@ -23,7 +23,7 @@ type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプを型と
 const scaffoldsTypeList:scaffoldsType[]=["normal","slip","carry","moving"]//型を纏めたリスト配列
 let lotteryBox:scaffoldsType[]=new Array//足場の種類を重み付き抽選するための箱を作成
 lotteryBox=["normal","slip"]
-function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=(Math.random()*100+50)){//足場を作成する関数
+function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width?:number){//足場を作成する関数
     switch (type){
         case "normal":
             scaffolds[level]=new normalScaffold(level,width)
