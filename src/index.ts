@@ -22,7 +22,7 @@ export let scaffolds:scaffold[]=new Array//足場配列を作成
 type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプを型として宣言
 const scaffoldsTypeList:scaffoldsType[]=["normal","slip","carry","moving"]//型を纏めたリスト配列
 let lotteryBox:scaffoldsType[]=new Array//足場の種類を重み付き抽選するための箱を作成
-lotteryBox=["normal","slip","carry"]
+lotteryBox=["moving"]
 function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+75){//足場を作成する関数
     switch (type){
         case "normal":
@@ -56,7 +56,7 @@ const sampleArea:HTMLElement=document.getElementById("sampleArea")
 const showScore:HTMLElement=document.getElementById("showScore")
 function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    sampleArea.innerHTML="a<br>b<br>c"
+    sampleArea.innerHTML=`rabbit.x:${rabbit.x}`
     showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 }
 function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
