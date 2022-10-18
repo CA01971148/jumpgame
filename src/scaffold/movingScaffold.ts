@@ -1,5 +1,6 @@
 import {scaffold} from "./scaffold"
 
+
 export class movingScaffold extends scaffold{
     private _direction:number=1//足場が動く方向 左が0,右が1
     public readonly moveVelocity=3//足場が動くスピード(絶対値)
@@ -12,10 +13,23 @@ export class movingScaffold extends scaffold{
     }
 
     /* getter/setter */
+    get x():number{
+        return this._x
+    }
+    protected set x(x:number){
+        /* ここに足場が画面外まで出ないようにする処理を記述する */
+        this._x=x
+    }
+
     public get direction():number{
         return this._direction
     }
     private set direction(direction:number){
         this._direction=direction
+    }
+
+    public scrole(){//画面更新用処理
+        /* ここに足場を動かす処理を記述する */
+        super.scrole()
     }
 }
