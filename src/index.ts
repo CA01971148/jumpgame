@@ -19,14 +19,14 @@ export let key=new keyDown()//キーボードが押されたかどうか判断�
 export let playerCamera=new camera()//プレイヤーに追随する視点用カメラ
 export let scaffolds:scaffold[]=new Array//足場配列を作成
 
-type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプを型として宣言
+export type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプを型として宣言
 const scaffoldsTypeList:scaffoldsType[]=["normal","slip","carry","moving"]//型を纏めたリスト配列
 let lotteryBox:scaffoldsType[]=new Array//足場の種類を重み付き抽選するための箱を作成
-lotteryBox=["normal","slip","carry"]
+lotteryBox=["normal","slip","carry","moving"]
 const defaultMaxLevel:number=9//初期作成足場数
 const loadScaffoldFrequency=5//足場の作成頻度
 let canCreateScaffold:boolean=true//現在、足場を作れるかどうか(現在足場を作っている間は作れないようにする)
-function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+80){//足場を作成する関数
+function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+75){//足場を作成する関数
     switch (type){
         case "normal":
             scaffolds[level]=new normalScaffold(level,width)

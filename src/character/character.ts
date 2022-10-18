@@ -1,8 +1,9 @@
-import {playerCamera, scaffolds} from "../index"
+import {playerCamera, scaffolds,scaffoldsType} from "../index"
 import {scaffold} from "../scaffold/scaffold"
 import {normalScaffold} from "../scaffold/normalScaffold"
 import {slipScaffold} from "../scaffold/slipScaffold"
 import {carryScaffold} from "../scaffold/carryScaffold"
+import {movingScaffold} from "../scaffold/movingScaffold"
 import {canvas} from "../index"
 
 export abstract class character{
@@ -96,8 +97,10 @@ export abstract class character{
     protected moveX(){//x軸移動
         this.x+=this.dx
         if(this.isOnGround===true){//減速処理
-            if(this.currentScaffold() instanceof carryScaffold){//運ばれるときの処理
-                this.dx=this.carryVelocity()
+            if(this.currentScaffold() instanceof carryScaffold){//動かされる足場に運ばれるときの処理
+                this.dx=this.movedVelocity("carry")
+            }else if(this.currentScaffold() instanceof movingScaffold){//動く足場に運ばれるときの処理
+                this.dx=this.movedVelocity("moving")
             }else{//通常処理
                 this.dx*=(1-this.currentScaffold().friction)//今いる足場の摩擦分滑る
             }
@@ -182,9 +185,15 @@ export abstract class character{
         this.jumpVelocity=0
     }
 
-    protected carryVelocity():number{//動かされる床に運ばれるときの加速度を求める処理
-        let currentCarryScaffold=this.currentScaffold() as carryScaffold
-        let LeftorRight=currentCarryScaffold.direction*2-1//0or1で設定された足場の向きを-1or1に変換する
-        return currentCarryScaffold.carryVelocity*LeftorRight//dxを「動かされる×向き」に固定する
+    protected movedVelocity(type:scaffoldsType):number{//動かされる床や動く床に運ばれるときの加速度を求める処理
+        switch(type){
+            case "carry":
+                const currentCarryScaffold:carryScaffold=this.currentScaffold() as carryScaffold
+                return currentCarryScaffold.carryVelocity*currentCarryScaffold.direction//dxを「動かされる速度×向き」に固定する
+            case "moving":
+                const currentMovingScaffold:movingScaffold=this.currentScaffold() as movingScaffold
+                return currentMovingScaffold.moveVelocity*currentMovingScaffold.direction//dxを「動かされる速度×向き」に固定する
+        }
+
     }
 }
