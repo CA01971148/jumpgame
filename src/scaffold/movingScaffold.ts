@@ -1,5 +1,5 @@
 import {scaffold} from "./scaffold"
-
+import {canvas} from "../index"
 
 export class movingScaffold extends scaffold{
     private _direction:number=1//足場が動く方向 左が0,右が1
