@@ -10,7 +10,7 @@ export class characterRabbitEdge extends character{
         super()
         this.IDname=_IDName
         this.createCSSRule()
-        document.write('<img id="'+this.IDname+'" src="./../resource/rabbit.png">')//キャラ出現
+        document.write('<img id="'+this.IDname+'" src="./../resource/image/rabbit.png">')//キャラ出現
     }
 
     private createCSSRule(){//CSSルールを作成
