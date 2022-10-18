@@ -2,7 +2,7 @@ import {scaffold} from "./scaffold"
 import {canvas} from "../index"
 
 export class movingScaffold extends scaffold{
-    private _direction:number=1//足場が動く方向 左が0,右が1
+    private _direction:number=1//足場が動く方向 左が-1,右が1
     public readonly moveVelocity=3//足場が動くスピード(絶対値)
     constructor(_level:number,_width:number=scaffold.defaultWidth){
         super(_level,_width)

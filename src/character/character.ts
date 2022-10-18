@@ -183,8 +183,7 @@ export abstract class character{
     }
 
     protected carryVelocity():number{//動かされる床に運ばれるときの加速度を求める処理
-        let currentCarryScaffold=this.currentScaffold() as carryScaffold
-        let LeftorRight=currentCarryScaffold.direction*2-1//0or1で設定された足場の向きを-1or1に変換する
-        return currentCarryScaffold.carryVelocity*LeftorRight//dxを「動かされる×向き」に固定する
+        const currentCarryScaffold=this.currentScaffold() as carryScaffold
+        return currentCarryScaffold.carryVelocity*currentCarryScaffold.direction//dxを「動かされる速度×向き」に固定する
     }
 }
