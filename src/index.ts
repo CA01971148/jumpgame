@@ -26,7 +26,8 @@ lotteryBox=["normal","slip","carry","moving"]
 const defaultMaxLevel:number=9//初期作成足場数
 const loadScaffoldFrequency=5//足場の作成頻度
 let canCreateScaffold:boolean=true//現在、足場を作れるかどうか(現在足場を作っている間は作れないようにする)
-function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+75){//足場を作成する関数
+export function createRandomScaffold(type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+75,level:number=scaffolds.length){//足場を作成する関数
+    console.log("作ろうとはした")
     switch (type){
         case "normal":
             scaffolds[level]=new normalScaffold(level,width)
@@ -47,16 +48,16 @@ function createRandomScaffold(level:number,type:scaffoldsType=(lotteryBox[Math.f
 function createScaffolds(repetition:number){//足場をたくさん作る関数
     canCreateScaffold=false
     for(let i:number=0;i<repetition;i++){//足場配列に新しい足場を追加していく
-        createRandomScaffold(scaffolds.length)//次の足場を作成
+        createRandomScaffold()//次の足場を作成
     }
     canCreateScaffold=true
 }
 function loadNewScaffold(){//キャラが足場を昇る度に足場を追加して無限に昇れるようにする関数
     if((rabbit.currentScaffold().level>(scaffolds.length-1)-loadScaffoldFrequency)&&(canCreateScaffold)){//もうそろそろ足場の最大数まで昇るかなってときに足場の数を追加するよ。足場を作っている間は新しく重複して作れないようにしてるよ。
-        createScaffolds(loadScaffoldFrequency)
+        //createScaffolds(loadScaffoldFrequency)
     }
 }
-createRandomScaffold(0,"normal")//初期足場を作成
+createRandomScaffold("normal")//初期足場を作成
 createScaffolds(defaultMaxLevel)//初期読み込み分の足場を作成
 
 /* デバッグ用関数等 */
@@ -108,6 +109,7 @@ function isKeyDown(){//キーが押されているかどうか判断するため
     }
 }
 
+console.log("ゲームスタート")
 requestAnimationFrame(main)//メインループ、起動
 
 function main(){//メインループ
