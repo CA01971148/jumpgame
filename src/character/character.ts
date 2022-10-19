@@ -22,10 +22,12 @@ export abstract class character{
     readonly jumpChargeAmount:number=0.7//跳躍力の貯めやすさ
     readonly jumpChargeMax:number=18//跳躍力の貯め限界
     readonly fallVelocitiy:number=0.5//落下速度
-    isOnGround:boolean=true//接地しているかどうか
+    protected isOnGround:boolean=true//接地しているかどうか
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
-    heightSize:number=this.characterSize
+    protected heightSize:number=this.characterSize//キャラの身長
+    public characterID:HTMLElement=document.getElementById('character')!
+
 
     constructor(){}
 
@@ -124,8 +126,8 @@ export abstract class character{
         }
     }
     protected updateImages(){//画像の位置更新
-        document.getElementById('character')!.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"//x座標を更新
-        document.getElementById('character')!.style.top=(canvas.height-((this.y+this.heightSize)-playerCamera.y))+"px"//y座標を更新
+        this.characterID.style.left=((this.x)+(canvas.width/2)-(this.characterSize/2))+"px"//x座標を更新
+        this.characterID.style.top=(canvas.height-((this.y+this.heightSize)-playerCamera.y))+"px"//y座標を更新
     }
     protected getStates(){//状態更新
         /* is～系のboolian型変数を更新するための関数 */
@@ -154,14 +156,14 @@ export abstract class character{
         if(this.isOnGround===false){
             this.dx-=this.moveVelocity
         }
-        document.getElementById('character')!.style.transform="rotateY(0deg)"//左を向く
+        this.characterID.style.transform="rotateY(0deg)"//左を向く
     }
     public moveRight(){//右に移動する関数
         if(this.isOnGround===false){
             this.dx+=this.moveVelocity
         }
 
-        document.getElementById('character')!.style.transform="rotateY(180deg)"//右を向く
+        this.characterID.style.transform="rotateY(180deg)"//右を向く
     }
 
     public jumpCharge(){//跳躍力を貯める関数
@@ -174,11 +176,11 @@ export abstract class character{
         }else{
             this.heightSize=shrunkenSize
         }
-        document.getElementById('character')!.style.height=(this.heightSize)+"px"//ジャンプ前の踏ん張り縮み
+        this.characterID.style.height=(this.heightSize)+"px"//ジャンプ前の踏ん張り縮み
     }
     public jump(){//跳躍力を解放してジャンプする関数
         this.heightSize=this.characterSize//縮みを戻す
-        document.getElementById('character')!.style.height=this.characterSize+"px"//踏ん張り縮み解放
+        this.characterID.style.height=this.characterSize+"px"//踏ん張り縮み解放
         if(this.isOnGround===true){//接地しているなら、跳躍力を解放
             this.dy+=this.jumpVelocity
         }

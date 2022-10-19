@@ -19,11 +19,11 @@ export class characterRabbitEdge extends character{
     }
 
     public load(LorR:number){//本体のx座標等を読み込んでコピーするための関数 Lが-1,Rが1
-        document.getElementById(this.IDname)!.style.width=document.getElementById('character')!.style.width//大きさ設定(幅)
-        document.getElementById(this.IDname)!.style.height=document.getElementById('character')!.style.height//大きさ設定(高さ)
+        document.getElementById(this.IDname)!.style.width=this.characterID.style.width//大きさ設定(幅)
+        document.getElementById(this.IDname)!.style.height=this.characterID.style.height//大きさ設定(高さ)
         const standard_x:number=(rabbit.x)+(canvas.width/2)-(rabbit.characterSize/2)
         document.getElementById(this.IDname)!.style.left=String(standard_x+(LorR*canvas.width))+"px"//x座標設定
-        document.getElementById(this.IDname)!.style.top=document.getElementById('character')!.style.top//y座標設定
-        document.getElementById(this.IDname)!.style.transform=document.getElementById('character')!.style.transform//向き設定
+        document.getElementById(this.IDname)!.style.top=this.characterID.style.top//y座標設定
+        document.getElementById(this.IDname)!.style.transform=this.characterID.style.transform//向き設定
     }
 }
