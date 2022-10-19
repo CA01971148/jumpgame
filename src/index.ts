@@ -27,7 +27,6 @@ const defaultMaxLevel:number=9//初期作成足場数
 const loadScaffoldFrequency=5//足場の作成頻度
 let canCreateScaffold:boolean=true//現在、足場を作れるかどうか(現在足場を作っている間は作れないようにする)
 export function createRandomScaffold(type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+75,level:number=scaffolds.length){//足場を作成する関数
-    console.log("作ろうとはした")
     switch (type){
         case "normal":
             scaffolds[level]=new normalScaffold(level,width)
@@ -68,11 +67,14 @@ function loadDebugArea(){//デバッグ用エリアを更新するための関�
     sampleArea.innerHTML=`Level:${rabbit.currentScaffold().level}/${scaffolds.length}`
     sampleArea.innerHTML+="<br>"+`MaxScaffold.level:${scaffolds[scaffolds.length-1].level}`
     sampleArea.innerHTML+="<br>"+`作るよ:${(rabbit.currentScaffold().level>scaffolds.length-loadScaffoldFrequency)}`
+    //sampleArea.innerHTML+="<br>"+`スタイルシート:${stylesheet.cssRules.item(stylesheet.cssRules.length-1).cssText}`
+    for(let i:number=0;i<stylesheet.cssRules.length;i++){
+        sampleArea.innerHTML+="<br>"+`スタイルシート:${stylesheet.cssRules.item(i).cssText}`
+    }
     showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 }
-function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
+export function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
     var startMsec:any = new Date();
-   
     // 指定ミリ秒間だけループさせる（CPUは常にビジー状態）
     while (true){
         var testVar:any=new Date()
@@ -109,7 +111,6 @@ function isKeyDown(){//キーが押されているかどうか判断するため
     }
 }
 
-console.log("ゲームスタート")
 requestAnimationFrame(main)//メインループ、起動
 
 function main(){//メインループ

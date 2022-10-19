@@ -15,7 +15,6 @@ export abstract class scaffold{//初期足場
     protected _friction:number=1//摩擦係数(frictionalCoefficient)
 
     constructor(_level:number,_width:number=scaffold.defaultWidth){
-        console.log("足場ができたよ")
         this.level=_level
         this.IDName="scaffold"+String(this.level)//CSSで使うIDを「scaffold」+「階層番号」に設定
         this.createCSSRule(this.IDName)//ID名でCSSルールを作成
@@ -29,7 +28,6 @@ export abstract class scaffold{//初期足場
         }
         this.y=scaffold.firstHeight+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level
-        console.log("処理終わり")
     }
 
     /* getter/setter */
