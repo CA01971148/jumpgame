@@ -26,8 +26,7 @@ export abstract class character{
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
     protected heightSize:number=this.characterSize//キャラの身長
-    public characterID:HTMLElement=document.getElementById('character')!
-
+    protected characterID:HTMLElement//getElementByID用
 
     constructor(){}
 
