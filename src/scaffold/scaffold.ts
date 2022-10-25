@@ -12,6 +12,7 @@ export abstract class scaffold{//初期足場
     public static readonly thickness:number=20//厚さ
     public static readonly scaffoldDistance:number=300//足場同士の上下幅
     protected IDName:string//CSSで使うID用のフィールド
+    protected scaffoldID:HTMLElement//getElementByID用
     protected _friction:number=1//摩擦係数(frictionalCoefficient)
 
     constructor(_level:number,_width:number=scaffold.defaultWidth){
@@ -72,7 +73,7 @@ export abstract class scaffold{//初期足場
     }
 
     public scrole(){//画面更新用処理
-        document.getElementById(this.IDName)!.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
-        document.getElementById(this.IDName)!.style.top=(canvas.height-(this.y-playerCamera.y))+"px"//y座標設定 高さは"50+200*level"
+        this.scaffoldID.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
+        this.scaffoldID.style.top=(canvas.height-(this.y-playerCamera.y))+"px"//y座標設定 高さは"50+200*level"
     }
 }

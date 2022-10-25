@@ -7,9 +7,10 @@ export class slipScaffold extends scaffold{
         super(_level,_width)
         this._friction=0.01
         document.write('<img id="'+this.IDName+'" src="./../resource/image/scaffold/slipScaffold.jpg" alt="氷の床">')//足場出現
-        document.getElementById(this.IDName)!.style.width=this.width+"px"//初期大きさ設定(幅)
-        document.getElementById(this.IDName)!.style.height=scaffold.thickness+"px"//初期大きさ設定(厚さ)
-        document.getElementById(this.IDName)!.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
-        document.getElementById(this.IDName)!.style.top=(canvas.height-(this.y-playerCamera.y))+"px"//y座標設定 高さは"50
+        this.scaffoldID=document.getElementById(this.IDName)!//IDを取得
+        this.scaffoldID.style.width=this.width+"px"//初期大きさ設定(幅)
+        this.scaffoldID.style.height=scaffold.thickness+"px"//初期大きさ設定(厚さ)
+        this.scaffoldID.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
+        this.scaffoldID.style.top=(canvas.height-(this.y-playerCamera.y))+"px"//y座標設定 高さは"50
     }
 }

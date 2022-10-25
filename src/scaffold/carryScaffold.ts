@@ -7,9 +7,10 @@ export class carryScaffold extends scaffold{//キャラが乗ると動かされ�
         super(_level,_width)
         this.direction=Math.floor(Math.random()*2)*2-1//向きを-1(左)か1(右)でランダムに代入
         document.write('<img id="'+this.IDName+'" src="./../resource/image/scaffold/carryScaffold.jpg">')//足場出現
-        document.getElementById(this.IDName)!.style.width=this.width+"px"//初期大きさ設定(幅)
-        document.getElementById(this.IDName)!.style.height=scaffold.thickness+"px"//初期大きさ設定(厚さ)
-        document.getElementById(this.IDName)!.style.transform="rotateY("+String(((this.direction+1)/2)*180)+"deg)"//左右を向く -1or1を0or1に変換して使用する
+        this.scaffoldID=document.getElementById(this.IDName)!//IDを取得
+        this.scaffoldID.style.width=this.width+"px"//初期大きさ設定(幅)
+        this.scaffoldID.style.height=scaffold.thickness+"px"//初期大きさ設定(厚さ)
+        this.scaffoldID.style.transform="rotateY("+String(((this.direction+1)/2)*180)+"deg)"//左右を向く -1or1を0or1に変換して使用する
     }
 
     /* getter/setter */
