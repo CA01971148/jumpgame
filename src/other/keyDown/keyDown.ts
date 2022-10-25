@@ -1,6 +1,6 @@
 import {key,rabbit} from "../../index"
 
-import {createRandomScaffold,sleep,stylesheet} from "../../index"
+import {createRandomScaffold,sleep,stylesheet} from "../../index"//デバッグ用
 
 export class keyDown{//キーが押されているかどうか判断するためのクラス
     key_left:boolean=false//左移動キーが押されているかどうか
@@ -37,13 +37,14 @@ export class keyDown{//キーが押されているかどうか判断するため
                 this.key_jump=false
                 key.key_jump=this.key_jump
                 rabbit.jump()//Spaceキーが離されたとき、rabbitの跳躍力を解放
+                break
 
+            case 13://「Enter」キーが離されたとき(デバッグ用)
                 createRandomScaffold("normal")
                 for(let i:number=0;i<stylesheet.cssRules.length;i++){
                     console.log(stylesheet.cssRules.item(i))
                 }
                 sleep(1000)
-
                 break
             }
     }
