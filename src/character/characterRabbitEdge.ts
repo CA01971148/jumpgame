@@ -7,12 +7,13 @@ export class characterRabbitEdge extends character{
     private IDname:string
     private characterEdgeID:HTMLElement//getElementByID用
 
-    constructor(_IDName:string){
+    constructor(originID:string,_IDName:string){
         super()
         this.IDname=_IDName
         this.createCSSRule()
         document.write('<img id="'+this.IDname+'" src="./../resource/image/rabbit.png">')//キャラ出現
         this.characterEdgeID=document.getElementById(this.IDname)!
+        this.characterID=document.getElementById(originID)!
     }
 
     private createCSSRule(){//CSSルールを作成
