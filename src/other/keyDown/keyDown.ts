@@ -1,4 +1,5 @@
 import {key,rabbit} from "../../index"
+
 import {createRandomScaffold,sleep,stylesheet} from "../../index"
 
 export class keyDown{//キーが押されているかどうか判断するためのクラス
@@ -36,11 +37,13 @@ export class keyDown{//キーが押されているかどうか判断するため
                 this.key_jump=false
                 key.key_jump=this.key_jump
                 rabbit.jump()//Spaceキーが離されたとき、rabbitの跳躍力を解放
+
                 createRandomScaffold("normal")
                 for(let i:number=0;i<stylesheet.cssRules.length;i++){
                     console.log(stylesheet.cssRules.item(i))
                 }
                 sleep(1000)
+
                 break
             }
     }
