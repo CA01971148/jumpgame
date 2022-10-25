@@ -12,8 +12,8 @@ export class characterRabbitEdge extends character{
         this.IDname=_IDName
         this.createCSSRule()
         document.write('<img id="'+this.IDname+'" src="./../resource/image/rabbit.png">')//キャラ出現
-        this.characterEdgeID=document.getElementById(this.IDname)!
-        this.characterID=document.getElementById(originID)!
+        this.characterEdgeID=document.getElementById(this.IDname)!//IDを取得
+        this.characterID=document.getElementById(originID)!//IDを取得
     }
 
     private createCSSRule(){//CSSルールを作成
