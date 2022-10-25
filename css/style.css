@@ -10,7 +10,7 @@ body{
 canvas{
     position: absolute;
     background-color: navy;
-    background-image: url("./../resource/background.jpg");
+    background-image: url("./../resource/image/background.jpg");
     display: block;
     margin: 0 auto;
     opacity: 1;

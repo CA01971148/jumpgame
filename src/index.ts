@@ -12,9 +12,6 @@ export const canvas:HTMLCanvasElement=<HTMLCanvasElement>document.getElementById
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)//CSSを読み込むための宣言
 
 export let rabbit=new characterRabbit()//rabbitクラス
-export let rabbitEdge:characterRabbitEdge[]=new Array//rabbitが画面端にいるとき、もう片方の画面端にもrabbitを映すためのクラスを格納するための配列
-rabbitEdge[0]=new characterRabbitEdge("rabbit_L")//左端処理用rabbitクラス(見た目上のもの)
-rabbitEdge[1]=new characterRabbitEdge("rabbit_R")//右端処理用rabbitクラス(見た目上のもの)
 export let key=new keyDown()//キーボードが押されたかどうか判断するクラス
 export let playerCamera=new camera()//プレイヤーに追随する視点用カメラ
 export let scaffolds:scaffold[]=new Array//足場配列を作成
@@ -87,8 +84,7 @@ export function sleep(waitMsec:any){//スリープさせる関数(デバッグ�
 function updateDisplay(){//画面更新用処理
     rabbit.move()
     playerCamera.y=rabbit.height-100
-    rabbitEdge[0].load(-1)
-    rabbitEdge[1].load(1)
+
     for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場を更新
         scaffolds[i].scrole()
     }
