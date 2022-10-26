@@ -44,7 +44,6 @@ export class keyDown{//キーが押されているかどうか判断するため
                 for(let i:number=0;i<stylesheet.cssRules.length;i++){
                     console.log(stylesheet.cssRules.item(i))
                 }
-                sleep(1000)
                 break
             }
     }
