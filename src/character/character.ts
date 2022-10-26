@@ -5,6 +5,7 @@ import {slipScaffold} from "../scaffold/slipScaffold"
 import {carryScaffold} from "../scaffold/carryScaffold"
 import {movingScaffold} from "../scaffold/movingScaffold"
 import {canvas} from "../index"
+import {characterEdge} from "./characterEdge"
 
 export abstract class character{
     readonly characterSize:number=50//キャラの大きさ
@@ -30,6 +31,7 @@ export abstract class character{
     protected characterID:HTMLElement//getElementByIdで取得するHTML要素
     protected imageAddress:string="./../resource/image/character/"
     protected imageName:string=""
+    characterEdges:characterEdge[]=new Array//キャラクターが画面端にいるとき、もう片方の画面端にもキャラクターを映すためのクラスを格納するための配列
 
     constructor(){}
 
