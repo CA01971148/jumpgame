@@ -18,11 +18,14 @@ export let scaffolds:scaffold[]=new Array//足場配列を作成
 
 export type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプを型として宣言
 const scaffoldsTypeList:scaffoldsType[]=["normal","slip","carry","moving"]//型を纏めたリスト配列
-let lotteryBox:scaffoldsType[]=["normal","slip","carry","moving"]//足場の種類を重み付き抽選するための箱を作成
+let lotteryBox:scaffoldsType[]=new Array//足場の種類を重み付き抽選するための箱を作成
+function getLotteryBox():scaffoldsType{//抽選箱からランダムに1つ取得する関数
+    return lotteryBox[Math.floor(Math.random()*lotteryBox.length)]
+}
 const defaultMaxLevel:number=10//初期作成足場数
 const loadScaffoldFrequency=5//足場の作成頻度
 let canCreateScaffold:boolean=true//現在、足場を作れるかどうか(現在足場を作っている間は作れないようにする)
-export function createRandomScaffold(type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+75,level:number=scaffolds.length){//足場を作成する関数
+export function createRandomScaffold(type:scaffoldsType=getLotteryBox(),width:number=Math.random()*100+75,level:number=scaffolds.length){//足場を作成する関数
     switch (type){
         case "normal":
             scaffolds[level]=new normalScaffold(level,width)
@@ -48,7 +51,40 @@ function createScaffolds(repetition:number){//足場をたくさん作る関数
     canCreateScaffold=true
 }
 function createDefaultScaffold(){//最初の足場を作成する関数
+    const interval:number=10//チュートリアルを行う足場の数
+    const defaultWidth:number=175//チュートリアル中の足場の幅
     createRandomScaffold("normal")//初期足場を作成
+    /* 通常足場を登るチュートリアル */
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold("normal",defaultWidth)//通常足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+    /* 滑る足場を登るチュートリアル */
+    lotteryBox=["normal","slip"]//抽選箱を通常足場と滑る足場に設定
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場と滑る足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+    /* 動かされる足場を登るチュートリアル */
+    lotteryBox=["normal","carry"]//抽選箱を通常足場と滑る足場に設定
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+    /* 動く足場を登るチュートリアル */
+    lotteryBox=["normal","moving"]//抽選箱を通常足場と滑る足場に設定
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+    /* ごちゃ混ぜの足場を登るチュートリアル(足場の大きさは不変) */
+    lotteryBox=["normal","slip","carry","moving"]//抽選箱を通常足場と滑る足場に設定
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+
+    /* ここから本番 */
     createScaffolds(defaultMaxLevel)//初期読み込み分の足場を作成
 }
 
