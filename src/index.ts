@@ -58,11 +58,9 @@ createScaffolds(defaultMaxLevel)//初期読み込み分の足場を作成
 
 /* デバッグ用関数等 */
 const sampleArea:HTMLElement=document.getElementById("sampleArea")
-const showScore:HTMLElement=document.getElementById("showScore")
 function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    sampleArea.innerHTML=`Level:${rabbit.currentScaffold().level}/${scaffolds.length}`
-    showScore.innerHTML="score:"+String(Math.round(rabbit.height))
+    sampleArea.innerHTML=""
 }
 export function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
     var startMsec:any = new Date();
@@ -74,6 +72,17 @@ export function sleep(waitMsec:any){//スリープさせる関数(デバッグ�
         }
     };
 }
+const showScore:HTMLElement=document.getElementById("showScore")//スコアを表示するためのHTML要素を取得
+let highScore:number=0//ハイスコア
+function showScoreArea(){
+    showScore.innerHTML=`Score:${Math.round(rabbit.height/100)}m`//1px1cmで高さを算出してスコアを表示
+    if(Math.round(rabbit.height/100)>highScore){//今のスコアがハイスコアかどうか
+        highScore=Math.round(rabbit.height/100)//ハイスコアを更新
+    }
+    showScore.innerHTML+="<br>"+`High Score:${highScore}m`//ハイスコアを改行して表示
+    }
+
+/* 動作処理等 */
 
 function updateDisplay(){//画面更新用処理
     rabbit.move()
@@ -110,6 +119,7 @@ function main(){//メインループ
     isKeyDown()//キーが押されているかどうか判断
 
     loadDebugArea()//デバッグ用エリアを更新
+    showScoreArea()//表示するスコアを更新
     updateDisplay()//画面を更新(rabbitやscaffolds等)
     loadNewScaffold()//足場を途切れないように追加していく処理
 
