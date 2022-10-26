@@ -4,7 +4,7 @@ import {rabbit,stylesheet,canvas} from "../index"
 /* メインのrabbitの右側と左側に幻影のrabbit(当たり判定等を持たない)を作成し、
 rabbitが画面端にいるとき、もう片方の画面端からもrabbitが見えるようにするためのクラス */
 type LorR="L"|"R"
-export class characterRabbitEdge extends character{
+export class characterEdge extends character{
     private IDname:string
     private characterEdgeID:HTMLElement//getElementByID用
 

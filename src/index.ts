@@ -1,5 +1,5 @@
 import {characterRabbit} from "./character/characterRabbit"
-import {characterRabbitEdge} from "./character/characterRabbitEdge"
+import {characterEdge} from "./character/characterEdge"
 import {scaffold} from "./scaffold/scaffold"
 import {normalScaffold} from "./scaffold/normalScaffold"
 import {slipScaffold} from "./scaffold/slipScaffold"
