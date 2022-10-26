@@ -22,6 +22,7 @@ export abstract class character{
     protected _jumpVelocity:number=0//ジャンプ速度
     readonly jumpChargeAmount:number=0.7//跳躍力の貯めやすさ
     readonly jumpChargeMax:number=18//跳躍力の貯め限界
+    readonly speedDownMin:number=0.1//跳躍力を貯めている間減速するときの最低速度
     readonly fallVelocitiy:number=0.5//落下速度
     protected isOnGround:boolean=true//接地しているかどうか
     protected isCarry:boolean=false//動かされているかどうか
@@ -167,18 +168,28 @@ export abstract class character{
         }
     }
 
-    public moveLeft(){//左に移動する関数
+    public moveLeft(){//左に移動するメソッド
         if(this.isOnGround===false){
-            this.dx-=this.moveVelocity
+            this.dx-=this.getSpeed()
         }
         this.characterID.style.transform="rotateY(0deg)"//左を向く
     }
-    public moveRight(){//右に移動する関数
+    public moveRight(){//右に移動するメソッド
         if(this.isOnGround===false){
-            this.dx+=this.moveVelocity
+                this.dx+=this.getSpeed()
         }
-
         this.characterID.style.transform="rotateY(180deg)"//右を向く
+    }
+    protected getSpeed():number{//跳躍力を貯めている間の横移動減速率を求めるメソッド
+        return this.moveVelocity
+        //上の行を下のコメントで置換すると跳躍力を貯めれば貯めるほど減速するようになる
+/*         if(this.jumpVelocity===0){//跳躍力を貯めていなければ減速しない
+            return this.moveVelocity
+        }else if((1-(this.jumpVelocity/this.jumpChargeMax))<this.speedDownMin){//最低減速率より減速率が低ければ調整する
+            return this.speedDownMin
+        }else{
+            return 1-(this.jumpVelocity/this.jumpChargeMax)
+        } */
     }
 
     public jumpCharge(){//跳躍力を貯める関数
