@@ -83,7 +83,6 @@ function showScoreArea(){
     }
 
 /* 動作処理等 */
-
 function updateDisplay(){//画面更新用処理
     rabbit.move()
     playerCamera.y=rabbit.height-100
