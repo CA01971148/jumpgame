@@ -5,7 +5,7 @@
     <title>タイトル画面</title>
     <style>
         body{
-        background-color: white;
+        background-color: black;
         }
         h1{
             color: #6cb4e4;
@@ -16,12 +16,19 @@
             background: -webkit-repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
             background: repeating-linear-gradient(-45deg, #f0f8ff, #f0f8ff 3px,#e9f4ff 3px, #e9f4ff 7px);
             text-align: center;
-            font-size: 90px;
+            font-size: 50px;
+        }
+        h2{
+            text-align: center;
+            font-size: 200px;
         }
 /*ボタンのデザイン*/
         .box{
             text-align: center;
-            font-size: 40px;
+            font-size: 25px;
+        }
+        .box.indent{
+            text-indent: 20em;
         }
         .box a{
             background: #eee;
@@ -55,15 +62,41 @@
             width: 100%;
             z-index: -1;
         }
+        canvas{
+            position: absolute;
+            background-color: #686565;
+            background-image: url("./../resource/image/background.jpg");
+            left: 50%;
+            margin-right: -50%;
+            top: 44.51%;
+            transform: translate(-50%, -50%);
+        }
+        .rabbit{
+            text-align:center;
+            background-image: url("resource/image/rabbit.png");
+        }
     </style>
 </head>
 <body>
-    <h1>JAMUPGAME</h1>
+<canvas id="canvas" width="360" height="640"></canvas>
+<h2><a href=""></a></h2>
 <div style="text-align: center">
     <img src="rabbit.png" width="320" height="320">
 </div>
 <div class="box">
     <a href="./dist/index.html">start</a>
 </div>
+<script>
+var canvas = document.getElementById('canvas');
+var c = canvas.getContext('2d');
+
+var str = 'JAMUPGAME';
+c.strokeStyle = 'blue';              // 枠線の色
+c.fillStyle = '#6bb6ff';              // 塗りつぶしの色
+c.font = 'italic bold 50px serif';  // フォント
+c.textAlign = 'left';               // 配置
+c.strokeText(str, 10, 80);
+c.fillText(str, 10, 80);
+</script>
 </body>
 </html>
