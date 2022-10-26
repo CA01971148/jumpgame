@@ -6,6 +6,7 @@ import {carryScaffold} from "../scaffold/carryScaffold"
 import {movingScaffold} from "../scaffold/movingScaffold"
 import {canvas} from "../index"
 import {characterEdge} from "./characterEdge"
+import {playJumpSE} from "./../other/audio/playAudio"
 
 export abstract class character{
     readonly characterSize:number=50//キャラの大きさ
@@ -209,6 +210,7 @@ export abstract class character{
         this.characterID.style.height=this.characterSize+"px"//踏ん張り縮み解放
         if(this.isOnGround===true){//接地しているなら、跳躍力を解放
             this.dy+=this.jumpVelocity
+            playJumpSE("jump")//ジャンプSEを再生
         }
         this.jumpVelocity=0
     }

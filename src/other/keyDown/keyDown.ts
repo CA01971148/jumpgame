@@ -1,5 +1,4 @@
 import {key,rabbit} from "../../index"
-import {playJumpSE} from "../audio/playAudio"
 
 export class keyDown{//キーが押されているかどうか判断するためのクラス
     key_left:boolean=false//左移動キーが押されているかどうか
@@ -36,7 +35,6 @@ export class keyDown{//キーが押されているかどうか判断するため
                 this.key_jump=false
                 key.key_jump=this.key_jump
                 rabbit.jump()//Spaceキーが離されたとき、rabbitの跳躍力を解放
-                playJumpSE("jump")//ジャンプSEを再生
                 break
 
             case 13://「Enter」キーが離されたとき(デバッグ用)
