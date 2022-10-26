@@ -26,7 +26,10 @@ export abstract class character{
     protected isCarry:boolean=false//動かされているかどうか
     protected isOnMoving:boolean=false//動く床に乗っているかどうか
     protected heightSize:number=this.characterSize//キャラの身長
-    protected characterID:HTMLElement//getElementByID用
+    protected IDName:string="character"//CSSで使うキャラクターのID
+    protected characterID:HTMLElement//getElementByIdで取得するHTML要素
+    protected imageAddress:string="./../resource/image/character/"
+    protected imageName:string=""
 
     constructor(){}
 
@@ -89,6 +92,17 @@ export abstract class character{
         }
     }
 
+    /* 初期処理 */
+    protected createImgElement(_imageName:string){//キャラクターのimg要素を追加するメソッド
+        document.write(`<img id="${this.IDName}" src="${this.imageAddress}${_imageName}">`)//キャラ出現
+    }
+    protected setImgElement(){//キャラクターのimg要素を取得して初期化するメソッド(img要素は追加してから実行すること！)
+        this.characterID=document.getElementById('character')!//IDを取得
+        this.characterID.style.width=this.characterSize+"px"//初期大きさ設定(幅)
+        this.characterID.style.height=this.characterSize+"px"//初期大きさ設定(高さ)
+    }
+
+    /* 動作処理 */
     public move(){//慣性で移動する関数
         this.moveX()//x軸移動
         this.moveY()//y軸移動
