@@ -40,10 +40,7 @@ export class keyDown{//キーが押されているかどうか判断するため
                 break
 
             case 13://「Enter」キーが離されたとき(デバッグ用)
-                createRandomScaffold("normal")
-                for(let i:number=0;i<stylesheet.cssRules.length;i++){
-                    console.log(stylesheet.cssRules.item(i))
-                }
+                /* デバッグ用処理 */
                 break
             }
     }

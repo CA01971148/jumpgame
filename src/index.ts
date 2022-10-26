@@ -50,7 +50,7 @@ function createScaffolds(repetition:number){//足場をたくさん作る関数
 }
 function loadNewScaffold(){//キャラが足場を昇る度に足場を追加して無限に昇れるようにする関数
     if((rabbit.currentScaffold().level>(scaffolds.length-1)-loadScaffoldFrequency)&&(canCreateScaffold)){//もうそろそろ足場の最大数まで昇るかなってときに足場の数を追加するよ。足場を作っている間は新しく重複して作れないようにしてるよ。
-        //createScaffolds(loadScaffoldFrequency)
+        createScaffolds(loadScaffoldFrequency)
     }
 }
 createRandomScaffold("normal")//初期足場を作成
