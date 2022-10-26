@@ -62,12 +62,6 @@ const showScore:HTMLElement=document.getElementById("showScore")
 function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
     sampleArea.innerHTML=`Level:${rabbit.currentScaffold().level}/${scaffolds.length}`
-    sampleArea.innerHTML+="<br>"+`MaxScaffold.level:${scaffolds[scaffolds.length-1].level}`
-    sampleArea.innerHTML+="<br>"+`作るよ:${(rabbit.currentScaffold().level>scaffolds.length-loadScaffoldFrequency)}`
-    //sampleArea.innerHTML+="<br>"+`スタイルシート:${stylesheet.cssRules.item(stylesheet.cssRules.length-1).cssText}`
-    for(let i:number=0;i<stylesheet.cssRules.length;i++){
-        sampleArea.innerHTML+="<br>"+`スタイルシート:${stylesheet.cssRules.item(i).cssText}`
-    }
     showScore.innerHTML="score:"+String(Math.round(rabbit.height))
 }
 export function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
