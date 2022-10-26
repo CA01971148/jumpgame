@@ -8,8 +8,8 @@ export class characterRabbit extends character{
         this.imageName="rabbit.png"
         this.createImgElement(this.imageName)//キャラクターのimg要素を追加する
         this.setImgElement()//img要素を取得して初期化する
-        this.rabbitEdge[0]=new characterEdge("character","rabbit_L")//左端処理用rabbitクラス(見た目上のもの)
-        this.rabbitEdge[1]=new characterEdge("character","rabbit_R")//右端処理用rabbitクラス(見た目上のもの)
+        this.rabbitEdge[0]=new characterEdge(this.imageName,"L")//左端処理用クラス(見た目上のもの)
+        this.rabbitEdge[1]=new characterEdge(this.imageName,"R")//右端処理用クラス(見た目上のもの)
     }
 
     public move(){//慣性で移動する関数

@@ -97,7 +97,7 @@ export abstract class character{
         document.write(`<img id="${this.IDName}" src="${this.imageAddress}${_imageName}">`)//キャラ出現
     }
     protected setImgElement(){//キャラクターのimg要素を取得して初期化するメソッド(img要素は追加してから実行すること！)
-        this.characterID=document.getElementById('character')!//IDを取得
+        this.characterID=document.getElementById(this.IDName)!//IDを取得
         this.characterID.style.width=this.characterSize+"px"//初期大きさ設定(幅)
         this.characterID.style.height=this.characterSize+"px"//初期大きさ設定(高さ)
     }
