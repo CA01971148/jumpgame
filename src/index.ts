@@ -7,6 +7,7 @@ import {carryScaffold} from "./scaffold/carryScaffold"
 import {movingScaffold} from "./scaffold/movingScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
 import {camera} from "./other/camera/camera"
+import {playBGM} from "./other/audio/playAudio"
 
 export const canvas:HTMLCanvasElement=<HTMLCanvasElement>document.getElementById("myCanvas")//canvasを取得
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)//CSSを読み込むための宣言
@@ -147,6 +148,7 @@ function showScoreArea(){
     showScore.innerHTML+="<br>"+`High Score:${highScore}m`//ハイスコアを改行して表示
     }
 
+//playBGM()//BGMを再生する(基本は再生しない)
 requestAnimationFrame(main)//メインループ、起動
 
 function main(){//メインループ
