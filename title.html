@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>JUMPGAME Title</title>
+    <style>
+        body{
+        background-color: black;
+        }
+        h1{
+            text-align: center;
+            font-size: 250px;
+        }
+/*ボタンのデザイン*/
+        .box{
+            text-align: center;
+            font-size: 25px;
+        }
+        .box.indent{
+            text-indent: 20em;
+        }
+        .box a{
+            background: #eee;
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 0 auto;
+            max-width: 240px;
+            padding: 10px 25px;
+            color: #313131;
+            transition: 0.3s ease-in-out;
+            font-weight: 500;
+            z-index:0;
+        }
+        .box a:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 0;
+            display: block;
+            background: #6bb6ff;
+            transition: .3s;
+            left:0;
+        }
+        .box a:hover {
+            color: #FFF;
+        }
+        .box a:hover:before {
+            width: 100%;
+            z-index: -1;
+        }
+        canvas{
+            position: absolute;
+            background-color: #686565;
+            background-image: url("./../resource/image/background.jpg");
+            left: 50%;
+            margin-right: -50%;
+            top: 44.51%;
+            transform: translate(-50%, -50%);
+        }
+        .rabbit{
+            text-align:center;
+            background-image: url("resource/image/rabbit.png");
+        }
+    </style>
+</head>
+<body>
+<canvas id="canvas" width="360" height="640"></canvas>
+<h1></h1>
+<div style="text-align: center">
+    <img src="rabbit.png" width="320" height="320">
+</div>
+<div class="box">
+    <a href="./dist/index.html">start</a>
+</div>
+<script>
+var canvas = document.getElementById('canvas');
+var c = canvas.getContext('2d');
+
+var str = 'JUMPGAME';
+c.strokeStyle = 'blue';              // 枠線の色
+c.fillStyle = '#6bb6ff';              // 塗りつぶしの色
+c.font = 'italic bold 50px serif';  // フォント
+c.textAlign = 'left';               // 配置
+c.strokeText(str, 25, 80);
+c.fillText(str, 25, 80);
+</script>
+</body>
+</html>
