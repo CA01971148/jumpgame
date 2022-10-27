@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>JUMPGAME Title</title>
+    <title>Jump Game</title>
+    <link rel="icon" href="./resource/JumpGame.ico">
     <style>
         body{
         background-color: black;
@@ -57,21 +58,21 @@
             background-image: url("./../resource/image/background.jpg");
             left: 50%;
             margin-right: -50%;
-            top: 44.51%;
+            top: 320px;
             transform: translate(-50%, -50%);
         }
-        .rabbit{
-            text-align:center;
-            background-image: url("resource/image/rabbit.png");
+        #rabbit{
+            position: relative;
+            width: 320px;
+            height: 320px;
+            left: calc(50% - 160px);
         }
     </style>
 </head>
 <body>
 <canvas id="canvas" width="360" height="640"></canvas>
 <h1></h1>
-<div style="text-align: center">
-    <img src="rabbit.png" width="320" height="320">
-</div>
+<img id="rabbit" src="./resource/image/character/rabbit.png">
 <div class="box">
     <a href="./dist/index.html">start</a>
 </div>
