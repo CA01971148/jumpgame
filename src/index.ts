@@ -7,6 +7,7 @@ import {carryScaffold} from "./scaffold/carryScaffold"
 import {movingScaffold} from "./scaffold/movingScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
 import {camera} from "./other/camera/camera"
+import {reload} from "./other/Display/reload"
 
 export const canvas:HTMLCanvasElement=<HTMLCanvasElement>document.getElementById("myCanvas")//canvasを取得
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)//CSSを読み込むための宣言
@@ -108,6 +109,8 @@ function isKeyDown(){//キーが押されているかどうか判断するため
         rabbit.jumpCharge()
     }
 }
+
+reload()//リロードしたときにゲーム画面ではなくタイトル画面を読み込む
 
 requestAnimationFrame(main)//メインループ、起動
 
