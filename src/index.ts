@@ -7,7 +7,10 @@ import {carryScaffold} from "./scaffold/carryScaffold"
 import {movingScaffold} from "./scaffold/movingScaffold"
 import {keyDown} from "./other/keyDown/keyDown"
 import {camera} from "./other/camera/camera"
+import {playBGM} from "./other/audio/playAudio"
 import {reload} from "./other/Display/reload"
+
+reload()//リロードしたときにゲーム画面ではなくタイトル画面を読み込む
 
 export const canvas:HTMLCanvasElement=<HTMLCanvasElement>document.getElementById("myCanvas")//canvasを取得
 export const stylesheet:CSSStyleSheet=document.styleSheets.item(0)//CSSを読み込むための宣言
@@ -20,11 +23,13 @@ export let scaffolds:scaffold[]=new Array//足場配列を作成
 export type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプを型として宣言
 const scaffoldsTypeList:scaffoldsType[]=["normal","slip","carry","moving"]//型を纏めたリスト配列
 let lotteryBox:scaffoldsType[]=new Array//足場の種類を重み付き抽選するための箱を作成
-lotteryBox=["normal","slip","carry","moving"]
+function getLotteryBox():scaffoldsType{//抽選箱からランダムに1つ取得する関数
+    return lotteryBox[Math.floor(Math.random()*lotteryBox.length)]
+}
 const defaultMaxLevel:number=10//初期作成足場数
 const loadScaffoldFrequency=5//足場の作成頻度
 let canCreateScaffold:boolean=true//現在、足場を作れるかどうか(現在足場を作っている間は作れないようにする)
-export function createRandomScaffold(type:scaffoldsType=(lotteryBox[Math.floor(Math.random()*lotteryBox.length)]),width:number=Math.random()*100+75,level:number=scaffolds.length){//足場を作成する関数
+export function createRandomScaffold(type:scaffoldsType=getLotteryBox(),width:number=Math.random()*100+75,level:number=scaffolds.length){//足場を作成する関数
     switch (type){
         case "normal":
             scaffolds[level]=new normalScaffold(level,width)
@@ -49,13 +54,45 @@ function createScaffolds(repetition:number){//足場をたくさん作る関数
     }
     canCreateScaffold=true
 }
-function loadNewScaffold(){//キャラが足場を昇る度に足場を追加して無限に昇れるようにする関数
-    if((rabbit.currentScaffold().level>(scaffolds.length-1)-loadScaffoldFrequency)&&(canCreateScaffold)){//もうそろそろ足場の最大数まで昇るかなってときに足場の数を追加するよ。足場を作っている間は新しく重複して作れないようにしてるよ。
-        createScaffolds(loadScaffoldFrequency)
+function createDefaultScaffold(){//最初の足場を作成する関数
+    const interval:number=10//チュートリアルを行う足場の数
+    const defaultWidth:number=175//チュートリアル中の足場の幅
+    createRandomScaffold("normal")//初期足場を作成
+    /* 通常足場を登るチュートリアル */
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold("normal",defaultWidth)//通常足場を作成
     }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+    /* 滑る足場を登るチュートリアル */
+    lotteryBox=["normal","slip"]//抽選箱を通常足場と滑る足場に設定
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場と滑る足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+    /* 動かされる足場を登るチュートリアル */
+    lotteryBox=["normal","carry"]//抽選箱を通常足場と滑る足場に設定
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+    /* 動く足場を登るチュートリアル */
+    lotteryBox=["normal","moving"]//抽選箱を通常足場と滑る足場に設定
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+    /* ごちゃ混ぜの足場を登るチュートリアル(足場の大きさは不変) */
+    lotteryBox=["normal","slip","carry","moving"]//抽選箱を通常足場と滑る足場に設定
+    for(let i:number=0;i<interval;i++){
+        createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場を作成
+    }
+    createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+
+    /* ここから本番 */
+    createScaffolds(defaultMaxLevel)//初期読み込み分の足場を作成
 }
-createRandomScaffold("normal")//初期足場を作成
-createScaffolds(defaultMaxLevel)//初期読み込み分の足場を作成
+
+createDefaultScaffold()
 
 /* デバッグ用関数等 */
 const sampleArea:HTMLElement=document.getElementById("sampleArea")
@@ -73,17 +110,13 @@ export function sleep(waitMsec:any){//スリープさせる関数(デバッグ�
         }
     };
 }
-const showScore:HTMLElement=document.getElementById("showScore")//スコアを表示するためのHTML要素を取得
-let highScore:number=0//ハイスコア
-function showScoreArea(){
-    showScore.innerHTML=`Score:${Math.round(rabbit.height/100)}m`//1px1cmで高さを算出してスコアを表示
-    if(Math.round(rabbit.height/100)>highScore){//今のスコアがハイスコアかどうか
-        highScore=Math.round(rabbit.height/100)//ハイスコアを更新
-    }
-    showScore.innerHTML+="<br>"+`High Score:${highScore}m`//ハイスコアを改行して表示
-    }
 
 /* 動作処理等 */
+function loadNewScaffold(){//キャラが足場を昇る度に足場を追加して無限に昇れるようにする関数
+    if((rabbit.currentScaffold().level>(scaffolds.length-1)-loadScaffoldFrequency)&&(canCreateScaffold)){//もうそろそろ足場の最大数まで昇るかなってときに足場の数を追加するよ。足場を作っている間は新しく重複して作れないようにしてるよ。
+        createScaffolds(loadScaffoldFrequency)
+    }
+}
 function updateDisplay(){//画面更新用処理
     rabbit.move()
     playerCamera.y=rabbit.height-100
@@ -92,7 +125,6 @@ function updateDisplay(){//画面更新用処理
         scaffolds[i].scrole()
     }
 }
-
 function isKeyDown(){//キーが押されているかどうか判断するための関数
 /*     【仕様】
     左右キーは同時に押すとどちらにも移動できない(どちらか片方を押しているときのみ移動できる)
@@ -109,18 +141,26 @@ function isKeyDown(){//キーが押されているかどうか判断するため
         rabbit.jumpCharge()
     }
 }
+const showScore:HTMLElement=document.getElementById("showScore")//スコアを表示するためのHTML要素を取得
+let highScore:number=0//ハイスコア
+function showScoreArea(){
+    showScore.innerHTML=`Score:${Math.round(rabbit.height/100)}m`//1px1cmで高さを算出してスコアを表示
+    if(Math.round(rabbit.height/100)>highScore){//今のスコアがハイスコアかどうか
+        highScore=Math.round(rabbit.height/100)//ハイスコアを更新
+    }
+    showScore.innerHTML+="<br>"+`High Score:${highScore}m`//ハイスコアを改行して表示
+    }
 
-reload()//リロードしたときにゲーム画面ではなくタイトル画面を読み込む
-
+//playBGM()//BGMを再生する(基本は再生しない)
 requestAnimationFrame(main)//メインループ、起動
 
 function main(){//メインループ
     addEventListener("keydown",key.keyDownFunc)//キーボードが押された時、keyDownFunc関数を呼び出す
     addEventListener("keyup",key.keyUpFunc)//キーボードが離された時、keyUpFunc関数を呼び出す
 
-    isKeyDown()//キーが押されているかどうか判断
-
     loadDebugArea()//デバッグ用エリアを更新
+
+    isKeyDown()//キーが押されているかどうか判断
     showScoreArea()//表示するスコアを更新
     updateDisplay()//画面を更新(rabbitやscaffolds等)
     loadNewScaffold()//足場を途切れないように追加していく処理
