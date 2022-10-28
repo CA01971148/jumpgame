@@ -87,6 +87,13 @@ c.font = 'italic bold 50px serif';  // フォント
 c.textAlign = 'left';               // 配置
 c.strokeText(str, 25, 80);
 c.fillText(str, 25, 80);
+
+document.addEventListener('keypress', keypress_ivent);//キーが押されたとき
+function keypress_ivent(e) {
+    if(e.keyCode===32){//「Space」キーが押されたとき
+        location.href="./dist/index.html"//タイトル画面を読み込む
+    }
+}
 </script>
 </body>
 </html>
