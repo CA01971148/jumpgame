@@ -47,7 +47,7 @@ export class keyDown{//キーが押されているかどうか判断するため
 
             case 13://「Enter」キーが離されたとき(デバッグ用)
                 /* デバッグ用処理 */
-                console.log(showAllTest("console"))
+                //console.log(showAllTest("console"))//コンソールにテストを出力する
                 break
             }
             testList["keyDown keyUpFunc()"]=true
