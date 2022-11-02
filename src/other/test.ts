@@ -1,3 +1,5 @@
+import { character } from "../character/character"
+
 export let testList:{[testName:string]:boolean}={}//テストが成功したかどうか管理するための配列(キーはテストの名前、値はテストが成功したかどうか)
 /* テスト一覧 */
 /* index.ts */
@@ -66,8 +68,67 @@ testList["keyDown keyUpFunc()_Space"]=false
 testList["reload reload()"]=false
 testList["camera get y()"]=false
 testList["camera set y()"]=false
-
-
+/* character */
+testList["character get x()"]=true
+testList["character set x()"]=true
+testList["character set x()_左端"]=true
+testList["character set x()_右端"]=true
+testList["character set x()_通常"]=true
+testList["character get y()"]=true
+testList["character set y()"]=true
+testList["character get height()"]=true
+testList["character set height()"]=true
+testList["character get dx()"]=true
+testList["character set dx()_右最大値超過"]=true
+testList["character set dx()_左最大値超過"]=true
+testList["character set dx()_通常"]=true
+testList["character set dx()"]=true
+testList["character get dy()"]=true
+testList["character set dy()"]=true
+testList["character get jumpVelocity()"]=true
+testList["character set jumpVelocity()_最大値超過"]=true
+testList["character set jumpVelocity()_通常"]=true
+testList["character set jumpVelocity()"]=true
+testList["character createImgElement()"]=true
+testList["character setImgElement()"]=true
+testList["character move()"]=true
+testList["character moveX()"]=true
+testList["character moveX()_地上"]=true
+testList["character moveX()_空中"]=true
+testList["character moveX()_地上_carry"]=true
+testList["character moveX()_地上_moving"]=true
+testList["character moveX()_地上_通常"]=true
+testList["character moveY()"]=true
+testList["character moveY()_空中"]=true
+testList["character moveY()_地上"]=true
+testList["character moveY()_足場に留まる"]=true
+testList["character moveY()_足場に留まらない"]=true
+testList["character updateImages()"]=true
+testList["character getStates()"]=true
+testList["character currentScaffold()"]=true
+testList["character checkAboveScaffold()"]=true
+testList["character checkAboveScaffold()_足場上"]=true
+testList["character checkAboveScaffold()_足場外"]=true
+testList["character checkOnGround()"]=true
+testList["character checkOnGround()_接地"]=true
+testList["character checkOnGround()_空中"]=true
+testList["character moveLeft()_空中"]=true
+testList["character moveLeft()"]=true
+testList["character moveRight()_空中"]=true
+testList["character moveRight()"]=true
+testList["character getSpeed()"]=true
+testList["character jumpCharge()_最大縮み"]=true
+testList["character jumpCharge()_通常縮み"]=true
+testList["character jumpCharge()"]=true
+testList["character jump()_接地"]=true
+testList["character jump()"]=true
+testList["character movedVelocity()"]=true
+testList["character movedVelocity()_carry"]=true
+testList["character movedVelocity()moving"]=true
+testList["characterRabbit constructor()"]=true
+testList["characterRabbit move()"]=true
+testList["characterEdge constructor()"]=true
+testList["characterEdge load()"]=true
 
 type exportOption="console"|"html"
 export function showAllTest(option:exportOption):string{//テストの結果を取得するための関数

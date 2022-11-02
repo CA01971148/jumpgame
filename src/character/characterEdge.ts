@@ -17,6 +17,7 @@ export class characterEdge extends character{
         this.createImgElement(this.imageName)//画像を表示
         this.characterID=document.getElementById(this.IDName)!//img要素を取得
         this.originID=document.getElementById(this.originIDName)!//本体のimg要素を取得
+        testList["characterEdge constructor()"]=true
     }
 
     public load(direction:number){//本体のx座標等を読み込んでコピーするための関数 向き(direction)は左が-1,右が1
@@ -26,5 +27,6 @@ export class characterEdge extends character{
         this.characterID.style.left=String(standard_x+(direction*canvas.width))+"px"//x座標設定
         this.characterID.style.top=this.originID.style.top//y座標設定
         this.characterID.style.transform=this.originID.style.transform//向き設定
+        testList["characterEdge load()"]=true
     }
 }
