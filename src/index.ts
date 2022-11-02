@@ -110,7 +110,7 @@ const sampleArea:HTMLElement=document.getElementById("sampleArea")
 function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
     let content=""
-    //content=showAllTest("html")//テストを表示する
+    content=showAllTest("html")//テストを表示する
     sampleArea.innerHTML=content
 }
 export function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)

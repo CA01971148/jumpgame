@@ -278,7 +278,7 @@ export abstract class character{
                 return currentCarryScaffold.carryVelocity*currentCarryScaffold.direction//dxを「動かされる速度×向き」に固定する
             case "moving":
                 const currentMovingScaffold:movingScaffold=this.currentScaffold() as movingScaffold
-                testList["character movedVelocity()moving"]=true
+                testList["character movedVelocity()_moving"]=true
                 return currentMovingScaffold.moveVelocity*currentMovingScaffold.direction//dxを「動かされる速度×向き」に固定する
         }
     }
