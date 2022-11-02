@@ -82,7 +82,7 @@ export function showAllTest(option:exportOption):string{//テストの結果を�
     return result
 }
 
-function redText(text:string,option:exportOption):string{//制御文字を使用してコンソールに赤文字を出力するための関数
+function redText(text:string,option:exportOption):string{//コンソールやhtmlに出力する文字を赤文字に変換するための関数
     let red=""
     let reset=""
     switch(option){
