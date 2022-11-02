@@ -2,7 +2,7 @@ export let testList:{[testName:string]:boolean}={}//テストが成功したか�
 /* テスト一覧 */
 testList[""]=false
 
-function showAllTest():string{//テストの結果を取得するための関数
+export function showAllTest():string{//テストの結果を取得するための関数
     let result:string=""
     let countSuccess:number=0//テストが成功した数
     for(let i in testList){//テストリストの中身(キーと値)を一括で取得する

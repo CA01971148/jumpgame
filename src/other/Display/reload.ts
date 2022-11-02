@@ -1,3 +1,5 @@
+import {testList} from "./../test"
+
 export function reload(){//リロードしたときにゲーム画面ではなくタイトル画面を読み込む処理
     if(window.performance){
         if(window.performance.navigation.type === 1){

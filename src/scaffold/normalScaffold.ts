@@ -1,6 +1,7 @@
 import {scaffold} from "./scaffold"
 import {playerCamera, stylesheet} from "../index"
 import {canvas} from "../index"
+import {testList} from "./../other/test"
 
 export class normalScaffold extends scaffold{
     constructor(_level:number,_width:number=scaffold.defaultWidth){

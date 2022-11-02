@@ -1,5 +1,6 @@
 import {character} from "./character"
 import {characterEdge} from "./characterEdge"
+import {testList} from "./../other/test"
 
 export class characterRabbit extends character{
     constructor(){

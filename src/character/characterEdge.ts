@@ -1,5 +1,6 @@
 import {character} from "./character"
 import {rabbit,stylesheet,canvas} from "../index"
+import {testList} from "./../other/test"
 
 /* メインのrabbitの右側と左側に幻影のrabbit(当たり判定等を持たない)を作成し、
 rabbitが画面端にいるとき、もう片方の画面端からもrabbitが見えるようにするためのクラス */

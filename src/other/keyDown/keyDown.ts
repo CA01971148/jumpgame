@@ -1,4 +1,5 @@
 import {key,rabbit} from "../../index"
+import {testList,showAllTest} from "./../test"
 
 export class keyDown{//キーが押されているかどうか判断するためのクラス
     key_left:boolean=false//左移動キーが押されているかどうか

@@ -1,4 +1,5 @@
 import {scaffold} from "./scaffold"
+import {testList} from "./../other/test"
 
 export class carryScaffold extends scaffold{//キャラが乗ると動かされる足場
     private _direction:number=1//キャラが動かされる方向 左が-,右が1

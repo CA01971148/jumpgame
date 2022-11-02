@@ -7,6 +7,7 @@ import {movingScaffold} from "../scaffold/movingScaffold"
 import {canvas} from "../index"
 import {characterEdge} from "./characterEdge"
 import {playJumpSE} from "./../other/audio/playAudio"
+import {testList} from "./../other/test"
 
 export abstract class character{
     readonly characterSize:number=50//キャラの大きさ

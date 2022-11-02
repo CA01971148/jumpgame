@@ -1,3 +1,5 @@
+import {testList} from "./../test"
+
 export type SEtype="jump"//SEの種類
 
 const BGM=new Audio("./../resource/sound/bgm/bgm1.wav")//BGM

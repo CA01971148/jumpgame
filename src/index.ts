@@ -9,6 +9,7 @@ import {keyDown} from "./other/keyDown/keyDown"
 import {camera} from "./other/camera/camera"
 import {playBGM} from "./other/audio/playAudio"
 import {reload} from "./other/Display/reload"
+import {testList,showAllTest} from "./other/test"
 
 reload()//リロードしたときにゲーム画面ではなくタイトル画面を読み込む
 

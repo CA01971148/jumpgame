@@ -1,3 +1,5 @@
+import {testList} from "./../test"
+
 export class camera{
     private _y:number=0
 

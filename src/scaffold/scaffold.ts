@@ -1,5 +1,6 @@
 import {playerCamera, stylesheet} from "../index"
 import {canvas} from "../index"
+import {testList} from "./../other/test"
 
 export abstract class scaffold{//初期足場
     public static readonly firstHeight:number=50//初期足場がどれだけ浮いているか
