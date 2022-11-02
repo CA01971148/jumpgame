@@ -26,47 +26,60 @@ export abstract class scaffold{//初期足場
         if(this.level===0){//作るのが初期足場のとき、幅や場所を固定
             this.width=canvas.width
             this.x=0
+            testList["scaffold constructor() 初期足場のとき"]=true
         }else{//それ以外の足場のとき、
             this.width=_width
             this.x=Math.random()*-(canvas.width-this.width)+(canvas.width-this.width)/2//画面内に足場が収まるようにx座標をランダムに設定
+            testList["scaffold constructor() 初期足場以外のとき"]=true
         }
         this.y=scaffold.firstHeight+scaffold.scaffoldDistance*this.level
         this.height=scaffold.scaffoldDistance*this.level
+        testList["scaffold constructor()"]=true
     }
 
     /* getter/setter */
     get x():number{
+        testList["scaffold get x()"]=true
         return this._x
     }
     protected set x(x:number){
+        testList["scaffold set x()"]=true
         this._x=x
     }
 
     get y():number{
+        testList["scaffold get y()"]=true
         return this._y
     }
     public set y(y:number){
+        testList["scaffold set y()"]=true
         this._y=y
     }
 
     get width():number{
+        testList["scaffold get width()"]=true
         return this._width
     }
     protected set width(width:number){
+        testList["scaffold set width()"]=true
         this._width=width
     }
 
     get height():number{
+        testList["scaffold get height()"]=true
         return this._height
     }
     protected set height(height:number){
+        testList["scaffold set height()"]=true
         this._height=height
     }
 
     get friction():number{
+        testList["scaffold get friction()"]=true
         return this._friction
     }
     protected set friction(friction:number){
+        testList["scaffold set friction()"]=true
         this._friction=friction
     }
 
@@ -74,11 +87,14 @@ export abstract class scaffold{//初期足場
     protected createImgElement(_imageName:string){//足場のimg要素を追加するメソッド
         if(this.level===0){//初期足場ならdocument.writeでHTML要素で作る(要素を追加する位置の基礎となる0番idを作るため)
             document.write(`<img id="${this.IDName}" src="${this.imageAddress}${_imageName}">`)
+            testList["scaffold createImgElement() 初期足場"]=true
         }else{
             const formerScaffoldID:string="scaffold"+String(this.level-1)//1つ下の足場のID
             const formerScaffold:HTMLElement=document.getElementById(formerScaffoldID)!//1つ下の足場のHTML要素
             formerScaffold.insertAdjacentHTML('afterend',`<img id="${this.IDName}" src="${this.imageAddress}${_imageName}">`)//1つ下の足場のimg要素の後に新しい足場のimg要素を追加
+            testList["scaffold createImgElement() 初期足場以外"]=true
         }
+        testList["scaffold createImgElement()"]=true
     }
     protected setImgElement(){//足場のimg要素を取得して初期化するメソッド(img要素は追加してから実行すること！)
         this.scaffoldID=document.getElementById(this.IDName)!//足場のHTML要素を取得
@@ -86,16 +102,19 @@ export abstract class scaffold{//初期足場
         this.scaffoldID.style.height=scaffold.thickness+"px"//初期大きさ設定(厚さ)
         this.scaffoldID.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
         this.scaffoldID.style.top=(canvas.height-(this.y-playerCamera.y))+"px"//y座標設定 高さは"50
+        testList["scaffold setImgElement()"]=true
     }
 
     /* 動作処理 */
     protected createCSSRule(idName:string){//足場それぞれにCSSルールを作成
         const contents:string="#"+idName+"{position: absolute;object-fit: none;z-index: 1;top: 0px;left: 0px;transform: rotateY(0deg);width: 150px;height: 20px;color: white;}"
         stylesheet.insertRule(contents,stylesheet.cssRules.length)//スタイルシートの末尾に変数contentsで設定した中身を追加
+        testList["scaffold createCSSRule()"]=true
     }
 
     public scrole(){//画面更新用処理
         this.scaffoldID.style.left=((this.x)+(canvas.width/2)-(this.width/2))+"px"//x座標設定
         this.scaffoldID.style.top=(canvas.height-(this.y-playerCamera.y))+"px"//y座標設定 高さは"50+200*level"
+        testList["scaffold scrole()"]=true
     }
 }

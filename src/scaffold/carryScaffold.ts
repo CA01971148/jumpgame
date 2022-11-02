@@ -10,18 +10,22 @@ export class carryScaffold extends scaffold{//キャラが乗ると動かされ�
         this.imageName="carryScaffold.jpg"
         this.createImgElement(this.imageName)//足場のimg要素を追加する
         this.setImgElement()//img要素を取得して初期化する
+        testList["carryScaffold constructor()"]=true
     }
 
     /* getter/setter */
     public get direction():number{
+        testList["carryScaffold get direction()"]=true
         return this._direction
     }
     private set direction(direction:number){
+        testList["carryScaffold set direction()"]=true
         this._direction=direction
     }
 
     setImgElement(){
         super.setImgElement()
         this.scaffoldID.style.transform="rotateY("+String(((this.direction+1)/2)*180)+"deg)"//左右を向く -1or1を0or1に変換して使用する
+        testList["carryScaffold setImgElement()"]=true
     }
 }

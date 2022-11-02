@@ -109,7 +109,8 @@ createDefaultScaffold()
 const sampleArea:HTMLElement=document.getElementById("sampleArea")
 function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    sampleArea.innerHTML=showAllTest().replace(/\n/g,'<br>')
+    let content=showAllTest("html")
+    sampleArea.innerHTML=content
 }
 export function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
     var startMsec:any = new Date();

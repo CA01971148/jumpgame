@@ -10,5 +10,6 @@ export class slipScaffold extends scaffold{
         this.imageName="slipScaffold.jpg"
         this.createImgElement(this.imageName)//足場のimg要素を追加する
         this.setImgElement()//img要素を取得して初期化する
+        testList["slipScaffold constructor()"]=true
     }
 }

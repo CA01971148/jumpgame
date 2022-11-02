@@ -9,5 +9,6 @@ export class normalScaffold extends scaffold{
         this.imageName="normalScaffold.jpg"
         this.createImgElement(this.imageName)//足場のimg要素を追加する
         this.setImgElement()//img要素を取得して初期化する
+        testList["normalScaffold constructor()"]=true
     }
 }
