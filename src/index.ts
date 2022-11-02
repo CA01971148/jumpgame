@@ -25,26 +25,33 @@ export type scaffoldsType="normal"|"slip"|"carry"|"moving"//足場のタイプ�
 const scaffoldsTypeList:scaffoldsType[]=["normal","slip","carry","moving"]//型を纏めたリスト配列
 let lotteryBox:scaffoldsType[]=new Array//足場の種類を重み付き抽選するための箱を作成
 function getLotteryBox():scaffoldsType{//抽選箱からランダムに1つ取得する関数
+    testList["getLotteryBox()"]=true
     return lotteryBox[Math.floor(Math.random()*lotteryBox.length)]
 }
 const defaultMaxLevel:number=10//初期作成足場数
 const loadScaffoldFrequency=5//足場の作成頻度
 let canCreateScaffold:boolean=true//現在、足場を作れるかどうか(現在足場を作っている間は作れないようにする)
 export function createRandomScaffold(type:scaffoldsType=getLotteryBox(),width:number=Math.random()*100+75,level:number=scaffolds.length){//足場を作成する関数
+    testList["createRandomScaffold()"]=true
     switch (type){
         case "normal":
+            testList["createRandomScaffold()のnormal"]=true
             scaffolds[level]=new normalScaffold(level,width)
             break
         case "slip":
+            testList["createRandomScaffold()のslip"]=true
             scaffolds[level]=new slipScaffold(level,width)
             break
         case "carry":
+            testList["createRandomScaffold()のcarry"]=true
             scaffolds[level]=new carryScaffold(level,width)
             break
         case "moving":
+            testList["createRandomScaffold()のmoving"]=true
             scaffolds[level]=new movingScaffold(level,width)
             break
         default:
+            testList["createRandomScaffold()のdefault(trueにはならない)"]=true
             break
     }
 }
@@ -54,6 +61,7 @@ function createScaffolds(repetition:number){//足場をたくさん作る関数
         createRandomScaffold()//次の足場を作成
     }
     canCreateScaffold=true
+    testList["createScaffolds()"]=true
 }
 function createDefaultScaffold(){//最初の足場を作成する関数
     const interval:number=10//チュートリアルを行う足場の数
@@ -70,6 +78,7 @@ function createDefaultScaffold(){//最初の足場を作成する関数
         createRandomScaffold(getLotteryBox(),defaultWidth)//通常足場と滑る足場を作成
     }
     createRandomScaffold("normal",canvas.width)//区切りの足場を作成
+
     /* 動かされる足場を登るチュートリアル */
     lotteryBox=["normal","carry"]//抽選箱を通常足場と滑る足場に設定
     for(let i:number=0;i<interval;i++){
@@ -91,6 +100,7 @@ function createDefaultScaffold(){//最初の足場を作成する関数
 
     /* ここから本番 */
     createScaffolds(defaultMaxLevel)//初期読み込み分の足場を作成
+    testList["createDefaultScaffold()"]=true
 }
 
 createDefaultScaffold()
@@ -99,7 +109,7 @@ createDefaultScaffold()
 const sampleArea:HTMLElement=document.getElementById("sampleArea")
 function loadDebugArea(){//デバッグ用エリアを更新するための関数
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
-    sampleArea.innerHTML=""
+    sampleArea.innerHTML=showAllTest().replace(/\n/g,'<br>')
 }
 export function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
     var startMsec:any = new Date();
@@ -117,6 +127,7 @@ function loadNewScaffold(){//キャラが足場を昇る度に足場を追加し
     if((rabbit.currentScaffold().level>(scaffolds.length-1)-loadScaffoldFrequency)&&(canCreateScaffold)){//もうそろそろ足場の最大数まで昇るかなってときに足場の数を追加するよ。足場を作っている間は新しく重複して作れないようにしてるよ。
         createScaffolds(loadScaffoldFrequency)
     }
+    testList["loadNewScaffold()"]=true
 }
 function updateDisplay(){//画面更新用処理
     rabbit.move()
@@ -125,6 +136,7 @@ function updateDisplay(){//画面更新用処理
     for(let i:number=0;i<scaffolds.length;i++){//for文で全部の足場を更新
         scaffolds[i].scrole()
     }
+    testList["updateDisplay()"]=true
 }
 function isKeyDown(){//キーが押されているかどうか判断するための関数
 /*     【仕様】
@@ -134,23 +146,28 @@ function isKeyDown(){//キーが押されているかどうか判断するため
 
 	if((key.key_left===true)&&(key.key_right===false)){//左移動キーが押されている間、moveLeft関数を呼び出す
         rabbit.moveLeft()
+        testList["isKeyDown()_left"]=true
     }
 	if((key.key_right===true)&&(key.key_left===false)){//右移動キーが押されている間、moveRight関数を呼び出す
         rabbit.moveRight()
+        testList["isKeyDown()_right"]=true
     }
     if((key.key_jump===true)){//ジャンプキーが押されている間、jumpCharge関数を呼び出す
         rabbit.jumpCharge()
+        testList["isKeyDown()_space"]=true
     }
+    testList["isKeyDown()"]=true
 }
 const showScore:HTMLElement=document.getElementById("showScore")//スコアを表示するためのHTML要素を取得
 let highScore:number=0//ハイスコア
 function showScoreArea(){
-    showScore.innerHTML=`Score:${Math.round(rabbit.height/100)}m`//1px1cmで高さを算出してスコアを表示
-    if(Math.round(rabbit.height/100)>highScore){//今のスコアがハイスコアかどうか
-        highScore=Math.round(rabbit.height/100)//ハイスコアを更新
-    }
-    showScore.innerHTML+="<br>"+`High Score:${highScore}m`//ハイスコアを改行して表示
-    }
+showScore.innerHTML=`Score:${Math.round(rabbit.height/100)}m`//1px1cmで高さを算出してスコアを表示
+if(Math.round(rabbit.height/100)>highScore){//今のスコアがハイスコアかどうか
+    highScore=Math.round(rabbit.height/100)//ハイスコアを更新
+}
+showScore.innerHTML+="<br>"+`High Score:${highScore}m`//ハイスコアを改行して表示
+testList["showScoreArea()"]=true
+}
 
 //playBGM()//BGMを再生する(基本は再生しない)
 requestAnimationFrame(main)//メインループ、起動
@@ -167,4 +184,5 @@ function main(){//メインループ
     loadNewScaffold()//足場を途切れないように追加していく処理
 
     requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
+    testList["main()"]=true
 }
