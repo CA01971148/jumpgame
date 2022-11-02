@@ -1,4 +1,4 @@
-import {testList} from "./../test"
+import {testList} from "../test"
 
 export function reload(){//リロードしたときにゲーム画面ではなくタイトル画面を読み込む処理
     if(window.performance){
@@ -6,4 +6,5 @@ export function reload(){//リロードしたときにゲーム画面ではな�
             location.href="./../title.html"//タイトル画面を読み込む
         }
     }
+    testList["reload reload()"]=true
 }

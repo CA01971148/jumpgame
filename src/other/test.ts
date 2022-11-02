@@ -1,23 +1,23 @@
 export let testList:{[testName:string]:boolean}={}//テストが成功したかどうか管理するための配列(キーはテストの名前、値はテストが成功したかどうか)
 /* テスト一覧 */
-/* indexed.ts */
-testList["getLotteryBox()"]=false
-testList["createRandomScaffold()"]=false
-testList["createRandomScaffold()のnormal"]=false
-testList["createRandomScaffold()のslip"]=false
-testList["createRandomScaffold()のcarry"]=false
-testList["createRandomScaffold()のmoving"]=false
-testList["createRandomScaffold()のdefault(trueにはならない)"]=false
-testList["createScaffolds()"]=false
-testList["createDefaultScaffold()"]=false
-testList["loadNewScaffold()"]=false
-testList["updateDisplay()"]=false
-testList["isKeyDown()"]=false
-testList["isKeyDown()_left"]=false
-testList["isKeyDown()_right"]=false
-testList["isKeyDown()_space"]=false
-testList["showScoreArea()"]=false
-testList["main()"]=false
+/* index.ts */
+testList["index getLotteryBox()"]=false
+testList["index createRandomScaffold()"]=false
+testList["index createRandomScaffold()_normal"]=false
+testList["index createRandomScaffold()_slip"]=false
+testList["index createRandomScaffold()_carry"]=false
+testList["index createRandomScaffold()_moving"]=false
+testList["index createRandomScaffold()_default"]=false//例外処理なのでtrueにならない
+testList["index createScaffolds()"]=false
+testList["index createDefaultScaffold()"]=false
+testList["index loadNewScaffold()"]=false
+testList["index updateDisplay()"]=false
+testList["index isKeyDown()"]=false
+testList["index isKeyDown()_left"]=false
+testList["index isKeyDown()_right"]=false
+testList["index isKeyDown()_space"]=false
+testList["index showScoreArea()"]=false
+testList["index main()"]=false
 /* scaffold */
 testList["slipScaffold constructor()"]=false
 testList["carryScaffold constructor()"]=false
@@ -53,6 +53,20 @@ testList["scaffold setImgElement()"]=false
 testList["scaffold createCSSRule()"]=false
 testList["scaffold scrole()"]=false
 /* other */
+testList["playAudio playJumpSE()"]=false
+testList["playAudio playBGM()"]=false//trueにならない仕様
+testList["keyDown keyDownFunc()"]=false
+testList["keyDown keyDownFunc()_A"]=false
+testList["keyDown keyDownFunc()_D"]=false
+testList["keyDown keyDownFunc()_Space"]=false
+testList["keyDown keyUpFunc()"]=false
+testList["keyDown keyUpFunc()_A"]=false
+testList["keyDown keyUpFunc()_D"]=false
+testList["keyDown keyUpFunc()_Space"]=false
+testList["reload reload()"]=false
+testList["camera get y()"]=false
+testList["camera set y()"]=false
+
 
 
 type exportOption="console"|"html"

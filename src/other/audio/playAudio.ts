@@ -10,9 +10,11 @@ export function playJumpSE(audioType:SEtype){//ジャンプSEを再生する関�
             const jumpSound=new Audio("./../resource/sound/se/jump.wav")//ジャンプSE
             jumpSound.play()//ジャンプSEを再生する
     }
+    testList["playAudio playJumpSE()"]=true
 }
 
 export function playBGM(){//BGMを再生する関数
     BGM.loop=true//ループ再生をオンにする
     BGM.play()//BGMを再生する
+    testList["playAudio playBGM()"]=true
 }
