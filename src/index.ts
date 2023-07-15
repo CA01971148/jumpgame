@@ -173,7 +173,7 @@ testList["index showScoreArea()"]=true
 }
 
 //playBGM()//BGMを再生する(基本は再生しない)
-requestAnimationFrame(main)//メインループ、起動
+setInterval(main,1000/60)//メインループ、起動
 
 function main(){//メインループ
     addEventListener("keydown",key.keyDownFunc)//キーボードが押された時、keyDownFunc関数を呼び出す
@@ -186,6 +186,5 @@ function main(){//メインループ
     updateDisplay()//画面を更新(rabbitやscaffolds等)
     loadNewScaffold()//足場を途切れないように追加していく処理
 
-    requestAnimationFrame(main)////main関数(自分自身)を呼び出すことでループさせる
     testList["index main()"]=true
 }
