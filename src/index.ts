@@ -111,7 +111,7 @@ function loadDebugArea(){//デバッグ用エリアを更新するための関�
     /* デバッグ用エリア(何か見たい変数等があればここに追加すれば画面下に文字が表示される) */
     let content=""
     // content=showAllTest("html")//テストを表示する
-    content = "<h3>操作方法</h3><br>空中でAキー: 左移動<br>空中でDキー: 右移動<br>スペースキー: 溜めジャンプ"
+    content = "<h3>操作方法</h3>空中でAキー: 左移動<br>空中でDキー: 右移動<br>スペースキー: 溜めジャンプ<br><br>Escキーでマウスカーソルの表示を切り替え"
     sampleArea.innerHTML=content
 }
 export function sleep(waitMsec:any){//スリープさせる関数(デバッグ用)
@@ -170,6 +170,21 @@ if(Math.round(rabbit.height/100)>highScore){//今のスコアがハイスコア�
 }
 showScore.innerHTML+="<br>"+`High Score:${highScore}m`//ハイスコアを改行して表示
 testList["index showScoreArea()"]=true
+}
+
+// マウスカーソルの非表示を切り替える
+let isHideMouseCursor: boolean = true;
+document.addEventListener('keydown', hideMouseCursor);//キーが押されたとき
+function hideMouseCursor(event: KeyboardEvent) {
+    // Escキーが押されたとき
+    if(event.key === "Escape"){
+        if(isHideMouseCursor){
+            document.body.parentElement.style.cursor = "default";
+        }else{
+            document.body.parentElement.style.cursor = "none";
+        }
+        isHideMouseCursor = !isHideMouseCursor;
+    }
 }
 
 //playBGM()//BGMを再生する(基本は再生しない)
