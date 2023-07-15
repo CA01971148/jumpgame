@@ -74,7 +74,7 @@
 <h1></h1>
 <img id="rabbit" src="./resource/image/character/rabbit.png">
 <div class="box">
-    <a href="./dist/index.html">start</a>
+    <a href="./dist/index.html">Press Any Key</a>
 </div>
 <script>
 var canvas = document.getElementById('canvas');
@@ -90,9 +90,8 @@ c.fillText(str, 25, 80);
 
 document.addEventListener('keypress', keypress_ivent);//キーが押されたとき
 function keypress_ivent(e) {
-    if(e.keyCode===32){//「Space」キーが押されたとき
-        location.href="./dist/index.html"//タイトル画面を読み込む
-    }
+    // 何かキーが押されたとき
+    location.href="./dist/index.html"//タイトル画面を読み込む
 }
 </script>
 </body>
