@@ -164,11 +164,11 @@ function isKeyDown(){//キーが押されているかどうか判断するため
 const showScore:HTMLElement=document.getElementById("showScore")//スコアを表示するためのHTML要素を取得
 let highScore:number=0//ハイスコア
 function showScoreArea(){
-showScore.innerHTML=`Score:${Math.round(rabbit.height/100)}m`//1px1cmで高さを算出してスコアを表示
+showScore.innerHTML=`高度: ${Math.round(rabbit.height/100)}m`//1px1cmで高さを算出してスコアを表示
 if(Math.round(rabbit.height/100)>highScore){//今のスコアがハイスコアかどうか
     highScore=Math.round(rabbit.height/100)//ハイスコアを更新
 }
-showScore.innerHTML+="<br>"+`High Score:${highScore}m`//ハイスコアを改行して表示
+showScore.innerHTML+="<br>"+`Score: ${highScore}m`//ハイスコアを改行して表示
 testList["index showScoreArea()"]=true
 }
 
